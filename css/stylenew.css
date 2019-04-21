@@ -1,0 +1,91 @@
+/*
+    Regole di stile per la pagina pubblica dell'albo su template design.itali.it
+*/
+
+.HeadAtto{
+    width: 30%!Important;
+}
+.HeadAllegati{
+    width: 70%!Important;
+}
+.FunctionAllegati{
+    width: 30%!Important;
+}
+table#elenco-atti, table#tabella-filtro-atti{
+    border:1px solid #aaaaaa;
+    background-color: #fff;
+}
+table#elenco-atti th,table#tabella-filtro-atti th,table#tabella-filtro-atti td{
+    background-color: #fff; 
+}
+table#elenco-atti th,table#tabella-filtro-atti th{
+    border-bottom:0;
+}
+#risultati ul{
+    list-style-type: none; 
+}
+.filtri h4{
+    margin-top:2em;
+}
+.Grid--withGutterM {
+  margin: 0 -var(--Grid-gutter-size);
+}
+
+.Grid--withGutterM > .Grid-cell {
+  padding: 0 calc(var(--Grid-gutter-size));
+}
+
+.Grid--withGutterL {
+  margin: 0 calc(-1.5 * var(--Grid-gutter-size));
+}
+
+.Grid--withGutterL > .Grid-cell {
+  padding: 0 calc(1.5 * var(--Grid-gutter-size));
+}
+a{
+    text-decoration: none;
+}
+a:hover{
+    color:#06c!important;
+    text-decoration:none;
+}
+
+.h, .s{
+    color:#a5abb0;
+	display: inline-block;
+-webkit-box-sizing: content-box;
+-moz-box-sizing: content-box;
+box-sizing: content-box;
+float: none;
+z-index: auto;
+width: auto;
+height: auto;
+position: static;
+cursor: pointer;
+opacity: 1;
+margin: 0;
+padding: 10px 20px;
+overflow: visible;
+border: 1px solid #018dc4;
+-webkit-border-radius: 3px;
+border-radius: 3px;
+font: normal 16px/normal "Times New Roman", Times, serif;
+color: rgba(255,255,255,0.9);
+-o-text-overflow: clip;
+text-overflow: clip;
+background: #0199d9;
+-webkit-box-shadow: 2px 2px 2px 0 rgba(0,0,0,0.2) ;
+box-shadow: 2px 2px 2px 0 rgba(0,0,0,0.2) ;
+text-shadow: -1px -1px 0 rgba(15,73,168,0.66) ;
+-webkit-transition: all 300ms cubic-bezier(0.42, 0, 0.58, 1);
+-moz-transition: all 300ms cubic-bezier(0.42, 0, 0.58, 1);
+-o-transition: all 300ms cubic-bezier(0.42, 0, 0.58, 1);
+transition: all 300ms cubic-bezier(0.42, 0, 0.58, 1);
+-webkit-transform: none;
+transform: none;
+-webkit-transform-origin: 50% 50% 0;
+transform-origin: 50% 50% 0;
+}
+h3{
+    margin: 10px 0 10px 0;
+}

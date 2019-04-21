@@ -1,0 +1,172 @@
+.NessunAtto{
+	font-size:1.3em;
+	font-style: italic;
+	text-align: center;
+	color: Red;
+	margin-top:20px;
+	margin-bottom:20px;
+}
+#elenco-atti-scaduti a{
+	text-decoration: underline;
+	font-style: italic;
+	color:Blue;
+}
+.setta-def-data{
+	background-color:#0073aa;
+    border: none;
+    color: white;
+    padding: 5px 7px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+	cursor: pointer;
+	margin-left:5px;
+}
+.setta-def-data:hover{
+	background-color:#00a8a8;
+    border: #0073aa;
+ }
+table.wp-list-table.clienti {
+  table-layout: auto;
+}
+
+.maxdime{
+	width: 100%;
+}
+
+.HeadPage h2{
+   font-size: 2em;
+	display:inline;
+	margin-right:10px;
+}
+.HeadPage h3{
+	font-size: 1.5em;
+	text-align: center;
+	font-weight: bold;
+	margin:0;
+	padding:0;
+	color :#006799;
+}
+.HeadPage .Obbligatori{
+	display: inline;
+	float: right;
+	border: 1px solid #e5e5e5;
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.04);
+    box-shadow: 0 1px 1px rgba(0,0,0,.04);
+    background: #fefeba;
+    width: 280px;
+    text-align: center;
+}
+.albo_cell tr th label{
+	font-size:1em;
+	font-style: italic;
+}
+.albo_cell{
+	font-size:1em;
+	border-collapse: collapse;
+	margin-top: .5em;
+    width: 100%;
+    clear: both;
+}
+.albo_cell tr,.albo_cell th{
+	vertical-align: middle;
+	text-align:right;
+	padding-right:5px;
+}
+.albo_cell th{
+	width:20%;
+}
+.albo_cell td{
+	margin-bottom: 9px;
+    padding: 15px 10px;
+    line-height: 1.3em;
+    vertical-align: middle;
+	text-align:left;
+}   
+.noalbo_cell{
+	width:100%;
+}	
+.noalbo_cell td {
+    margin-bottom: 1px;
+    padding: 5px 1px;
+    line-height: 1.2em;
+    vertical-align: middle;
+    text-align: left;
+}
+.noalbo_cell th{
+	width:33%;
+	text-align:center;
+}
+#utility-tabs-container{ 
+    padding: 0px; 
+    min-height: 600px;
+} 
+#config-tabs-container { 
+    padding: 0px; 
+    min-height: 550px;
+} 
+#utility-tabs-container .ui-tabs-nav,#config-tabs-container .ui-tabs-nav{ 
+    background: transparent; 
+    border-width: 0px 0px 1px 0px; 
+    -moz-border-radius: 0px; 
+    -webkit-border-radius: 0px; 
+    border-radius: 0px; 
+} 
+#utility-tabs-container .ui-tabs-panel,#config-tabs-container .ui-tabs-panel{ 
+    margin: 0em 0.2em 0.2em 0.2em; 
+}
+#Repertorio-anno tr:nth-child(odd) 
+{ 
+background-color: #f9f9f9;
+}
+#Repertorio-anno th
+{ 
+	background-color: #ffffff;
+}
+#utility-tabs-container{
+	font-size: 14px;
+}
+#utility-tabs-container div{
+	margin:5px;
+	padding:10px;
+}
+.row-actions span.pubblica a{
+	color: #32cd32;
+}
+
+.row-actions span.pubblica a:hover{
+	color: #99e59a;
+	border: none;
+}
+.row-actions{
+	position:initial;
+}
+span.cancella a{
+	color: #a00;
+}
+span.cancella a:hover{
+	color: #dc3232;
+	border: none;
+}
+
+button.append, button.removeLast, button.remove, button.moveUp,button.moveDown,button.insert
+{
+    width: auto !important;
+    height: auto !important;
+	padding: 0.2em !important;
+}
+.ui-button-text-only .ui-button-text {
+    padding: .2em .2em;
+}
+#ElaborazioneTabella{width: 200px;height: 200px;position: absolute;top: 50%;left: 50%; margin-top: -100px; margin-left: -100px;z-index:1;display:none;}
+.iconamano{cursor: pointer;color:red;}
+
+.ElencoSoggetti{
+	float:left;
+	min-width:15em;
+}
+#Stato, #the-list > tr > td.Stato{
+	width:15%;
+}

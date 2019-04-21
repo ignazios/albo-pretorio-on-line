@@ -1,0 +1,224 @@
+
+table.tabella-dati-albo{
+	padding-left: 10px;
+	margin-top: 10px;
+	width: 100%;
+	text-align:left;
+}
+
+.finestra_ricerca{
+	border: thin outset Black;
+	padding: 1px;
+	background-color: #F4F4F4;
+}
+
+div.ricerca{
+	border: thin solid Black;
+	padding: 2px;
+	font-size: 1em;
+}
+div.ricerca_col_SX{
+	float: left;
+	display: inline;
+	width:64%;
+}
+div.ricerca_col_DX{
+	float:right;
+	width:35%;
+	font-size: 1em;
+}
+div.ricerca_col_DX a{
+	font-size: 0.8em;
+}
+
+div.ricerca .Titolo{
+	text-align: center;
+}
+
+div.Visallegato{
+	width: 100%;
+	border: thin dashed;
+	font-size: 1em;
+}
+
+div.Visallegato .Allegato{
+	float: left;
+	display: inline;
+	width: 60px;
+	height: 60px;
+}
+
+div.Visalbo{
+	width: 99%;
+	font-size: 1em;
+}
+.tabVisalbo{
+	width: 100%;
+	clear: both;
+	margin: 0px;
+}
+
+.tabVisalbo td{
+	vertical-align: top;
+	line-height: 1.5em;
+	background-color: #F3F3F3;
+	padding: 5px;
+	font-size: 1em;
+}
+
+.tabVisalbo th{
+	text-transform: capitalize;
+	text-align: right;
+	font-size: 1.1em;
+	font-weight: bold;
+	width: 200px;
+	padding-right: 5px;
+}
+.tabVisResp{
+	width: 100%;
+	clear: both;
+	margin: 0px;
+}
+.tabVisResp td{
+	font-size: 1em;
+	vertical-align: top;
+	line-height: 1.5em;
+	padding: 5px;
+	font-size: 1em;
+}
+.tabVisResp tr{
+	border: none;
+}
+.tabVisResp th{
+	text-transform: capitalize;
+	text-align: right;
+	font-size: 1.1em;
+	font-weight: bold;
+	width: 200px;
+	padding-right: 5px;
+}
+
+.tabalbo{
+	width: 100%;
+	clear: both;
+	margin: 0px;
+}
+.tabalbo a{
+	text-decoration:none;
+}
+.tabalbo td{
+	font-size: 1em;
+	padding: 4px 4px 4px;
+	vertical-align: top;
+	text-align: left;
+}
+
+.tabalbo thead th{
+	text-transform: capitalize;
+	padding: 4px 4px 4px;
+	text-align: left;
+	line-height: 1.3em;
+	font-size: 1.1em;
+	font-weight: bold;
+}
+.tabalbo th.FE{
+	text-transform: capitalize;
+	text-align: right;
+	font-size: 0.8em;
+	font-weight: bold;
+	width: 160px;
+	padding-right: 5px;
+}
+a.pagina:hover {
+	border-color: #999;
+}
+
+a.pagina {
+	height: 20px;
+	width: 50px;
+	background-color: #999;
+}
+.tablenav-pages{
+ 	float:right;
+	display:block;
+	cursor:default;
+	height:30px;
+	line-height:30px;
+	font-size:0.9em;}
+	
+.tablenav .tablenav-pages a,.tablenav-pages span.current{
+ 	text-decoration:none;
+ 	border:none;
+	padding:3px 6px;
+	border-width:1px;
+	border-style:solid;
+}
+.tablenav{
+ 	margin-right:10px;
+	font-size:0.9em;
+	font-style:italic;}
+.tablenav .actions{
+ 	padding:2px 8px 0 0;}
+.tablenav .tablenav-pages{
+ 	color:#555;}
+.tablenav .tablenav-pages a{
+ 	border-color:#e3e3e3;
+	background:#eee}
+.tablenav .tablenav-pages a:hover{
+ 	color:#d54e21;
+	border-color:#d54321;}
+.tablenav .tablenav-pages a:active{
+ 	color:#fff!important;}
+.tablenav .tablenav-pages .current{
+ 	background:#dfdfdf;
+	border-color:#d3d3d3;}
+ul.lista{
+	list-style-type:square;
+	font-weight: bold;
+	font-style: italic;
+}
+.dataAtto {
+text-align: center;
+padding:2px;
+font-weight: bold;
+}
+.titoloPagina{
+	font-size: 1.3em;
+	font-weight: bold;
+}
+.h, .s{
+ 	display: inline-block;
+	-webkit-box-sizing: content-box;
+	-moz-box-sizing: content-box;
+	box-sizing: content-box;
+	float: none;
+	z-index: auto;
+	width: auto;
+	height: auto;
+	position: static;
+	cursor: pointer;
+	opacity: 1;
+	margin: 0;
+	padding: 10px 20px;
+	overflow: visible;
+	border: 1px solid #018dc4;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	font: normal 16px/normal "Times New Roman", Times, serif;
+	color: rgba(255,255,255,0.9);
+	-o-text-overflow: clip;
+	text-overflow: clip;
+	background: #0199d9;
+	-webkit-box-shadow: 2px 2px 2px 0 rgba(0,0,0,0.2) ;
+	box-shadow: 2px 2px 2px 0 rgba(0,0,0,0.2) ;
+	text-shadow: -1px -1px 0 rgba(15,73,168,0.66) ;
+	-webkit-transition: all 300ms cubic-bezier(0.42, 0, 0.58, 1);
+	-moz-transition: all 300ms cubic-bezier(0.42, 0, 0.58, 1);
+	-o-transition: all 300ms cubic-bezier(0.42, 0, 0.58, 1);
+	transition: all 300ms cubic-bezier(0.42, 0, 0.58, 1);
+	-webkit-transform: none;
+	transform: none;
+	-webkit-transform-origin: 50% 50% 0;
+	transform-origin: 50% 50% 0;
+}
+
