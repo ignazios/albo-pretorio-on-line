@@ -2,9 +2,9 @@
 /**
  * Utility dell'albo.
  * @link       http://www.eduva.org
- * @since      4.2
+ * @since      4.3
  *
- * @package    ALbo On Line
+ * @package    Albo On Line
  */
 
 if(preg_match('#' . basename(__FILE__) . '#', $_SERVER['PHP_SELF'])) { 
@@ -147,9 +147,6 @@ if (isset($_REQUEST['action'])){
 			} 			
 			TestProcedura();
 			break;
-		case "oblio":
-			MSGOblio();  
-			break;		
 		case "creaninf":
 			if (!isset($_REQUEST['rigenera'])) {
 				$Stato="ATTENZIONE. Rilevato potenziale pericolo di attacco informatico, l'operazione &egrave; stata annullata";
@@ -180,9 +177,6 @@ if (isset($_REQUEST['action'])){
 			}else{
 				menu("Non è sono stati cancellati gli indirizzi IP nel file di logp per il seguente errore: ".$Ris);
 			}
-			break;
-		case "imploblio":
-			ImplementaOblio();
 			break;
 		case "creaTabella":
 			creaTabella(htmlentities($_REQUEST['Tabella']));
@@ -253,22 +247,6 @@ function SvuotaLog($Tipo){
 	else
 		return("Log cancellato correttamente, sono state cancellate ".$NumRow." righe");	
 }
-function MSGOblio(){
-echo '<div class="wrap">
-	<div class="HeadPage">
-		<h2 class="wp-heading-inline"><span class="dashicons dashicons-admin-generic" style="font-size:1em;"></span> Implementazione Oblio
-	</div>
-		<div class="widefat">
-			<p>
-				Prima di implementare il diritto all\'oblio &egrave; importante fare un BACKUP dei seguenti elementi:
-				<ul>
-					<li>Tabelle del Data Base relative all\'Albo</li>
-					<li>Files allegati agli atti</li>
-				</ul>  
-			per proseguire ed attivare il diritto all\'oblio, clicca su <a href="?page=utilityAlboP&amp;action=imploblio" class="add-new-h2 tornaindietro">Prosegui</a> altrimenti <a href="'.site_url().'/wp-admin/admin.php?page=Albo_Pretorio" class="add-new-h2 tornaindietro">Torna indietro</a>
-			</p>
-		</div>';	
-}
 function ImplementaNINF(){
 	$newPathAllegati=AP_BASE_DIR."AllegatiAttiAlboPretorio";
 	ap_NoIndexNoDirectLink($newPathAllegati);
@@ -278,47 +256,6 @@ function ImplementaNINF(){
 				<a href="'.site_url().'/wp-admin/admin.php?page=Albo_Pretorio" class="add-new-h2 tornaindietro">Torna indietro</a>
 				</p>
 				</div>';
-}
-function ImplementaOblio(){
-	$uploads = wp_upload_dir(); 
-	$oldPathAllegati=substr($uploads['basedir'],0,strpos($uploads['basedir'],"wp-content", 0)).get_option('opt_AP_FolderUpload');
-	$newPathAllegati=AP_BASE_DIR."AllegatiAttiAlboPretorio";
-	$tmpdir=str_replace("\\","/",$oldPathAllegati);
-	$posizione=stripos($tmpdir,$uploads['basedir']);	
-	if (($posizione==0) and (strlen($tmpdir)>strlen($uploads['basedir'])))
-		$elimina=TRUE;
-	else
-		$elimina=FALSE;
-	if(!is_dir($newPathAllegati)){   
-		mkdir($newPathAllegati, 0755);
-	}
-	update_option('opt_AP_FolderUpload',"AllegatiAttiAlboPretorio");
-//	echo $uploads['basedir']."<br />".$oldPathAllegati."! <br />".$newPathAllegati."!<br />";
-	if($oldPathAllegati!=$newPathAllegati)
-		ap_sposta_allegati($oldPathAllegati,$elimina);	
-	else
-		ap_NoIndexNoDirectLink($newPathAllegati);
-	$nomeFile=AlboBCK."/BackupDatiAlbo/tmp/msg.txt";
-	$fpmsg = @fopen($nomeFile, "r");
-	if ($fpmsg) {
-		$contenuto=fread($fpmsg,filesize($nomeFile));
-		$contenuto=nl2br($contenuto);
-		fclose($fpmsg);
-		echo'<div id="message" class="updated"> 
-				<p><strong>Impostazioni salvate.</strong></p>
-				<p><strong>'.str_replace("%%br%%", "<br />", $contenuto).'</strong></p>
-				<p>Operazione terminata&nbsp;&nbsp;
-				<a href="'.site_url().'/wp-admin/admin.php?page=Albo_Pretorio" class="add-new-h2 tornaindietro">Torna indietro</a>
-				</p>
-				</div>';
-	}else{
-		echo'<div id="message" class="updated"> 
-				<p><strong>Impostazioni salvate.</strong></p>
-				<p>Operazione terminata&nbsp;&nbsp;
-				<a href="'.site_url().'/wp-admin/admin.php?page=Albo_Pretorio" class="add-new-h2 tornaindietro">Torna indietro</a>
-				</p>
-				</div>';
-	}
 }
 
 function menu($Stato="",$passo="",$Data=""){

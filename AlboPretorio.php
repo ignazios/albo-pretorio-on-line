@@ -4,7 +4,7 @@
  * Plugin Name:       Albo Pretorio On line
  * Plugin URI:        https://it.wordpress.org/plugins/albo-pretorio-on-line/
  * Description:       Plugin utilizzato per la pubblicazione degli atti da inserire nell'albo pretorio dell'ente.
- * Version:           4.2
+ * Version:           4.3
  * Author:            Ignazio Scimone
  * Author URI:        eduva.org
  * License:           GPL-2.0+
@@ -65,9 +65,6 @@ if (!class_exists('AlboPretorio')) {
 		// Hook per attivazione/disattivazione plugin
 		register_activation_hook(  __FILE__, array($this, 'activate'));
 		register_deactivation_hook(  __FILE__, array($this, 'deactivate') );	
-
-		// Hook disinstallazione
-		register_uninstall_hook(  __FILE__, array($this, 'uninstall') );
 
 		// Hook di inizializzazione che registra il punto di avvio del plugin
 		add_action( 'admin_enqueue_scripts', array( $this,'Albo_Admin_Enqueue_Scripts' )  );
@@ -905,7 +902,6 @@ static function add_albo_plugin_visatto($plugin_array) {
 
 	function ShowBacheca(){
 	global $wpdb;
-		
 		if (isset($_REQUEST['action']) And $_REQUEST['action']=="setta-anno"){
 		  update_option('opt_AP_AnnoProgressivo',date("Y") );
 		  update_option('opt_AP_NumeroProgressivo',1 );
@@ -1064,13 +1060,6 @@ static function add_albo_plugin_visatto($plugin_array) {
 		</table>
 		<p><em>per maggiori dettagli eseguire la verifica della procedura presente nel menu Utility</em></p>
 	</div>';
-	if ($this->version>=3.0 and !is_file(AP_BASE_DIR.get_option('opt_AP_FolderUpload')."/.htaccess")){
-	echo'<div class="welcome-panel" >
-		<div class="widefat" >
-			<p style="text-align:center;font-size:1.2em;font-weight: bold;color: red;">Questa versione dell plugin implementa il diritto all\'oblio, questo meccanismo permette agli utenti di accedere agli allegati degli atti pubblicati all\'albo pretorio solo dal sito che ospita l\'albo e non con link diretti al file<br />Non risulta ancora attivato il diritto all\'oblio,<br /><a href="?page=utilityAlboP&amp;action=oblio">Attivalo</a></p>
-			</div>
-		</div>';
-	}
 if (ap_get_num_categorie()==0){
 echo'<div class="welcome-panel" >
 		<div class="widefat" >
@@ -1844,17 +1833,16 @@ if(get_option('opt_AP_AnnoProgressivo')!=date("Y")){
 		if(get_option('opt_AP_NumeroProgressivo')  == '' || !get_option('opt_AP_NumeroProgressivo')){
 			add_option('opt_AP_NumeroProgressivo', '1');
 		}
-		if(get_option('opt_AP_FolderUpload') == '' || !get_option('opt_AP_FolderUpload')){
+		if(get_option('opt_AP_FolderUpload') == '' || !get_option('opt_AP_FolderUpload') ){
 			if(!is_dir(AP_BASE_DIR.'AllegatiAttiAlboPretorio')){   
 				mkdir(AP_BASE_DIR.'AllegatiAttiAlboPretorio', 0755);
-				ap_NoIndexNoDirectLink(AP_BASE_DIR.'AllegatiAttiAlboPretorio');
 			}
 			add_option('opt_AP_FolderUpload', 'AllegatiAttiAlboPretorio');
 		}else{
-			if (get_option('opt_AP_FolderUpload')=='wp-content/uploads')
-				update_option('opt_AP_FolderUpload', '');
+			if (get_option('opt_AP_FolderUpload')!='AllegatiAttiAlboPretorio')
+				update_option('opt_AP_FolderUpload', 'AllegatiAttiAlboPretorio');
 		}
-			
+		ap_NoIndexNoDirectLink(AP_BASE_DIR.'AllegatiAttiAlboPretorio');	
 		if(get_option('opt_AP_VisualizzaEnte') == '' || !get_option('opt_AP_VisualizzaEnte')){
 			add_option('opt_AP_VisualizzaEnte', 'Si');
 		}
@@ -2011,67 +1999,6 @@ if(get_option('opt_AP_AnnoProgressivo')!=date("Y")){
 	    check_admin_referer( "deactivate-plugin_{$plugin}" );
 		flush_rewrite_rules();	
 		remove_shortcode('Albo');
-	}
-	function uninstall() {
-		global $wpdb;
-
-// Backup di sicurezza
-// creo copia dei dati e dei files allegati prima di disinstallare e cancellare tutto
-		$uploads = wp_upload_dir(); 
-		$Data=date('Ymd_H_i_s');
-		$nf=ap_BackupDatiFiles($Data);
-		copy($nf, $uploads['basedir']."/BackupAlboPretorioUninstall".$Data.".zip");
-// Eliminazioni capacità
-        
-		$role =& get_role( 'administrator' );
-		if ( !empty( $role ) ) {
-        	$role->remove_cap( 'admin_albo' );
-            $role->remove_cap( 'gest_atti_albo' );
-        }
-
-// Eliminazioni ruoli
-        $roles_to_delete = array(
-            'admin_albo',
-            'gest_atti_albo');
-
-        foreach ( $roles_to_delete as $role ) {
-
-            $users = get_users( array( 'role' => $role ) );
-            if ( count( $users ) <= 0 ) {
-                remove_role( $role );
-            }
-        }		
-		
-// Eliminazione Tabelle data Base
-		$wpdb->query("DROP TABLE IF EXISTS ".$wpdb->table_name_Atti);
-		$wpdb->query("DROP TABLE IF EXISTS ".$wpdb->table_name_Allegati);
-		$wpdb->query("DROP TABLE IF EXISTS ".$wpdb->table_name_Categorie);
-		$wpdb->query("DROP TABLE IF EXISTS ".$wpdb->table_name_Log);
-		$wpdb->query("DROP TABLE IF EXISTS ".$wpdb->table_name_RespProc);
-		$wpdb->query("DROP TABLE IF EXISTS ".$wpdb->table_name_Enti);
-		
-// Eliminazioni Opzioni
-		delete_option( 'opt_AP_Ente' );
-		delete_option( 'opt_AP_NumeroProgressivo' );
-		delete_option( 'opt_AP_AnnoProgressivo' );
-		delete_option( 'opt_AP_NumeroProtocollo' );
-		delete_option( 'opt_AP_LivelloTitoloEnte' );
-		delete_option( 'opt_AP_LivelloTitoloPagina' );
-		delete_option( 'opt_AP_LivelloTitoloFiltri' );
-		delete_option( 'opt_AP_FolderUpload' );
-		delete_option( 'opt_AP_VisualizzaEnte' );  
-		delete_option( 'opt_AP_ColoreAnnullati' );  
-		delete_option( 'opt_AP_ColorePari' );  
-		delete_option( 'opt_AP_ColoreDispari' );  
-		delete_option( 'opt_AP_EffettiTesto' );  
-		delete_option( 'opt_AP_GiorniOblio' );  
-		delete_option( 'opt_AP_LogAc' );  
-		delete_option( 'opt_AP_LogOp' );  
-		delete_option( 'opt_AP_stileTableFE' );  
-		delete_option( 'opt_AP_Versione' );  
-		delete_option( 'opt_AP_PAttiCor' );  
-		delete_option( 'opt_AP_RestApi' );
-		delete_option( 'opt_AP_RestApi_UrlEst' );
 	}
 
 	function update_AlboPretorio_settings(){

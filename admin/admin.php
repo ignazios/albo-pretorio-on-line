@@ -2,9 +2,9 @@
 /**
  * Amministrazione richieste delle singole pagine.
  * @link       http://www.eduva.org
- * @since      4.2
+ * @since      4.3
  *
- * @package    ALbo On Line
+ * @package    Albo On Line
  */
 
 // require_once(ABSPATH . 'wp-includes/pluggable.php'); 

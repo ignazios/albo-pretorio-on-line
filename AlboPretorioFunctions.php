@@ -2,9 +2,9 @@
 /**
  * Libreria di funzioni necessarie al plugin per la gestione dell'albo.
  * @link       http://www.eduva.org
- * @since      4.2
+ * @since      4.3
  *
- * @package    ALbo On Line
+ * @package    Albo On Line
  */
 
 if(preg_match('#' . basename(__FILE__) . '#', $_SERVER['PHP_SELF'])) { die('You are not allowed to call this page directly.'); }
@@ -242,81 +242,85 @@ global $wpdb;
 	switch ($Tabella){
 		case $wpdb->table_name_Atti:
 			$sql = "CREATE TABLE IF NOT EXISTS ".$wpdb->table_name_Atti." (
-			  `IdAtto` int(11) NOT NULL auto_increment,
-			  `Numero` int(4) NOT NULL default 0,
-			  `Anno` int(4) NOT NULL default 0,
-			  `Data` date NOT NULL default '0000-00-00',
-			  `Riferimento` varchar(100) NOT NULL,
-			  `Oggetto` varchar(200) NOT NULL default '',
-			  `DataInizio` date NOT NULL default '0000-00-00',
-			  `DataFine` date default '0000-00-00',
-			  `Informazioni` text NOT NULL default '',
-			  `IdCategoria` int(11) NOT NULL default 0,
-			  `Soggetti` varchar(100) NOT NULL,
-  			  `DataAnnullamento` date DEFAULT '0000-00-00',
-  			  `MotivoAnnullamento` varchar(200) DEFAULT '',
-  			  `Ente` int(11) NOT NULL DEFAULT '0',
-			  PRIMARY KEY  (`IdAtto`));";
+			  IdAtto int(11) NOT NULL auto_increment,
+			  Numero int(4) NOT NULL DEFAULT '0',
+			  Anno int(4) NOT NULL DEFAULT '0',
+			  Data date NOT NULL DEFAULT '0000-00-00',
+			  Riferimento text NOT NULL,
+			  Oggetto text NOT NULL,
+			  DataInizio date NOT NULL DEFAULT '0000-00-00',
+			  DataFine date DEFAULT '0000-00-00',
+			  Informazioni text NOT NULL,
+			  IdCategoria int(11) NOT NULL DEFAULT '0',
+			  RespProc int(11) NOT NULL,
+			  DataAnnullamento date DEFAULT '0000-00-00',
+			  MotivoAnnullamento text,
+			  Ente int(11) NOT NULL DEFAULT '0',
+			  DataOblio date NOT NULL DEFAULT '0000-00-00',
+			  Soggetti varchar(100) NOT NULL,
+			  PRIMARY KEY  (IdAtto));";
 			break;
 		case $wpdb->table_name_Attimeta:
 			$sql = "CREATE TABLE IF NOT EXISTS ".$wpdb->table_name_Attimeta." (
-			  `IdAttoMeta` int(11) NOT NULL auto_increment,
-			  `IdAtto` int(11) NOT NULL,
-			  `Meta` varchar(100) NOT NULL,
-			  `Value` TEXT,
-			  PRIMARY KEY  (`IdAttoMeta`));";
+			  IdAttoMeta int(11) NOT NULL auto_increment,
+			  IdAtto int(11) NOT NULL,
+			  Meta varchar(100) NOT NULL,
+			  Value text,
+  			  PRIMARY KEY  (IdAttoMeta));";
 			break;
 		case $wpdb->table_name_Allegati:
 			$sql = "CREATE TABLE IF NOT EXISTS ".$wpdb->table_name_Allegati." (
-			  `IdAllegato` int(11) NOT NULL auto_increment,
-			  `TitoloAllegato` varchar(255) NOT NULL default '',
-			  `Allegato` varchar(255) NOT NULL default '',
-			  `IdAtto` int(11) NOT NULL default 0,
-			  PRIMARY KEY  (`IdAllegato`));";
+			  IdAllegato int(11) NOT NULL auto_increment,
+			  TitoloAllegato varchar(255) NOT NULL DEFAULT '',
+			  Allegato varchar(255) NOT NULL DEFAULT '',
+			  IdAtto int(11) NOT NULL DEFAULT '0',
+			  TipoFile varchar(6) DEFAULT '',
+			  PRIMARY KEY  (IdAllegato));";
 			break;
 		case $wpdb->table_name_Categorie:
 			$sql = "CREATE TABLE IF NOT EXISTS ".$wpdb->table_name_Categorie." (
-			  `IdCategoria` int(11) NOT NULL auto_increment,
-			  `Nome` varchar(255) NOT NULL default '',
-			  `Descrizione` varchar(255) NOT NULL default '',
-			  `Genitore` int(11) NOT NULL default 0,
-			  `Giorni` smallint(3) NOT NULL DEFAULT '0',
-			  PRIMARY KEY  (`IdCategoria`));";
+			  IdCategoria int(11) NOT NULL auto_increment,
+			  Nome varchar(255) NOT NULL DEFAULT '',
+			  Descrizione varchar(255) NOT NULL DEFAULT '',
+			  Genitore int(11) NOT NULL DEFAULT '0',
+			  Giorni smallint(3) NOT NULL DEFAULT '0',
+  			  PRIMARY KEY  (IdCategoria));";
 			break;
 		case $wpdb->table_name_Log:
 			$sql= "CREATE TABLE  IF NOT EXISTS ".$wpdb->table_name_Log." (
-	  		  `Data` timestamp NOT NULL default CURRENT_TIMESTAMP,
-	  		  `Utente` varchar(60) NOT NULL default '',
-	          `IPAddress` varchar(16) NOT NULL default '',
-	          `Oggetto` int(1) NOT NULL default 1,
-	          `IdOggetto` int(11) NOT NULL default 1,
-	          `IdAtto` int(11) NOT NULL default 0,
-	          `TipoOperazione` int(1) NOT NULL default 1,
-	          `Operazione` text);";
+	  		  Data timestamp NOT NULL default CURRENT_TIMESTAMP,
+			  Utente varchar(60) NOT NULL DEFAULT '',
+			  IPAddress varchar(16) NOT NULL DEFAULT '',
+			  Oggetto int(1) NOT NULL DEFAULT '1',
+			  IdOggetto int(11) NOT NULL DEFAULT '1',
+			  IdAtto int(11) NOT NULL DEFAULT '0',
+			  TipoOperazione int(1) NOT NULL DEFAULT '1',
+			  Operazione text);";
 	 		break;
 	 	case $wpdb->table_name_RespProc:
 		    $sql = "CREATE TABLE  IF NOT EXISTS ".$wpdb->table_name_RespProc." (
-	  		  `IdResponsabile` int(11) NOT NULL auto_increment,
-	  		  `Cognome` varchar(20) NOT NULL default '',
-	          `Nome` varchar(20) NOT NULL default '',
-	          `Email` varchar(100) NOT NULL default '',
-	          `Telefono` varchar(30) NOT NULL default '',
-	          `Orario` varchar(60) NOT NULL default '',
-	          `Note` text,
-			   PRIMARY KEY  (`IdResponsabile`));";   
+	  		  IdResponsabile int(11) NOT NULL auto_increment,
+			  Cognome varchar(20) NOT NULL DEFAULT '',
+			  Nome varchar(20) NOT NULL DEFAULT '',
+			  Email varchar(100) NOT NULL DEFAULT '',
+			  Telefono varchar(30) NOT NULL DEFAULT '',
+			  Orario varchar(60) NOT NULL DEFAULT '',
+			  Note text,
+			  Funzione char(8) DEFAULT 'RP',
+  			   PRIMARY KEY  (IdResponsabile));";   
 			break;
 		case $wpdb->table_name_Enti:
 	 		$sql = "CREATE TABLE IF NOT EXISTS ".$wpdb->table_name_Enti." (
-			  `IdEnte` int(11) NOT NULL auto_increment,
-			  `Nome` varchar(100) NOT NULL,
-			  `Indirizzo` varchar(150) NOT NULL default '',
-			  `Url` varchar(100) NOT NULL default '',
-			  `Email` varchar(100) NOT NULL default '',
-			  `Pec` varchar(100) NOT NULL default '',
-			  `Telefono` varchar(40) NOT NULL default '',
-			  `Fax` varchar(40) NOT NULL default '',
-	          `Note` text,
-			  PRIMARY KEY  (`Idente`));";
+			  IdEnte int(11) NOT NULL auto_increment,
+			  Nome varchar(100) NOT NULL,
+			  Indirizzo varchar(150) NOT NULL DEFAULT '',
+			  Url varchar(100) NOT NULL DEFAULT '',
+			  Email varchar(100) NOT NULL DEFAULT '',
+			  Pec varchar(100) NOT NULL DEFAULT '',
+			  Telefono varchar(40) NOT NULL DEFAULT '',
+			  Fax varchar(40) NOT NULL DEFAULT '',
+			  Note text,
+  			  PRIMARY KEY  (Idente));";
 			  break;
 	}
 	require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
@@ -1909,7 +1913,8 @@ function ap_sposta_allegati($OldPathAllegati,$eliminareOrigine=FALSE){
 //Backup Automatico dati e allegati
 	$msg="";
 	ap_BackupDatiFiles("Sposta_Allegati","Automatico");
-	$DirLog=str_replace("\\","/",Albo_DIR.'/BackupDatiAlbo/log');
+//	$DirLog=str_replace("\\","/",Albo_DIR.'/BackupDatiAlbo/log');
+	$DirLog=str_replace("\\","/",WP_CONTENT_DIR.'/AlboOnLine/BackupDatiAlbo/log');
 	$nomefileLog=$DirLog."/Backup_Automatico_AlboPretorio_Sposta_Allegati.log";
 	$fplog = @fopen($nomefileLog, "ab");
 	fwrite($fplog,"____________________________________________________________________________\n");
@@ -2000,7 +2005,8 @@ function ap_sposta_allegati($OldPathAllegati,$eliminareOrigine=FALSE){
 	if (stripslashes(get_option('opt_AP_FolderUpload'))!="wp-content/uploads"){
 		ap_NoIndexNoDirectLink(AP_BASE_DIR.get_option('opt_AP_FolderUpload'));
 	}
-	$fpmsg = @fopen(Albo_DIR."/BackupDatiAlbo/tmp/msg.txt", "wb");
+	$FileMsg=str_replace("\\","/",WP_CONTENT_DIR.'/AlboOnLine/BackupDatiAlbo/tmp/msg.txt');
+	$fpmsg = @fopen($FileMsg, "wb");
 	fwrite($fpmsg,$msg);
 	fclose($fpmsg);
 }
@@ -2397,7 +2403,7 @@ function ap_sql_addslashes($a_string = '', $is_like = false) {
 	return str_replace('\'', '\\\'', $a_string);
 } 
 
-function ap_backup_table($table,$fp) {
+function ap_backup_table($table,$fp,$Filtro="",$Delete=TRUE) {
 	global $wpdb;
 	if($table==$wpdb->table_name_Enti){
 		@fwrite($fp,"SET SESSION sql_mode='NO_AUTO_VALUE_ON_ZERO';"."\r\n");
@@ -2428,8 +2434,12 @@ function ap_backup_table($table,$fp) {
 				$ints[($struct->Field)] = "1";
 		}
 	}
-	@fwrite($fp,"Delete From $table ;"."\r\n");
-	$table_data = $wpdb->get_results("SELECT * FROM $table ", ARRAY_A);
+	if($Delete)
+		@fwrite($fp,"Delete From $table ;"."\r\n");
+	if($Filtro!=""){
+		$Filtro=" Where ".$Filtro;
+	}
+	$table_data = $wpdb->get_results("SELECT * FROM $table $Filtro", ARRAY_A);
 	$entries = 'INSERT INTO ' . ap_backquote($table) . ' VALUES (';	
 	//    \x08\\x09, not required
 	$search = array("\x00", "\x0a", "\x0d", "\x1a");
@@ -2566,13 +2576,18 @@ global $wpdb;
 			if ($Echo)	echo '<li><span style="color:green;">Tabella '.ap_backquote($table).' Aggiunta</span></li>';
 			fwrite($fplog,"Sql Tabella ".ap_backquote($table)." Aggiunta\n");
 		}
-		$UpdateProgressivo="UPDATE `".$wpdb->options."` SET `option_value` = '".get_option('opt_AP_AnnoProgressivo')."'	WHERE `option_name` ='opt_AP_AnnoProgressivo';\n";
+		ap_backup_table($wpdb->options,$fp,"option_name LIKE 'opt_%' ",False);
+		$Risultato.='<span style="color:green;">Tabella '.ap_backquote($table).' Aggiunta</span> <br />';
+		if ($Echo)	echo '<li><span style="color:green;">Tabella '.ap_backquote($wpdb->options).' Aggiunta</span></li>'
+		. '</ul>';
+		fwrite($fplog,"Sql Tabella ".ap_backquote($wpdb->options)." Aggiunta\n");
+/*		$UpdateProgressivo="UPDATE `".$wpdb->options."` SET `option_value` = '".get_option('opt_AP_AnnoProgressivo')."'	WHERE `option_name` ='opt_AP_AnnoProgressivo';\n";
 		$UpdateProgressivo.="UPDATE `".$wpdb->options."` SET `option_value` = '".get_option('opt_AP_NumeroProgressivo')."' WHERE `option_name` ='opt_AP_NumeroProgressivo';";
-		fwrite($fplog,"Sql Aggiornamento Tabella ".$wpdb->options." per Progressivo ed Anno Progressivo Aggiunti\n");
+		fwrite($fplog,"Sql Aggiornamento Tabella ".$wpdb->options." per Progressivo ed Anno Progressivo Aggiunti\n");*/
 		fwrite($fp,$UpdateProgressivo);
 		fclose($fp);
-		if ($Echo)	echo '<li><span style="color:green;">Sql Aggiornamento Tabella '.$wpdb->options.' per Progressivo ed Anno Progressivo Aggiunti</span></li>'
-				. '</ul>';
+/*		if ($Echo)	echo '<li><span style="color:green;">Sql Aggiornamento Tabella '.$wpdb->options.' per Progressivo ed Anno Progressivo Aggiunti</span></li>'
+				. '</ul>';*/
 		if (is_dir($Dir) And is_dir($DirTmp)){
 			// Crea l'archivio
 		 	$zip = new PclZip($nomefileZip);
@@ -2592,12 +2607,23 @@ global $wpdb;
 				. "</ul>";
 			foreach ($allegati as $allegato) {
 			//echo $allegato->Allegato;
-				if (substr(basename( $allegato->Allegato ),-4)==".pdf" or 
-					substr(basename( $allegato->Allegato ),-4)==".p7m") 
-					$zip->add(realpath($allegato->Allegato),PCLZIP_OPT_REMOVE_PATH,dirname($allegato->Allegato));
-				$Risultato.='<span style="color:green;">Aggiunto all\'allegato:</span> '.$allegato->Allegato.'<br />';
-				if ($Echo)	echo '<li><span style="color:green;">Aggiunto all\'allegato:</span> '.$allegato->Allegato.'</span></li>';
-				fwrite($fplog,"File ".$allegato->Allegato." Aggiunto\n");					
+				if(is_file($allegato->Allegato)){
+					if (ap_isAllowedExtension( $allegato->Allegato)){
+						$zip->add(realpath($allegato->Allegato),PCLZIP_OPT_REMOVE_PATH,dirname($allegato->Allegato));
+						$tmp_risultato='<span style="color:green;">Aggiunto all\'allegato:</span> '.$allegato->Allegato;
+						fwrite($fplog,"File ".$allegato->Allegato." Aggiunto\n");
+					}else{
+						$tmp_risultato='<span style="color:red;">Allegato NON Aggiunto, estensione non permessa:</span> '.$allegato->Allegato;
+						fwrite($fplog,"File ".$allegato->Allegato." NON Aggiunto, estensione non permessa\n");						
+					} 
+				}else{
+					$tmp_risultato='<span style="color:red;">File Allegato non trovato:</span> '.$allegato->Allegato;
+					fwrite($fplog,"File ".$allegato->Allegato." NON Aggiunto, file inesistente\n");
+				}
+				$Risultato.=$tmp_risultato.'<br />';
+				if ($Echo)	
+					echo '<li>'. $tmp_risultato .'</li>';					
+									
 			}
 			// Chiusura e momorizzazione del del file
 			$Risultato.= "Archivio creato con successo: ".$Dir."/".$NomeFile.".zip";
@@ -3018,4 +3044,20 @@ function ap_LoadDefaultFunzioni(){
 			else
 				return $wpdb->last_error;
 	}
+function ap_Rmdir($src) {
+    $dir = opendir($src);
+    while(false !== ( $file = readdir($dir)) ) {
+        if (( $file != '.' ) && ( $file != '..' )) {
+            $full = $src . '/' . $file;
+            if ( is_dir($full) ) {
+                ap_Rmdir($full);
+            }
+            else {
+                unlink($full);
+            }
+        }
+    }
+    closedir($dir);
+    rmdir($src);
+}
 ?>

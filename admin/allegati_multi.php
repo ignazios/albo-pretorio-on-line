@@ -2,9 +2,9 @@
 /**
  * Gestione Allegati.
  * @link       http://www.eduva.org
- * @since      4.2
+ * @since      4.3
  *
- * @package    ALbo On Line
+ * @package    Albo On Line
  */
 if(preg_match('#' . basename(__FILE__) . '#', $_SERVER['PHP_SELF'])) { die('You are not allowed to call this page directly.'); }
 	echo "<h2>Allegati Multipli</h2>";

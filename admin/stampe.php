@@ -2,9 +2,9 @@
 /**
  * Gestione Stampe.
  * @link       http://www.eduva.org
- * @since      4.2
+ * @since      4.3
  *
- * @package    ALbo On Line
+ * @package    Albo On Line
  */
  
 function LinkStampaAtto($id) {/* mr */

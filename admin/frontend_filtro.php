@@ -2,9 +2,9 @@
 /**
  * Gestione Filtri FrontEnd.
  * @link       http://www.eduva.org
- * @since      4.2
+ * @since      4.3
  *
- * @package    ALbo On Line
+ * @package    Albo On Line
  */
 function VisualizzaRicerca($Stato=1,$cat=0,$StatoFinestra="si"){
 	$anni=ap_get_dropdown_anni_atti('anno','anno','postform','',(isset($_REQUEST['anno'])?$_REQUEST['anno']:date("Y")),$Stato); 

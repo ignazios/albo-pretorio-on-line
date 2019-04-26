@@ -1,10 +1,10 @@
 ﻿=== Plugin Name ===
 Contributors: Scimone Ignazio
-Donate link: www.eduva.org
+Donate link: 
 Tags: Albo Pretorio, Codice Amministrazione Digitale, Upload File
 Requires at least: 3.5
-Tested up to: 5.0.3
-Stable tag: 4.2
+Tested up to: 5.1.1
+Stable tag: 4.3
 Albo Pretorio On Line permette la gestione dell'albo pretorio on line in base al nuovo Codice dell'Amministrazione Digitale
 == Description ==
 
@@ -21,18 +21,36 @@ Di seguito sono riportati i passi necessari per l'installazione del plugin. la p
 1. Scaricare il plugin dal repository di wordpress o dal sito di riferimento
 2. Attivare il plugin dal menu Plugins
 3. Inserire gli atti lato amministrazione
-4. inserire lo shortcode attraverso il pulsante dell'editor della pagina/articolo oppure manualmente [Albo stato="1" per_page="10" cat="1" filtri="si" minfiltri="no"]
+4. inserire uno dei tre shortcode attraverso il relativo pulsante dell'editor della pagina/articolo oppure manualmente 
+	4.1 [Albo stato="1" per_page="10" cat="1" filtri="si" minfiltri="no"]
+	    	<strong>stato</strong> pu&ograve; assumere i seguenti valori
+	    		1 - solo gli atti in corso di validit&agrave;
+	        	2 - solo gli atti scaduti (storico)
+		<strong>per_page</strong> indica il numero massimo di atti che vengono visualizza in ogni pagina
+		<strong>cat</strong> opzionale l' ID della categoria di cui verranno visualizzati gli atti 
+		<strong>filtri</strong> opzionale indica se deve essere visualizzata la finestra dei filtri. Se non specificato i filtri vengono visualizzati. utile nel caso si utizza lo shortcode nelle pagine dell'Amministrazione Trasparente
+		<strong>minfiltri</strong> opzionale indica se deve essere attivata la minimizzazione della finestra dei filtri. Se non specificato viene attivata la minimizzazione della finestra filtri.
+	<strong>Uso</strong>: <em>Questo shortcode permette la visualizzazione della tabella degli atti nel frontend</em>
+	4.2 [AlboGruppiAtti titolo="" meta="" valore=""]
+		<strong>titolo</strong> titolo che viene visualizzato sopra la tabella
+		<strong>meta</strong> metadato di raggruppamento
+		<strong>valore</strong> valore del metadato per cui raggruppare gli atti
+	<strong>Uso</strong>: <em>Questo shortcode permette di raggruppare un gruppo di atti eterogeno in base ad un metadato con uno specifico valore. Viene utilizzato, ad esempio, per raggruppare tutti gli atti che concorrono all'espletamento di una gara di acquisto</em>
+	4.3 [AlboAtto titolo="" numero="" anno=""]
+		<strong>titolo</strong> titolo che viene visualizzato come intestazione dei dati dell'atto
+		<strong>numero</strong> Numero dell'atto da visualizzare
+		<strong>anno</strong> Anno a cui si riferisce il numero dell'atto
+	<strong>Uso</strong>: <em>Questo shortcode permette di visualizzare i dati dell'atto individuato dal numero/anno indicato nei parametri</em>
 
-<strong>stato</strong> pu&ograve; assumere i seguenti valori
-
-         1 - solo gli atti in corso di validit&agrave;
-         2 - solo gli atti scaduti (storico)
-
-<strong>per_page</strong> indica il numero massimo di atti che vengono visualizza in ogni pagina
-<strong>cat</strong> opzionale l' ID della categoria di cui verranno visualizzati gli atti 
-<strong>filtri</strong> opzionale indica se deve essere visualizzata la finestra dei filtri. Se non specificato i filtri vengono visualizzati. utile nel caso si utizza lo shortcode nelle pagine dell'Amministrazione Trasparente
-<strong>minfiltri</strong> opzionale indica se deve essere attivata la minimizzazione della finestra dei filtri. Se non specificato viene attivata la minimizzazione della finestra filtri.
+Per maggiori informazioni usare il repo si github https://github.com/ignazios/albo-pretorio-on-line
+Per segnalare problemi, proposte di modifiche utilizzare l'indirizzo email ignazios@gmail.com
 == Changelog ==
+= 4.3 =
+- <strong>Implementazione</strong> delle REST-API dei dati dell'albo, da attivare esplicitamente
+- <strong>Implementazione</strong> di un nuovo shortcode che permette la visualizzazione di singoli atti
+- <strong>Revisione</strong> del codice e correzione di ulcuni bug minori
+- <strong>Riscritta</strong> la procedura di disinstallazione del plugin
+- <strong>Adeguamento</strong> dell'interfaccia al design kit di Designers Italia
 = 4.2 =
 - <strong>Adeguamento</strong> alla versione 5.0 di Wordpress
 = 4.1.95 =
@@ -246,14 +264,3 @@ Il file zippato contiene uno script Sql per la ricostruzione delle tabelle dell'
 = 1.1 =
 - <strong>Sistemati</strong> i problemi con le icone lato amministrazione
 - <strong>Migliorato</strong> lato utente
- == Upgrade Notice ==
-Aggiornare sempre il plugin all'ultima versione fini a che non si arriva ad una versione stabile ed operativa
-
-<strong>Aggiornamento alla versione 1.5:
-Aggiornare in Parametri, la cartella di Upload.</strong>
-== Note ==
-E' consigliato l'uso anche in ambienti operativi, per segnalare errori o problemi di utilizzo usare l'indirizzo email ignazio.scimone@gmail.com segnalando il sito in cui e' installato il plugin, una breve descrizione del problema riscontrato, la persona di riferimento con indirizzo email.
-Non prendo in considerazione richieste non corredate da tutti i dati sopraelencati. 
-== Uso ==
-Per maggiori informazioni e per assistenza il sito di riferimento e' http://www.eduva.org
-
