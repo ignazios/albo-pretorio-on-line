@@ -91,6 +91,11 @@ if (!class_exists('AlboPretorio')) {
 		} 
 	}
 	function Reg_rest_api_route(){
+// Registrazione route statistiche
+		register_rest_route('alboonline/v1','/statistiche', 
+			 array('methods'  => WP_REST_Server::READABLE,
+		 	       'callback' => array($this,'rest_api_statistiche_get'),
+		));
 // Registrazione route categorie
 		register_rest_route('alboonline/v1','/categorie', 
 			 array('methods'  => WP_REST_Server::READABLE,
@@ -117,6 +122,17 @@ if (!class_exists('AlboPretorio')) {
 								    }),
 								)
 		));
+// Registrazione route atto
+		register_rest_route('alboonline/v1','/atto/(?P<id>\d+)', 
+			 array('methods'  => WP_REST_Server::READABLE,
+		 	       'callback' => array($this,'rest_api_atto_get_byID'),
+		 	       'args' 	  => array('id' => array(
+								'validate_callback' => 
+									function($param, $request, $key) {
+								    	return is_numeric( $param );
+								    }),
+								)
+		));
 // Registrazione route atti
 		register_rest_route('alboonline/v1','/atti', 
 			 array('methods'  => WP_REST_Server::READABLE,
@@ -131,7 +147,7 @@ if (!class_exists('AlboPretorio')) {
     				'per_page' => array('default'=>10,
 			 	       	   'validate_callback' =>
 			 	       		function($param, $request, $key) {
-								return is_numeric( $param )&&($param>=0);						   			}),
+								return is_numeric( $param )&&($param>=-1);						   			}),
     				'page' => array('default'=>1,
 			 	       	   'validate_callback' =>
 			 	       		function($param, $request, $key) {
@@ -176,6 +192,16 @@ if (!class_exists('AlboPretorio')) {
 					),
 			));
 	}
+	
+	function rest_api_atto_get_byID($request){
+		$Atto=array();
+		$IDAtto=$request->get_param("id");
+		$risultato=ap_get_atto($IDAtto);
+		if(count($risultato)==0){
+			return new WP_Error( 'no_atto', 'Nessun atto trovato con questi parametri', array( 'status' => 404 ) );
+  		}
+		return new WP_REST_Response($this->REST_API_get_atto($risultato), 200 );
+	}
 	function rest_api_atto_get($request){
 		$Atto=array();
 		$NumeroAtto=$request->get_param("num");
@@ -184,6 +210,10 @@ if (!class_exists('AlboPretorio')) {
 		if(count($risultato)==0){
 			return new WP_Error( 'no_atto', 'Nessun atto trovato con questi parametri', array( 'status' => 404 ) );
   		}
+
+		return new WP_REST_Response($this->REST_API_get_atto($risultato), 200 );
+	}
+	function REST_API_get_atto($risultato){
 		$risultato=$risultato[0];
 		$IdAtto=$risultato->IdAtto;
 		$DatiAtto=ap_get_atto($IdAtto);
@@ -191,6 +221,7 @@ if (!class_exists('AlboPretorio')) {
 		$DatiEnte=array();
 		$DatiSoggetti=array();
 		$Allegati=array();
+		$Meta="";
 		foreach($DatiAtto as $D_Atto){
 //Categoria Atto
 			$D_Catergoria=ap_get_categoria($D_Atto->IdCategoria);
@@ -266,6 +297,13 @@ if (!class_exists('AlboPretorio')) {
 								  "Rel"			=>$Rel);
 			}
 // Fine Allegati
+			$MetaDati=ap_get_meta_atto($riga->IdAtto);	
+			if($MetaDati!==FALSE){
+				foreach($MetaDati as $Metadato){
+					$Meta.=$Metadato->Meta."=".$Metadato->Value."<br />";
+				}
+				$Meta=substr($Meta,0,-6);
+			} 
 			$Atto["Numero"]				=$D_Atto->Numero;
 			$Atto["Anno"]				=$D_Atto->Anno;
 			$Atto["Data"]				=$D_Atto->Data;
@@ -280,11 +318,28 @@ if (!class_exists('AlboPretorio')) {
 			$Atto["MotivoAnnullamento"]	=$D_Atto->MotivoAnnullamento;
 			$Atto["IdEnte"]				=$D_Atto->Ente;
 			$Atto["Ente"]				=$DatiEnte;
+			$Atto["Metadati"]			=stripslashes($Meta);
 			$Atto["DataOblio"]			=$D_Atto->DataOblio;
 			$Atto["Soggetti"]			=$DatiSoggetti;
 			$Atto["Allegati"]			=$Allegati;
 		}
-		return new WP_REST_Response($Atto, 200 );
+		return $Atto;
+	}
+	function rest_api_statistiche_get($request){
+		global $wpdb;
+		$Statistiche=array();
+	  	$n_atti_attivi =ap_get_all_atti(1,0,0,0,'', 0,0,"",0,0,true);	
+	  	$n_atti_storico=ap_get_all_atti(2,0,0,0,'', 0,0,"",0,0,true);
+	  	$n_atti_attivi_ANN =ap_get_all_atti(1,0,0,0,'', 0,0,"",0,0,true,true);	
+	  	$n_atti_storico_ANN=ap_get_all_atti(2,0,0,0,'', 0,0,"",0,0,true,true);
+		$Statistiche=array(
+					"num_Categorie"				=>ap_num_categorie(),
+					"num_AttiCorrenti"	 		=>$n_atti_attivi,
+					"num_AttiStorico"			=>$n_atti_storico,
+					"num_AttiCorrenti_Annullati"=>$n_atti_attivi_ANN,
+					"num_AttiStorico_Annullati"	=>$n_atti_storico_ANN,
+					"num_Allegati"				=>ap_num_allegati());
+		return new WP_REST_Response($Statistiche, 200 );
 	}
 	function rest_api_categorie_get($request){
 		$Categorie=array();
@@ -332,7 +387,9 @@ if (!class_exists('AlboPretorio')) {
 	if ($N_A_pp==0){
 		$N_A_pp=10;
 	}
-
+	if ($N_A_pp==-1){
+		$N_A_pp=0;
+	}
 	if ($Pag==0){
 		$Da=0;
 		$A=$N_A_pp;
@@ -340,12 +397,14 @@ if (!class_exists('AlboPretorio')) {
 		$Da=($Pag-1)*$N_A_pp;
 		$A=$N_A_pp;
 	}
-	$TotAtti=ap_get_all_atti($Stato,$Numero,$Anno,$Categorie,$Oggetto,$Dadata,$Adata,'',0,0,true,true,$Riferimento,$Ente);
-	$ListaAtti=ap_get_all_atti($Stato,$Numero,$Anno,$Categorie,$Oggetto,$Dadata,$Adata,'Anno DESC,Numero DESC',$Da,$A,false,true,$Riferimento,$Ente); 			
+	$TotAtti=ap_get_all_atti($Stato,$Numero,$Anno,$Categorie,$Oggetto,$Dadata,$Adata,'',0,0,true,false,$Riferimento,$Ente);
+	$ListaAtti=ap_get_all_atti($Stato,$Numero,$Anno,$Categorie,$Oggetto,$Dadata,$Adata,'Anno DESC,Numero DESC',$Da,$A,false,false,$Riferimento,$Ente); 			
 			
-	$Npag=(int)($TotAtti/$N_A_pp);
-	if ($TotAtti%$N_A_pp>0){
-		$Npag++;
+	if($N_A_pp>0){
+		$Npag=(int)($TotAtti/$N_A_pp);
+		if ($TotAtti%$N_A_pp>0 ){
+			$Npag++;
+		}
 	}
 	$DatiAtti=array("TotAtti" => $TotAtti, 
 	                "NumPagine" => $Npag, 
@@ -357,6 +416,14 @@ if (!class_exists('AlboPretorio')) {
 			$sep="?";
 		$Atti=array();
 		foreach($ListaAtti as $riga){
+			$MetaDati=ap_get_meta_atto($riga->IdAtto);
+			$Meta="";
+			if($MetaDati!==FALSE){
+				foreach($MetaDati as $Metadato){
+					$Meta.=$Metadato->Meta."=".$Metadato->Value."<br />";
+				}
+				$Meta=substr($Meta,0,-6);
+			} 
 			$Atti[$riga->IdAtto]["Numero"]=$riga->Numero;
 			$Atti[$riga->IdAtto]["Anno"]=$riga->Anno;
 			$Atti[$riga->IdAtto]["Riferimento"]=$riga->Riferimento;
@@ -369,6 +436,7 @@ if (!class_exists('AlboPretorio')) {
 			$Atti[$riga->IdAtto]["DataAnnullamento"]=$riga->DataAnnullamento;
 			$Atti[$riga->IdAtto]["MotivoAnnullamento"]=$riga->MotivoAnnullamento;
 			$Atti[$riga->IdAtto]["Ente"]=ap_get_ente($riga->Ente);
+			$Atti[$riga->IdAtto]["Metadati"]=stripslashes($Meta);
 			$Atti[$riga->IdAtto]["DataOblio"]=$riga->DataOblio;
 			$Atti[$riga->IdAtto]["Link"]=$PagAlbo.$sep.'numero='.$riga->Numero.'&anno='.$riga->Anno.'&titolo=';
 		}
@@ -860,10 +928,14 @@ static function add_albo_plugin_visatto($plugin_array) {
 			'per_page' =>'10'
 		), $Parametri,"Albo");
 		$OldInterfaccia=get_option('opt_AP_OldInterfaccia');
-		if($OldInterfaccia=="Si"){
-			require_once ( dirname (__FILE__) . '/admin/frontend.php' );
+		if(is_file(get_stylesheet_directory()."/plugins/albo-pretorio-on-line/admin/frontend.php")){
+			require_once ( get_stylesheet_directory()."/plugins/albo-pretorio-on-line/admin/frontend.php");
 		}else{
-			require_once ( dirname (__FILE__) . '/admin/frontend_new.php' );
+			if($OldInterfaccia=="Si"){
+				require_once ( dirname (__FILE__) . '/admin/frontend.php' );
+			}else{
+				require_once ( dirname (__FILE__) . '/admin/frontend_new.php' );
+			}		
 		}
 		return $ret;
 	}
@@ -892,10 +964,14 @@ static function add_albo_plugin_visatto($plugin_array) {
 			'anno' => '',
 		), $Parametri,"AlboAtto");
 		$OldInterfaccia=get_option('opt_AP_OldInterfaccia');
-		if($OldInterfaccia=="Si"){
-			require_once ( dirname (__FILE__) . '/admin/visatto.php' );
+		if(is_file(get_stylesheet_directory()."/plugins/albo-pretorio-on-line/admin/visatto.php")){
+			require_once ( get_stylesheet_directory()."/plugins/albo-pretorio-on-line/admin/visatto.php");
 		}else{
-			require_once ( dirname (__FILE__) . '/admin/visatto_new.php' );
+			if($OldInterfaccia=="Si"){
+				require_once ( dirname (__FILE__) . '/admin/visatto.php' );
+			}else{
+				require_once ( dirname (__FILE__) . '/admin/visatto_new.php' );
+			}
 		}
 		return Visualizza_Atto($Parametri);
 	}	
@@ -1205,6 +1281,11 @@ if(get_option('opt_AP_AnnoProgressivo')!=date("Y")){
 		}else{
 			$BaseUrlRestApi=esc_url( home_url( '/' ) )."wp-json/alboonline/v1/";
 		} 
+	  if (get_option( 'opt_AP_FolderUploadMeseAnno' )=="") {
+		  $dirUploadMA="Disattivata";
+		} else {
+			$dirUploadMA="Attivata";
+		}
 	  echo '
 		<div class="wrap">
 			<div class="HeadPage">
@@ -1272,7 +1353,7 @@ if(get_option('opt_AP_AnnoProgressivo')!=date("Y")){
 			<tr>
 				<th scope="row"><label>Numero Progressivo</label></th>
 				<td><strong> ';
-				if(ap_get_all_atti(0,0,0,0,'',0,0,"",0,0,TRUE,TRUE)==0)
+				if(ap_get_all_atti(0,0,0,0,'',0,0,"",0,0,TRUE,FALSE)==0)
 					echo '<input type="text" id="progressivo" name="progressivo" value="'.$nprog.'" size="5"/>';
 				else
 					echo $nprog;
@@ -1280,8 +1361,8 @@ if(get_option('opt_AP_AnnoProgressivo')!=date("Y")){
 				</td>
 			</tr>
 			<tr>
-				<th scope="row"><label>Cartella Upload</label></th>
-				<td><strong> '.AP_BASE_DIR.get_option('opt_AP_FolderUpload').'</strong></td>
+				<th scope="row"><label>Cartella Upload<br />organizzazione in Anno/Mese</label></th>
+				<td><strong> '.AP_BASE_DIR.get_option('opt_AP_FolderUpload').'<br />'.$dirUploadMA.'</strong></td>
 			</tr>
 			<tr>
 				<th scope="row"><label for="visoldstyle">Stile visualizzazione FrontEnd</label></th>
@@ -1607,12 +1688,13 @@ if(get_option('opt_AP_AnnoProgressivo')!=date("Y")){
 					<table class="noalbo_cell">
 						<tr>
 							<td>
-				'.$BaseUrlRestApi.'atto/Numero_atto/Anno_Atto
+				'.$BaseUrlRestApi.'atto/Numero_atto/Anno_Atto oppure<br />'.$BaseUrlRestApi.'atto/ID_Atto
 							</td>
 						</tr>
 						<tr>
 							<td>
-				<em>es. '.$BaseUrlRestApi.'atto/1/2018  verranno restituiti i dati dell\'atto n. 1 del 2018</em>
+				<em>es. '.$BaseUrlRestApi.'atto/1/2018  verranno restituiti i dati dell\'atto n. 1 del 2018<br />
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$BaseUrlRestApi.'atto/305  verranno restituiti i dati dell\'atto con ID n° 305</em>
 							</td>
 						</tr>
 					</table>
@@ -1647,7 +1729,7 @@ if(get_option('opt_AP_AnnoProgressivo')!=date("Y")){
 						<tr>
 							<td>per_page</td>
 							<td>10</td>
-							<td>Numero atti per pagina > 0</td>
+							<td>Numero atti per pagina > 0<br /> -1 per tutti gli atti dello stato</td>
 						</tr>						
 						<tr>
 							<td>page</td>
@@ -1753,6 +1835,10 @@ if(get_option('opt_AP_AnnoProgressivo')!=date("Y")){
 	if(!get_option('opt_AP_RestApi_UrlEst')){
 			add_option('opt_AP_RestApi_UrlEst', '');
 		}
+	if (!get_option( 'opt_AP_FolderUploadMeseAnno' )) {
+			add_option('opt_AP_FolderUploadMeseAnno', '');
+		}
+		
 
 	$PData = get_plugin_data( __FILE__ );
 	$PVer = $PData['Version'];	
@@ -2042,7 +2128,6 @@ if(get_option('opt_AP_AnnoProgressivo')!=date("Y")){
 			update_option('opt_AP_PAttiSto', $_POST['P_AttiSto']);
 			update_option('opt_AP_PAtto', $_POST['P_Atto']);
 			update_option('opt_AP_AutoShortcode',(isset($_POST['AutoShortCode'])?$_POST['AutoShortCode']:0));
-			update_option('opt_AP_OldInterfaccia',(isset($_POST['visoldstyle'])?$_POST['visoldstyle']:0));
 			update_option('opt_AP_OldInterfaccia',(isset($_POST['visoldstyle'])?$_POST['visoldstyle']:0));
 			update_option('opt_AP_UpCSSNewInterface',(isset($_POST['uploadCSSNI'])?$_POST['uploadCSSNI']:0));
 		  	$FEColsOption=array("Data"=>(isset($_POST['Data'])?1:0),

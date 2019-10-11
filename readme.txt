@@ -4,7 +4,7 @@ Donate link:
 Tags: Albo Pretorio, Codice Amministrazione Digitale, Upload File
 Requires at least: 3.5
 Tested up to: 5.1.1
-Stable tag: 4.3
+Stable tag: 4.4
 Albo Pretorio On Line permette la gestione dell'albo pretorio on line in base al nuovo Codice dell'Amministrazione Digitale
 == Description ==
 
@@ -45,6 +45,13 @@ Di seguito sono riportati i passi necessari per l'installazione del plugin. la p
 Per maggiori informazioni usare il repo si github https://github.com/ignazios/albo-pretorio-on-line
 Per segnalare problemi, proposte di modifiche utilizzare l'indirizzo email ignazios@gmail.com
 == Changelog ==
+= 4.4 =
+- <strong>Modifica</strong> delle REST-API dei dati dell'albo
+- <strong>Implementato</strong> sistema di visualizzazione della parte pubblica nel tema. 
+Nel Template del sito si può creare una cartella wp-content/themes/design-italia-child/plugins/albo-pretorio-on-line/admin riportando i files:
+- frontend.php
+- frontend_filtro.php
+- visatto.php
 = 4.3 =
 - <strong>Implementazione</strong> delle REST-API dei dati dell'albo, da attivare esplicitamente
 - <strong>Implementazione</strong> di un nuovo shortcode che permette la visualizzazione di singoli atti

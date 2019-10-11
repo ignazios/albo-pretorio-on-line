@@ -213,6 +213,19 @@ if (isset($_REQUEST['action'])){
 			$Msg=SvuotaLog(11);
 			menu($Msg);
 			break;
+		case "ArchivioAnnoMese":
+		if (!isset($_REQUEST['securarchivioannomese'])) {
+				$Stato="ATTENZIONE. Rilevato potenziale pericolo di attacco informatico, l'operazione &egrave; stata annullata";
+				menu($Stato);
+				break;
+			}
+			if (!wp_verify_nonce($_REQUEST['securarchivioannomese'],'archivioannomese')) {
+				$Stato="ATTENZIONE. Rilevato potenziale pericolo di attacco informatico, l'operazione &egrave; stata annullata";
+				menu($Stato);
+				break;
+			}
+			$Msg=ArchivioAllegati();
+			break;
 		default:
 			menu($Stato);
 	}	
@@ -220,6 +233,18 @@ if (isset($_REQUEST['action'])){
 		menu($Stato);
 }
 
+function ArchivioAllegati(){
+	if (isset($_POST["esBackup"]) And $_POST["esBackup"]="Si") {
+		echo "<h3>Creazione Backup Albo Pretorio</h3>";
+		ap_BackupDatiFiles("Organizza_Archivio_Allegati_Mese_Anno","Modifica sistema archiviazione Allegati",AlboBCK,TRUE);
+		echo "<h3>Fine creazione Backup Albo Pretorio</h3>
+		<p>Il backup si trova nella cartella: <strong>".AlboBCK."</strong></p>";
+	}
+	echo "<h3>Spostamento Allegati Albo Pretorio</h3>";
+	ap_Move_Allegati_CartellaMeseAnno();
+	echo "<h3>Operazione eseguita</h3>";
+	update_option('opt_AP_FolderUploadMeseAnno',"Si" );
+}
 function CreaCategorie(){
 echo '<div class="wrap">
 	<div class="HeadPage">
@@ -266,6 +291,11 @@ else
 	$Pag=0;
 $upload_dir = wp_upload_dir();
 $basedir=substr( $upload_dir['basedir'],0,strlen($upload_dir['basedir'])-19);
+if (null===get_option( 'opt_AP_FolderUploadMeseAnno' ) Or get_option('opt_AP_FolderUploadMeseAnno')!="Si") {
+	$dirUploadMA=TRUE;
+} else {
+	$dirUploadMA=FALSE;
+}
 echo '<div class="wrap">
 	<div class="HeadPage">
 		<h2 class="wp-heading-inline"><span class="dashicons dashicons-admin-generic" style="font-size:1em;"></span> Utility
@@ -280,11 +310,13 @@ echo '<input type="hidden" id="Pagina" value="'.$Pag.'" />
 						<li><a href="#utility-tab-2">Verifica procedura</a></li>
 						<li><a href="#utility-tab-3">Diritto all\'Oblio</a></li>
 						<li><a href="#utility-tab-4">Pulitura file di Log</a></li>
-						<li><a href="#utility-tab-5">Backup dei dati dell\'Albo Pretorio</a></li>
+						<li><a href="#utility-tab-5">Backup Albo Pretorio</a></li>
 						<li><a href="#utility-tab-6">Repertorio</a></li>
 						<li><a href="#utility-tab-7">GDPR</a></li>
-						<li><a href="#utility-tab-8">Utility Dati</a></li>
-					</ul>
+						<li><a href="#utility-tab-8">Utility Dati</a></li>';
+						if ($dirUploadMA)
+							echo '<li><a href="#utility-tab-9">Archiviazione Allegati</a></li>';
+echo '					</ul>
 		<div id="utility-tab-1" style="margin-bottom:20px;">
 				<h3 style="text-align:center;">Attenzione!!!!!<br />
 				Operazione di ripubblicazione degli atti in corso di validit&agrave; a causa di interruzione del servizio di pubblicazione</h3>
@@ -455,8 +487,36 @@ echo'
 						
 					</form>
 				</p>				
-	</div>	
-</div>';
+	</div>';
+	if ($dirUploadMA){
+		echo '	<div id="utility-tab-9" style="margin-bottom:20px; height: 600px;">
+		<h3 style="text-align:center">Utility Organizzazione cartella Upload Allegati</h3>
+		<p><span style="color:red;"><strong>Attenzione</strong><br />
+		Questa operazione richiede molto tempo, potrebbe essere interrotta prima del termine per Time Out.<br />
+		Soluzioni:
+		<ul>
+			<li>modificare il file php.ini parametro max_execution_time=XXX modificare inserendo il numero di secondi in genere di default sono 60</li>
+			<li>modificare il file wp-config.php: aggiungere il seguente comando set_time_limit(XXX)
+			<li>modificare il file .htaccess: fare preventivamente una copia del file. Aggiungere la segunte direttiva: php_value max_execution_time XXX.</li>
+		</ul>
+		<em>un valore possibile di XXX è 360 (6 minuti)</em>
+		</span>
+		</p>
+		<hr />
+		<p>
+			<form action="?page=utilityAlboP" id="Utility" method="post"  class="validate">
+			Selezionare questa opzione per eseguire il Backup. (Se eseguite il Backup separatamente potete risparmiare tempo di esecuzione della procedura) 
+			<input type="checkbox" name="esBackup" value="Si" id="esBackup"/> <br />
+			Attiva Archiviazione per Mese Anno:
+			<input type="hidden" name="securarchivioannomese" value="'.wp_create_nonce( 'archivioannomese' ).'" />
+			<input type="hidden" name="action" value="ArchivioAnnoMese" />
+			<input type="submit" name="ArchivioAnnoMese" id="ArchivioAnnoMese" class="button" value="Attiva"  />
+			</form>
+		</p>
+		</div>';
+	}
+echo '
+	</div>';
 }
 	
 function TestCampiTabella($Tabella,$Ripara=false){
@@ -791,13 +851,13 @@ function TestCongruitaDati($Tabella){
 global $wpdb;
 	switch ($Tabella){
 		case $wpdb->table_name_Atti:
-		    $n_atti = $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->table_name_Atti;");	 
-		  	$n_atti_dapub = $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->table_name_Atti Where Numero=0;");	
-		  	$n_atti_attivi = $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->table_name_Atti Where DataInizio <= now() And DataFine>= now() And Numero>0;");	
-		  	$n_atti_storico=$n_atti-$n_atti_attivi-$n_atti_dapub; 
-			$Analisi='<em>Atti In corso di Validit&agrave;:</em><strong>'.$n_atti_attivi.'</strong><br />';
-			$Analisi.='<em>Atti Scaduti:</em><strong>'.$n_atti_storico.'</strong><br />';
-			$Analisi.='<em>Atti da Pubblicare:</em><strong>'.$n_atti_dapub.'</strong><br />';
+		  	$Analisi.='<em>Atti:</em><strong>'.ap_get_all_atti(0,0,0,0,'', 0,0,"",0,0,true).'</strong><br />';
+			$Analisi.='<em>Atti da Pubblicare:</em><strong>'.ap_get_all_atti(3,0,0,0,'', 0,0,"",0,0,true).'</strong><br />';
+			$Analisi.='<em>Atti In corso di Validit&agrave;:</em><strong>'.ap_get_all_atti(1,0,0,0,'', 0,0,"",0,0,true).'</strong> ';
+			$Analisi.='<em> di cui Annullati:</em><strong>'.ap_get_all_atti(1,0,0,0,'', 0,0,"",0,0,true,true).'</strong><br />';
+			$Analisi.='<em>Atti Scaduti:</em><strong>'.ap_get_all_atti(2,0,0,0,'', 0,0,"",0,0,true).'</strong> ';
+			$Analisi.='<em> di cui Annullati:</em><strong>'.ap_get_all_atti(2,0,0,0,'', 0,0,"",0,0,true,true).'</strong><br />';
+			$Analisi.='<em>Atti Oblio (da Cancellare):</em><strong>'.ap_get_all_atti(4,0,0,0,'', 0,0,"",0,0,true).'</strong><br />';
 			// Verifica Atti con Categorie Orfane
 			$CategorieOrfane=ap_categorie_orfane();
 			if ($CategorieOrfane){

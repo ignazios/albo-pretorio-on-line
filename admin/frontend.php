@@ -95,7 +95,7 @@ echo '
 		</tr>
 		<tr>
 			<th>Numero Albo</th>
-			<td style="vertical-align: middle;">'.$risultato->Numero."/".$risultato->Anno.'</td>
+			<td style="vertical-align: middle;">'.str_pad($risultato->Numero, 8, '0', STR_PAD_LEFT)."/".$risultato->Anno.'</td>
 		</tr>
 		<tr>
 			<th>Codice di Riferimento</th>
@@ -279,8 +279,8 @@ function Lista_Atti($Parametri,$Categoria=0,$Numero=0,$Anno=0,$Oggetto='',$Dadat
 	}else{
         $Ente = $_REQUEST['ente'];
 	}
-	$TotAtti=ap_get_all_atti($Parametri['stato'],$Numero,$Anno,$Categorie,$Oggetto,$Dadata,$Adata,'',0,0,true,true,$Riferimento,$Ente);
-	$lista=ap_get_all_atti($Parametri['stato'],$Numero,$Anno,$Categorie,$Oggetto,$Dadata,$Adata,'Anno DESC,Numero DESC',$Da,$A,false,true,$Riferimento,$Ente); 
+	$TotAtti=ap_get_all_atti($Parametri['stato'],$Numero,$Anno,$Categorie,$Oggetto,$Dadata,$Adata,'',0,0,true,false,$Riferimento,$Ente);
+	$lista=ap_get_all_atti($Parametri['stato'],$Numero,$Anno,$Categorie,$Oggetto,$Dadata,$Adata,'Anno DESC,Numero DESC',$Da,$A,false,false,$Riferimento,$Ente); 
 	$titEnte=get_option('opt_AP_LivelloTitoloEnte');
 	if ($titEnte=='')
 		$titEnte="h2";

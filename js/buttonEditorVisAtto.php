@@ -54,7 +54,7 @@ if ( !is_user_logged_in() || !current_user_can('edit_posts') )
 	</script>
 </head>
 <?php
-$Atti=ap_get_all_atti(9,0,0,0,'',0,0,$OrderBy=" Anno DESC, Numero DESC");
+$Atti=ap_get_all_atti(9,0,0,0,'',0,0,$OrderBy=" Anno DESC, Numero DESC",0,0);
 $Lista='<select id="ListaAtti" name="ListaAtti">';
 foreach($Atti as $Atto){
 	$Lista.='<option value="'.$Atto->Numero.'/'.$Atto->Anno.'">'.$Atto->Numero."/".$Atto->Anno.' '.$Atto->Riferimento.'</option>';

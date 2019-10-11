@@ -48,8 +48,6 @@ function Visualizza_Atto($Parametri){
 	$risultatocategoria=ap_get_categoria($risultato->IdCategoria);
 	$risultatocategoria=$risultatocategoria[0];
 	$allegati=ap_get_all_allegati_atto($id);
-	$responsabile=ap_get_responsabile($risultato->RespProc);
-	$responsabile=$responsabile[0];
 	ap_insert_log(5,5,$id,"Visualizzazione");
 	$coloreAnnullati=get_option('opt_AP_ColoreAnnullati');
 	if($risultato->DataAnnullamento!='0000-00-00')

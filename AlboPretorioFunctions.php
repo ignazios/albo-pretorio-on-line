@@ -12,6 +12,62 @@ if(preg_match('#' . basename(__FILE__) . '#', $_SERVER['PHP_SELF'])) { die('You 
 ################################################################################
 // Funzioni 
 ################################################################################
+function ap_get_PathAllegati($IDAtto){
+	$Result=ap_get_atto($IDAtto);
+	$DataAtto=$Result[0]->Data;
+	$DataAtto=explode("-",$DataAtto);
+	$destination_path =AP_BASE_DIR.get_option('opt_AP_FolderUpload').'/'.$DataAtto[0];
+	if (!is_dir ( $destination_path)) {
+		if (!mkdir($destination_path, 0744))
+			return "Errore";
+	}
+	$destination_path =AP_BASE_DIR.get_option('opt_AP_FolderUpload').'/'.$DataAtto[0]."/".$DataAtto[1];
+	if (!is_dir ( $destination_path)) {
+		if (!mkdir($destination_path, 0744))
+			return "Errore";
+	}
+	return $destination_path;
+}
+function ap_Move_Allegati_CartellaMeseAnno(){
+	global $wpdb;
+	$allegati=ap_get_all_allegati();
+	$msg="";
+	$DirLog=str_replace("\\","/",WP_CONTENT_DIR.'/AlboOnLine/BackupDatiAlbo/log');
+	$nomefileLog=$DirLog."/Backup_Sposta_Allegati_Cartella_Anno_Mese.log";
+	$fplog = @fopen($nomefileLog, "ab");
+	fwrite($fplog,"____________________________________________________________________________\n");
+	fwrite($fplog,"Inizio spostamento file\n");
+	$BaseCurDir=str_replace("\\","/",AP_BASE_DIR.get_option('opt_AP_FolderUpload'));
+	// Inizo Blocco che sposta gli allegati e sincronizza la tabella degli Allegati
+	foreach ( $allegati as $allegato) {
+		$NewPath=ap_get_PathAllegati($allegato->IdAtto);
+		$NewAllegato=$NewPath."/".basename($allegato->Allegato);
+		if (is_file($allegato->Allegato)) {
+			if (!copy($allegato->Allegato, $NewAllegato)) {
+				echo '<spam style="color:red;">Errore</spam> nello spostamento dell\'Allegato '.$allegato->Allegato.' in '. $NewAllegato."<br />";
+				fwrite($fplog,"Non sono riuscito a copiare il file ".$allegato->Allegato." in ". $NewAllegato."\n");
+			} else {
+				if (!unlink($allegato->Allegato)) {
+		$msg.='<spam style="color:red;">Errore</spam> errata cancellazione dell\'Allegato </spam>'.$allegato->Allegato."<br />";
+	fwrite($fplog,"Non sono riuscito a cancelalre il file ".$allegato->Allegato."\n");
+	}				
+				echo '<spam style="color:green;">File</spam> '.$allegato->Allegato.'<br /><spam style="color:green;">spostato in</spam> '.$NewAllegato.'<br />';
+				fwrite($fplog,"File ".$allegato->Allegato." spostato in ".$NewAllegato."\n");
+				if ($wpdb->update($wpdb->table_name_Allegati,
+				array('Allegato' => $NewAllegato),
+				array('IdAllegato' => $allegato->IdAllegato ),
+				array('%s'),
+				array('%d'))>0) {
+					echo '<spam style="color:green;">Aggiornamento Link Allegato</spam> '.$allegato->Allegato."<br />";
+					fwrite($fplog,"Aggiornato il link nel Data Base per ".$allegato->Allegato." in ".$NewAllegato."\n");
+				}
+			}
+		} else {
+			echo '<spam style="color:red;">Errore</spam> Allegato '.$allegato->Allegato.' Inesistente <br />';
+		}
+		echo "<hr />";
+	}
+}
 function ap_get_fileperm($dir){
 	if(!is_dir($dir)){
 		mkdir($dir, 0744,TRUE);		
@@ -920,7 +976,7 @@ function is_array_di_categorie($Categorie){
 	$ArrCategorie=explode(",",$Categorie);
 	$Esito=false;
 	foreach($ArrCategorie as $Cate){
-		if(ap_get_categoria($Cate)){
+		if(count(ap_get_categoria($Cate))){
 			$Esito=True;
 		}else{
 			return FALSE;
@@ -1504,10 +1560,10 @@ function ap_get_last_num_anno($Anno){
 }
 function ap_get_num_anno($IdAtto){
 	global $wpdb;
-	return (int)($wpdb->get_var( $wpdb->prepare( "SELECT Numero FROM $wpdb->table_name_Atti WHERE IdAtto=%d",$IdAtto)));
+	return ($wpdb->get_var( $wpdb->prepare( "SELECT LPAD(Numero,8,'0') FROM $wpdb->table_name_Atti WHERE IdAtto=%d",$IdAtto)));
 }
 
-function ap_get_all_atti($Stato=0,$Numero=0,$Anno=0,$Categoria=0,$Oggetto='',$Dadata=0,$Adata=0,$OrderBy="",$DaRiga=0,$ARiga=20,$Conteggio=false,$Annullati=true,$Riferimento='',$Ente=-1){
+function ap_get_all_atti($Stato=0,$Numero=0,$Anno=0,$Categoria=0,$Oggetto='',$Dadata=0,$Adata=0,$OrderBy="",$DaRiga=0,$ARiga=20,$Conteggio=false,$Annullati=false,$Riferimento='',$Ente=-1){
 /* Stato:
 		 0 - tutti
 		 1 - in corso di validit�
@@ -1525,7 +1581,6 @@ function ap_get_all_atti($Stato=0,$Numero=0,$Anno=0,$Categoria=0,$Oggetto='',$Da
 	if ($OrderBy!=""){
 		$OrderBy=" Order By ".$OrderBy;
 	}
-	
 	if ($DaRiga==0 AND $ARiga==0)
 		$Limite="";
 	else
@@ -1571,8 +1626,8 @@ function ap_get_all_atti($Stato=0,$Numero=0,$Anno=0,$Categoria=0,$Oggetto='',$Da
             $Selezione.=' WHERE  Oggetto like "%'.(isset($_REQUEST['s'])?$_REQUEST['s']:"").'%"';
 			break;
 		}
-	if (!$Annullati)
-		$Selezione.=' And DataAnnullamento="0000-00-00"';
+	if ($Annullati)
+		$Selezione.=' And DataAnnullamento<>"0000-00-00"';
 	if ($Anno!=0){
 		if ($Numero!=0){
 			$Selezione.=' And (Anno="'.$Anno.'" And Numero="'.$Numero.'")';
@@ -2017,8 +2072,13 @@ function ap_allinea_allegati(){
 	$allegati=$wpdb->get_results("SELECT * FROM $wpdb->table_name_Allegati ;",ARRAY_A );
 // Nuova directory Allegati Albo Pretorio
 	$BaseCurDir=str_replace("\\","/",AP_BASE_DIR.get_option('opt_AP_FolderUpload'));
-	foreach( $allegati as $allegato){
-		$NewAllegato=$BaseCurDir."/".basename($allegato['Allegato']);
+	foreach ( $allegati as $allegato) {
+		if (get_option('opt_AP_FolderUploadMeseAnno')=="Si") {
+			$NewPath=ap_get_PathAllegati($allegato["IdAtto"]);
+			$NewAllegato=$NewPath."/".basename($allegato["Allegato"]);
+		}else{
+			$NewAllegato=$BaseCurDir."/".basename($allegato['Allegato']);			
+		}
 		if ($wpdb->update($wpdb->table_name_Allegati,
 									array('Allegato' => $NewAllegato),
 									array('IdAllegato' => $allegato['IdAllegato'] ),
@@ -2605,11 +2665,12 @@ global $wpdb;
 			$allegati=ap_get_all_allegati();
 			if ($Echo) echo "<h3>Avvio Backup Allegati</h3>"
 				. "</ul>";
+			$BaseUploadAllegati=AP_BASE_DIR.get_option('opt_AP_FolderUpload');
 			foreach ($allegati as $allegato) {
 			//echo $allegato->Allegato;
 				if(is_file($allegato->Allegato)){
-					if (ap_isAllowedExtension( $allegato->Allegato)){
-						$zip->add(realpath($allegato->Allegato),PCLZIP_OPT_REMOVE_PATH,dirname($allegato->Allegato));
+					if (ap_isAllowedExtension( $allegato->Allegato)) {
+						$zip->add(realpath($allegato->Allegato),PCLZIP_OPT_REMOVE_PATH,$BaseUploadAllegati);//dirname($allegato->Allegato));
 						$tmp_risultato='<span style="color:green;">Aggiunto all\'allegato:</span> '.$allegato->Allegato;
 						fwrite($fplog,"File ".$allegato->Allegato." Aggiunto\n");
 					}else{
