@@ -2,7 +2,7 @@
 /**
  * Gestione Allegati.
  * @link       http://www.eduva.org
- * @since      4.3
+ * @since      4.4.4
  *
  * @package    Albo On Line
  */

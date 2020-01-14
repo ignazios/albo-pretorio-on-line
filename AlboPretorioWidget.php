@@ -2,7 +2,7 @@
 /**
  * Widget utilizzato per la pubblicazione degli atti da inserire nell'albo pretorio dell'ente.
  * @link       http://www.eduva.org
- * @since      4.3
+ * @since      4.4.4
  *
  * @package    Albo On Line
  */

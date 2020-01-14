@@ -2,7 +2,7 @@
 /**
  * Libreria di funzioni necessarie al plugin per la gestione dell'albo.
  * @link       http://www.eduva.org
- * @since      4.3
+ * @since      4.4.4
  *
  * @package    Albo On Line
  */
@@ -18,12 +18,12 @@ function ap_get_PathAllegati($IDAtto){
 	$DataAtto=explode("-",$DataAtto);
 	$destination_path =AP_BASE_DIR.get_option('opt_AP_FolderUpload').'/'.$DataAtto[0];
 	if (!is_dir ( $destination_path)) {
-		if (!mkdir($destination_path, 0744))
+		if (!mkdir($destination_path, 0755))
 			return "Errore";
 	}
 	$destination_path =AP_BASE_DIR.get_option('opt_AP_FolderUpload').'/'.$DataAtto[0]."/".$DataAtto[1];
 	if (!is_dir ( $destination_path)) {
-		if (!mkdir($destination_path, 0744))
+		if (!mkdir($destination_path, 0755))
 			return "Errore";
 	}
 	return $destination_path;
@@ -1560,7 +1560,7 @@ function ap_get_last_num_anno($Anno){
 }
 function ap_get_num_anno($IdAtto){
 	global $wpdb;
-	return ($wpdb->get_var( $wpdb->prepare( "SELECT LPAD(Numero,8,'0') FROM $wpdb->table_name_Atti WHERE IdAtto=%d",$IdAtto)));
+	return ($wpdb->get_var( $wpdb->prepare( "SELECT Numero FROM $wpdb->table_name_Atti WHERE IdAtto=%d",$IdAtto)));
 }
 
 function ap_get_all_atti($Stato=0,$Numero=0,$Anno=0,$Categoria=0,$Oggetto='',$Dadata=0,$Adata=0,$OrderBy="",$DaRiga=0,$ARiga=20,$Conteggio=false,$Annullati=false,$Riferimento='',$Ente=-1){
@@ -1610,9 +1610,9 @@ function ap_get_all_atti($Stato=0,$Numero=0,$Anno=0,$Categoria=0,$Oggetto='',$Da
 			else
 				$Selezione.=' WHERE DataInizio<="'.ap_oggi().'" ';
 			if ($Adata!=0   and ap_SeDate("<",ap_convertiData($Adata),ap_oggi()))
-				$Selezione.=' AND DataFine<="'.ap_convertiData($Adata);
+				$Selezione.=' AND DataFine<"'.ap_convertiData($Adata);
 			else
-				$Selezione.=' AND DataFine<="'.ap_oggi();
+				$Selezione.=' AND DataFine<"'.ap_oggi();
 			$Selezione.='" AND Numero>0 And DataOblio>"'.ap_oggi().'" '; 
 			break;
 		case 3:

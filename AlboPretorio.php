@@ -4,7 +4,7 @@
  * Plugin Name:       Albo Pretorio On line
  * Plugin URI:        https://it.wordpress.org/plugins/albo-pretorio-on-line/
  * Description:       Plugin utilizzato per la pubblicazione degli atti da inserire nell'albo pretorio dell'ente.
- * Version:           4.3
+ * Version:           4.4.4
  * Author:            Ignazio Scimone
  * Author URI:        eduva.org
  * License:           GPL-2.0+
@@ -16,6 +16,7 @@ if(preg_match('#' . basename(__FILE__) . '#', $_SERVER['PHP_SELF'])) { die('You 
 
 include_once(dirname (__FILE__) .'/AlboPretorioFunctions.php');			/* libreria delle funzioni */
 include_once(dirname (__FILE__) .'/AlboPretorioWidget.php');
+
 
 define("Albo_URL",plugin_dir_url(dirname (__FILE__).'/AlboPretorio.php'));
 define("Albo_DIR",dirname (__FILE__));
@@ -242,22 +243,25 @@ if (!class_exists('AlboPretorio')) {
 //Fine Ente Atto
 // Soggetti
 			$Soggetti=unserialize($D_Atto->Soggetti);
-			$Soggetti=ap_get_alcuni_soggetti_ruolo(implode(",",$Soggetti));
-			$Ruolo="";
-			foreach($Soggetti as $Soggetto){
-				if(ap_get_Funzione_Responsabile($Soggetto->Funzione,"Display")=="No"){
-					continue;
-				}
-				$DatiSoggetti[$Soggetto->IdResponsabile]=array(
-					"Cognome" 	=>$Soggetto->Cognome,
-					"Nome" 		=>$Soggetto->Nome,
-					"Email" 	=>$Soggetto->Email,
-					"Telefono" 	=>$Soggetto->Telefono,
-					"Orario" 	=>$Soggetto->Orario,
-					"Note" 		=>$Soggetto->Note,
-					"CodFun" 	=>$Soggetto->Funzione,
-					"Funzione"	=>ap_get_Funzione_Responsabile($Soggetto->Funzione,"Descrizione"));
+			if($Soggetti){
+				$Soggetti=ap_get_alcuni_soggetti_ruolo(implode(",",$Soggetti));
+				$Ruolo="";
+				foreach($Soggetti as $Soggetto){
+					if(ap_get_Funzione_Responsabile($Soggetto->Funzione,"Display")=="No"){
+						continue;
+					}
+					$DatiSoggetti[$Soggetto->IdResponsabile]=array(
+						"Cognome" 	=>$Soggetto->Cognome,
+						"Nome" 		=>$Soggetto->Nome,
+						"Email" 	=>$Soggetto->Email,
+						"Telefono" 	=>$Soggetto->Telefono,
+						"Orario" 	=>$Soggetto->Orario,
+						"Note" 		=>$Soggetto->Note,
+						"CodFun" 	=>$Soggetto->Funzione,
+						"Funzione"	=>ap_get_Funzione_Responsabile($Soggetto->Funzione,"Descrizione"));
+				}				
 			}
+
 
 // Fine Soggetti
 // Allegati
@@ -827,7 +831,6 @@ static function add_albo_plugin_visatto($plugin_array) {
 	function init() {
 		if (is_admin()) return;
 		wp_enqueue_script('jquery');
-
 	}
 
 ################################################################################

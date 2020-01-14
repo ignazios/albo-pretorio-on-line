@@ -14,6 +14,36 @@ function format ( d ) {
 		'</tr>'+
 	'</table>';
 }
+function valida_data( data ){
+	    var errors = '';
+	    if (!/^\d{2}\/\d{2}\/\d{4}$/.test(data)) {
+	        errors += 'Data non valida';
+	    } else {
+
+	        var parts = data.split('/');
+	        var day = parts[0];
+	        var month = parts[1];
+	        var year = parts[2];
+	        var $day = (day.charAt(0) == '0') ? day.charAt(1) : day;
+	        var $month = (month.charAt(0) == '0') ? month.charAt(1) : month;
+
+	        if ($day > 31 || $day < 1) {
+	            errors += 'Giorno non valido';
+	        }
+
+	        if ($month > 12 || $month < 1) {
+	            errors += 'Mese non valido';
+	        }
+
+	        var now = new Date();
+	        var currentYear = now.getFullYear();
+
+	        if (year > currentYear || year < (currentYear - 100)) {
+	            errors += 'Anno non valido';
+	        }
+	    }	
+	    return errors;
+}
 jQuery(document).ready(function($){
 		$('#paginazione').change(function(){
 				location.href=$(this).attr('rel')+$('#paginazione option:selected').text();
@@ -41,5 +71,45 @@ jQuery(document).ready(function($){
 	$('a.numero-pagina').click(function(){
 		location.href=$(this).attr('href')+'&vf='+$('#maxminfiltro').attr('class')+'#dati';
 		return false;
+	});
+	$('#filtro-atti').submit(function(e) {
+		var Pass=true;
+		 if($('#Calendario1').val()!=""){
+		 	var datetime = $('#Calendario1').val();
+		 	var errore=valida_data(datetime);
+		 	if(errore!=""){
+		 		alert("Da data: "+errore);
+		 		Pass=false;
+		 		e.preventDefault();	
+		 	}
+		}
+		 if($('#Calendario2').val()!=""){
+		 	var datetime = $('#Calendario2').val();
+		 	var errore=valida_data(datetime);
+		 	if(errore!=""){
+		 		alert("A data: "+errore);
+		 		Pass=false;
+		 		e.preventDefault();	
+		 	}
+		}
+		var rif= $('#riferimento').val();
+		 if(rif!=rif.replace(/(<([^>]+)>)/ig,"")){
+		 	alert("Errore: campo Riferimento contiene testo non idoneo");
+		 	e.preventDefault();	
+		 	Pass=false;
+		 }
+		var rif= $('#oggetto').val();
+		 if(rif!=rif.replace(/(<([^>]+)>)/ig,"")){
+		 	alert("Errore: campo Oggetto contiene testo non idoneo");
+		 	e.preventDefault();	
+		 	Pass=false;
+		 }
+		 var Numero=$("#numero").val();
+		 if (isNaN(Numero)){
+ 		 	alert("Errore: campo Atto N° non è di tipo numerico");
+		 	e.preventDefault();	
+		 	Pass=false;
+		}
+	 	return Pass;
 	});
 }); 

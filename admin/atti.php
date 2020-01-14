@@ -2,7 +2,7 @@
 /**
  * Gestione Atti.
  * @link       http://www.eduva.org
- * @since      4.3
+ * @since      4.4.4
  *
  * @package    Albo On Line
  */
@@ -1507,19 +1507,21 @@ echo'
 				<td style="font-size:12px;font-style: italic;color: Blue;vertical-align:middle;">
 				<ul>';
 	$Soggetti=unserialize($risultato->Soggetti);
-	$Soggetti=ap_get_alcuni_soggetti_ruolo(implode(",",$Soggetti));
-	foreach($Soggetti as $Soggetto){
-		echo "
-			<li><strong>".ap_get_Funzione_Responsabile($Soggetto->Funzione,"Descrizione")."</strong> ".$Soggetto->Nome." ".$Soggetto->Cognome." 
-			</li>";
+	if ($Soggetti){
+		$Soggetti=ap_get_alcuni_soggetti_ruolo(implode(",",$Soggetti));
+		foreach($Soggetti as $Soggetto){
+			echo "
+				<li><strong>".ap_get_Funzione_Responsabile($Soggetto->Funzione,"Descrizione")."</strong> ".$Soggetto->Nome." ".$Soggetto->Cognome." 
+				</li>";
+		}
+	echo'				
+					</ul>
+					</td>
+				</tr>	    
+				</tbody>
+			</table>
+		</div>';	
 	}
-echo'				
-				</ul>
-				</td>
-			</tr>	    
-			</tbody>
-		</table>
-	</div>';
 echo '<div class="postbox" style="padding:0 10px 10px 10px;margin-left:10px;">
 	<h3>Allegati</h3>
 	<div class="Visalbo">';

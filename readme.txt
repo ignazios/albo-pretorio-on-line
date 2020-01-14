@@ -3,8 +3,8 @@ Contributors: Scimone Ignazio
 Donate link: 
 Tags: Albo Pretorio, Codice Amministrazione Digitale, Upload File
 Requires at least: 3.5
-Tested up to: 5.1.1
-Stable tag: 4.4
+Tested up to: 5.3.2
+Stable tag: 4.4.4
 Albo Pretorio On Line permette la gestione dell'albo pretorio on line in base al nuovo Codice dell'Amministrazione Digitale
 == Description ==
 
@@ -45,13 +45,28 @@ Di seguito sono riportati i passi necessari per l'installazione del plugin. la p
 Per maggiori informazioni usare il repo si github https://github.com/ignazios/albo-pretorio-on-line
 Per segnalare problemi, proposte di modifiche utilizzare l'indirizzo email ignazios@gmail.com
 == Changelog ==
+= 4.4.4 =
+- <strong>Corretti</strong> alcuni bug.
+- <strong>Modificato</strong> il sistema di filtro degli atti.
+= 4.4.3 =
+- <strong>Corretti</strong> alcuni bug di sicurezza nella gestione dei filtri del front-end.
+= 4.4.2 =
+- <strong>Corretti</strong> alcuni bug di sicurezza.
+= 4.4.1 =
+- <strong>Corretto</strong> errore caricamento allegati, anche se non attivata l'archiviazione per anno/mese, gli allegati venivano caricati nella cartella anno/mese che viene creata automaticamente in fase di caricamento.
 = 4.4 =
-- <strong>Modifica</strong> delle REST-API dei dati dell'albo
-- <strong>Implementato</strong> sistema di visualizzazione della parte pubblica nel tema. 
-Nel Template del sito si può creare una cartella wp-content/themes/design-italia-child/plugins/albo-pretorio-on-line/admin riportando i files:
-- frontend.php
-- frontend_filtro.php
-- visatto.php
+- <strong>Modifica</strong> delle REST-API per le Statistiche, per singolo Atto.
+- <strong>Implementazione</strong> dell'archiviazione, a richiesta, degli allegati per anno/mese come avviene per i Media.
+  <strong>PRIMA DI ESEGURE QUESTA OPERAZIONE BISOGNA FARE IL BACKUP DEGLI ALLEGATI</strong>
+- <strong>Revisione</strong> del codice e correzione di ulcuni bug minori
+- <strong>Implementato</strong> un sistema che permette di personalizzare l'interfaccia di visualizzazione lato pubblico degli atti all'interno del tema.
+	  Per personalizzare l'interfaccia dell'albo bisogna:
+		1) creare la seguente struttura di cartelle partendo dalla cartella del tema wp-content/themes/TEMA_CORRENTE/<strong>plugins/albo-pretorio-on-line/admin</strong>
+		2) copiare all'interno della cartella i seguenti files:
+			- frontend.php
+			- frontend_filtro.php
+			- visatto.php
+		3) personalizzare i files a proprio piacimento.
 = 4.3 =
 - <strong>Implementazione</strong> delle REST-API dei dati dell'albo, da attivare esplicitamente
 - <strong>Implementazione</strong> di un nuovo shortcode che permette la visualizzazione di singoli atti

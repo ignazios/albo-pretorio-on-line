@@ -2,7 +2,7 @@
 /**
  * Amministrazione richieste delle singole pagine.
  * @link       http://www.eduva.org
- * @since      4.3
+ * @since      4.4.4
  *
  * @package    Albo On Line
  */
@@ -878,7 +878,12 @@ function Memo_allegato_atto(){
 					  	if ($_FILES["files"]["error"][$i] > 0){
 							$messages= "Errore: " . $_FILES["file"]["error"][$i];
 			    		}else{
-							$destination_path =ap_get_PathAllegati($_POST['id'])."/";//AP_BASE_DIR.get_option('opt_AP_FolderUpload').'/';
+							if (get_option( 'opt_AP_FolderUploadMeseAnno' )=="") {
+								$destination_path =AP_BASE_DIR.get_option('opt_AP_FolderUpload').'/';
+							}else{
+								$destination_path =ap_get_PathAllegati($_POST['id'])."/";
+							}
+							//$destination_path =ap_get_PathAllegati($_POST['id'])."/";//AP_BASE_DIR.get_option('opt_AP_FolderUpload').'/';
 					   		$result = 0;
 						   	$target_path = ap_UniqueFileName($destination_path . basename(sanitize_file_name(remove_accents ( $_FILES['files']['name'][$i]))));
 							if(@move_uploaded_file($_FILES['files']['tmp_name'][$i],$target_path)){
