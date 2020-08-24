@@ -2,7 +2,7 @@
 /**
  * Gestione Allegati.
  * @link       http://www.eduva.org
- * @since      4.4.4
+ * @since      4.4.5
  *
  * @package    Albo On Line
  */
@@ -28,14 +28,14 @@ if(preg_match('#' . basename(__FILE__) . '#', $_SERVER['PHP_SELF'])) { die('You 
 	<input type="hidden" name="uploallegato" value="<?php echo wp_create_nonce('uploadallegati')?>" />
 	<input type="hidden" name="id" value="<?php echo (int)$_REQUEST['id']; ?>" />
 <div>
-  <label for="files" id="pulCar"><span class="dashicons dashicons-portfolio" style="font-size:2em;padding-right:0.5em;margin-top:-7px;"></span> Seleziona gli allegati da caricare</label>
+  <label for="files" id="pulCar"><span class="dashicons dashicons-portfolio" style="font-size:2em;padding-right:0.5em;margin-top:-7px;"></span> <?php echo __("Seleziona gli allegati da caricare","albo-online");?></label>
   <input type="file" id="files" name="files[]" accept="<?php echo $TEE;?>" multiple>
 </div>
 <div class="preview">
-  <p>Nessun file selezionato per il caricamento</p>
+  <p><?php echo __("Nessun file selezionato per il caricamento","albo-online");?></p>
 </div>
 <div>
-  <button id="pulCar"><span class="dashicons dashicons-upload" style="font-size:2em;padding-right:0.5em;margin-top:-7px;"></span> Carica</button>
+  <button id="pulCar"><span class="dashicons dashicons-upload" style="font-size:2em;padding-right:0.5em;margin-top:-7px;"></span> <?php echo __("Carica","albo-online");?></button>
 </div>
 </form>
      <script>
@@ -58,7 +58,24 @@ if(preg_match('#' . basename(__FILE__) . '#', $_SERVER['PHP_SELF'])) { die('You 
 	          var para = document.createElement('p');
 	          var des= document.createElement('input');
 	          des.setAttribute("type", "text");
+	          des.setAttribute("required", "");
 	          des.setAttribute("name", "Descrizione["+ i.toString() +"]");
+	          des.className="des";
+	          
+	          var LBLnatura=document.createElement('span');
+	          LBLnatura.textContent = '<?php _e("Documento firmato","albo-online");?>  ';
+	          var natura= document.createElement('input');
+	          natura.setAttribute("type", "checkbox");
+	          natura.setAttribute("name", "Natura["+ i.toString() +"]");
+	          var LBLintegrale=document.createElement('span');
+	          LBLintegrale.textContent = '<?php _e("Documento Integrale","albo-online");?>  ';
+	          var integrale= document.createElement('input');
+	          integrale.setAttribute("type", "checkbox");
+	          integrale.setAttribute("name", "Integrale["+ i.toString() +"]");
+	          integrale.setAttribute("name", "Integrale["+ i.toString() +"]");
+	          integrale.setAttribute("checked", "");
+	          
+	          
 	          if(validFileType(curFiles[i])) {
 	            para.textContent = 'File name ' + curFiles[i].name + ', file size ' + returnFileSize(curFiles[i].size) + '.';
 	            var image = document.createElement('img');
@@ -66,8 +83,12 @@ if(preg_match('#' . basename(__FILE__) . '#', $_SERVER['PHP_SELF'])) { die('You 
 	            listItem.appendChild(image);
 	            listItem.appendChild(para);
 	            listItem.appendChild(des);
+		        listItem.appendChild(LBLnatura);
+				listItem.appendChild(natura);
+		        listItem.appendChild(LBLintegrale);
+				listItem.appendChild(integrale);
 	          } else {
-	            para.textContent = 'File name ' + curFiles[i].name + ': Tipo di file non permesso. Riprova selezionando un file con estensione diversa.';
+	            para.textContent = 'File name ' + curFiles[i].name + ':<?php echo __("Tipo di file non permesso. Riprova selezionando un file con estensione diversa.","albo-online");?>';
 	            listItem.appendChild(para);
 	          }
 	          list.appendChild(listItem);

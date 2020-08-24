@@ -2,19 +2,18 @@
 /**
  * Gestione Stampe.
  * @link       http://www.eduva.org
- * @since      4.4.4
+ * @since      4.4.5
  *
  * @package    Albo On Line
  */
  
 function LinkStampaAtto($id) {/* mr */
     if (current_user_can('admin_albo')) {
-        echo '<a class="stpdf" href="' . get_permalink() . '?action=printatto&id=' . $id . '&pdf=a">Visualizza AVVISO DI INIZIO AFFISSIONE</a><a href="' . get_permalink() . '?action=printatto&id=' . $id . '&pdf=c" class="stpdf">Visualizza CERTIFICATO DI PUBBLICAZIONE</a>';
+        echo '<a class="stpdf" href="' . get_permalink() . '?action=printatto&id=' . $id . '&pdf=a">'.__("Visualizza AVVISO DI INIZIO AFFISSIONE","albo-online").'</a><a href="' . get_permalink() . '?action=printatto&id=' . $id . '&pdf=c" class="stpdf">'.__("Visualizza CERTIFICATO DI PUBBLICAZIONE","albo-online").'</a>';
     }
 }
 
 function StampaAtto($id, $tipo) {
-
     $risultato = ap_get_atto($id);
     $resp_pub = ap_get_all_Oggetto_log(1, $id);
     $risultato = $risultato[0];
@@ -25,7 +24,7 @@ function StampaAtto($id, $tipo) {
     $coloreAnnullati = get_option('opt_AP_ColoreAnnullati');
     $IconaDocumenti=get_option('opt_AP_IconaDocumenti');
     if ($risultato->DataAnnullamento != '0000-00-00')
-        $Annullato = '<p style="background-color: ' . $coloreAnnullati . ';text-align:center;font-size:1.5em;padding:5px;">Atto Annullato dal Responsabile del Procedimento<br /><br />Motivo: <span style="font-size:1;font-style: italic;">' . stripslashes($risultato->MotivoAnnullamento) . '</span></p>';
+        $Annullato = '<p style="background-color: ' . $coloreAnnullati . ';text-align:center;font-size:1.5em;padding:5px;">'.__("Atto Annullato dal Responsabile del Procedimento","albo-online").'<br /><br />'.__("Motivo","albo-online").': <span style="font-size:1;font-style: italic;">' . stripslashes($risultato->MotivoAnnullamento) . '</span></p>';
     else
         $Annullato = '';
     ?>
@@ -51,19 +50,19 @@ function StampaAtto($id, $tipo) {
         }
         // ]]>
     </script><?php
-    $rigadata = '<tr><td style="background: #fff; border: none; width: 50%; "><h4 style="background: #fff; border: none; font-size: 120%;">Data di inizio affissione: <span style="font-weight:normal">' . ap_VisualizzaData($risultato->DataInizio) . '</span></h4></td>'
-            . '<td style="background: #fff; border: none; width: 50%;"><h4 style="background: #fff; border: none; font-size: 120%;">Data di fine affissione: <span style="font-weight:normal">' . ap_VisualizzaData($risultato->DataFine) . '</span></h4></td></tr>'
+    $rigadata = '<tr><td style="background: #fff; border: none; width: 50%; "><h4 style="background: #fff; border: none; font-size: 120%;">'.__("Data di inizio affissione","albo-online").': <span style="font-weight:normal">' . ap_VisualizzaData($risultato->DataInizio) . '</span></h4></td>'
+            . '<td style="background: #fff; border: none; width: 50%;"><h4 style="background: #fff; border: none; font-size: 120%;">'.__("Data di fine affissione","albo-online").': <span style="font-weight:normal">' . ap_VisualizzaData($risultato->DataFine) . '</span></h4></td></tr>'
             . '<tr><td colspan="2"style="background: #fff; border: none; margin:0;padding:0;"><p style="border-top: 3px solid #808080;margin:0;"></p></td></tr>';
 //    $user = get_user_by('login', $resp_pub[0]->Utente);
      if ($tipo == 'c') {
-        $riga_tipo = 'CERTIFICATO DI PUBBLICAZIONE';
+        $riga_tipo = __("CERTIFICATO DI PUBBLICAZIONE","albo-online");
         $idtipo = 'printCertificato';
         $pubblicatoda = '';
     } elseif ($tipo == 'a') {
-        $riga_tipo = 'AVVISO DI INIZIO AFFISSIONE';
+        $riga_tipo = __("AVVISO DI INIZIO AFFISSIONE","albo-online");
         $idtipo = 'printAvviso';
     }
-    echo '<button class="h" onclick="printContent(\'' . $idtipo . '\')"><span class="dashicons dashicons-migrate"></span> Stampa ' . $label . '</button>';
+    echo '<button class="h" onclick="printContent(\'' . $idtipo . '\')"><span class="dashicons dashicons-migrate"></span> '.__("Stampa","albo-online").' ' . $label . '</button>';
 	$Soggetti=unserialize($risultato->Soggetti);
 	$Soggetti=ap_get_alcuni_soggetti_ruolo(implode(",",$Soggetti));
 	$DatiSeg=ap_get_Funzione_StampaCertificatoSX();
@@ -89,7 +88,7 @@ function StampaAtto($id, $tipo) {
     $Testi=json_decode(get_option('opt_AP_Testi'),TRUE);
 	if(!is_array($Testi)){
 	  	$Testi=array("NoResp"=>"",
-	  	             "CertPub"=>"Si attesta l'avvenuta pubblicazione del documento all'albo pretorio sopra indicato per il quale non sono pervenute osservazioni");
+	  	             "CertPub"=>__("Si attesta l'avvenuta pubblicazione del documento all'albo pretorio sopra indicato per il quale non sono pervenute osservazioni","albo-online"));
 	  }
     ?>
     <div class="printalbo" id="<?php echo $idtipo; ?>" style="width: 90%;">
@@ -114,11 +113,11 @@ function StampaAtto($id, $tipo) {
                     </td></tr>
                 <tr>
                     <td colspan="2" style="background: #fff; border: none">
-                        <h2 style="font-size: 210%;">Albo Pretorio</h2>
+                        <h2 style="font-size: 210%;"><?php  _e("Albo Pretorio","albo-online");?></h2>
                     </td></tr>
                 <tr>
                     <td colspan="2" style="background: #fff; border: none; font-size: 140%;">
-                        <h3>Responsabile: <?php echo $Responsabile; ?></h3>
+                        <h3><?php  _e("Responsabile","albo-online");?>: <?php echo $Responsabile; ?></h3>
                     </td>
                 </tr>
                 <?php if ($tipo == 'a') echo $rigadata; ?>
@@ -129,39 +128,39 @@ function StampaAtto($id, $tipo) {
                         <table style=" width:100%; border: none; margin-top: 10px; text-align: left; font-size: 130%; padding: 0">                            
                             <tr>
                                 <td colspan="2" style="text-align:center;background: #fff; border: none;">
-                                    <h3 style="font-weight: normal; font-size:130%; ">Sezione: <?php echo stripslashes($risultatocategoria->Nome); ?></h3>
+                                    <h3 style="font-weight: normal; font-size:130%; "><?php  _e("Sezione","albo-online");?>: <?php echo stripslashes($risultatocategoria->Nome); ?></h3>
                                 </td>
                             </tr>
                             <?php if ($tipo == 'c'): ?>
                                 <tr>
                                     <td colspan="2" style="text-align:center;background: #fff; border: none; margin-bottom: 30px;">
-                                        Estremi del documento pubblicato:
+                                        <?php  _e("Estremi del documento pubblicato","albo-online");?>:
                                     </td>
                                 </tr>
                             <?php endif; ?>
                             <tr>
-                                <td style="font-weight: bold; text-align: right; width: 35%; padding: 5px; background: #efefef; border: none">Ente titolare dell'Atto</td>
+                                <td style="font-weight: bold; text-align: right; width: 35%; padding: 5px; background: #efefef; border: none"><?php  _e("Ente titolare dell'Atto","albo-online");?></td>
                                 <td style="text-align: left; width: 65%; padding: 5px; vertical-align: middle; background: #efefef; border: none"><?php echo stripslashes(ap_get_ente($risultato->Ente)->Nome); ?></td>
                             </tr>
                             <tr>
-                                <td style="font-weight: bold; text-align: right; padding: 5px; background: #f6f6f6; border: none">Numero Albo</td>
+                                <td style="font-weight: bold; text-align: right; padding: 5px; background: #f6f6f6; border: none"><?php  _e("Numero Albo","albo-online");?></td>
                                 <td style="text-align: left; padding: 5px;vertical-align: middle; background: #f6f6f6; border: none"><?php echo $risultato->Numero . "/" . $risultato->Anno; ?></td>
                             </tr>
                             <tr>
-                                <td style="font-weight: bold; text-align: right; padding: 5px; background: #efefef; border: none">Codice di Riferimento</td>
+                                <td style="font-weight: bold; text-align: right; padding: 5px; background: #efefef; border: none"><?php  _e("Codice di Riferimento","albo-online");?></td>
                                 <td style="text-align: left; padding: 5px; vertical-align: middle;background: #efefef; border: none"><?php echo stripslashes($risultato->Riferimento); ?></td>
                             </tr>
                             <tr>
-                                <td style="font-weight: bold; text-align: right; padding: 5px; background: #efefef; border: none">Data atto</td>
+                                <td style="font-weight: bold; text-align: right; padding: 5px; background: #efefef; border: none"><?php  _e("Data atto","albo-online");?></td>
                                 <td style="text-align: left; padding: 5px; vertical-align: middle;background: #efefef; border: none"><?php echo ap_VisualizzaData($risultato->Data); ?></td>
                             </tr>
                             <tr>
-                                <td style="font-weight: bold; text-align: right; padding: 5px; background: #f6f6f6; border: none">Oggetto</td>
+                                <td style="font-weight: bold; text-align: right; padding: 5px; background: #f6f6f6; border: none"><?php  _e("Oggetto","albo-online");?></td>
                                 <td style="text-align: left; padding: 5px;vertical-align: middle; background: #f6f6f6; border: none"><?php echo stripslashes($risultato->Oggetto); ?></td>
                             </tr>
                             <?php if ($risultato->Informazioni): ?>
                                 <tr>
-                                    <td style="font-weight: bold; text-align: right; padding: 5px; background: #efefef; border: none">Note</td>
+                                    <td style="font-weight: bold; text-align: right; padding: 5px; background: #efefef; border: none"><?php  _e("Soggetti","albo-online");?>Note</td>
                                     <td style="text-align: left; padding: 5px; vertical-align: middle;background: #efefef; border: none"><?php echo stripslashes($risultato->Informazioni); ?></td>
                                 </tr>
                             <?php endif; ?>
@@ -187,7 +186,7 @@ function StampaAtto($id, $tipo) {
                             ?><?php endif; ?>
                     </td>
                     <td style="font-size:130%; background: #fff; border: none; width:60%; padding-top:50px; padding-right:20px; text-align:right">
-                        <strong>Il responsabile della pubblicazione</strong><br /><br />
+                        <strong><?php  _e("Il responsabile della pubblicazione","albo-online");?></strong><br /><br />
                         <em><?php 
                         if($ResponsabilePub==''){ 
                             echo $Testi["NoResp"];

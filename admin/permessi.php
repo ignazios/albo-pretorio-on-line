@@ -2,7 +2,7 @@
 /**
  * Gestione Permessi.
  * @link       http://www.eduva.org
- * @since      4.4.4
+ * @since      4.4.5
  *
  * @package    Albo On Line
  */
@@ -40,10 +40,10 @@ if (isset($_REQUEST['action']) And $_REQUEST['action']=="memoPermessi"){
 				}
 			}
 		}else{
-			$Msg="ATTENZIONE. Rilevato potenziale pericolo di attacco informatico, l'operazione &egrave; stata annullata";
+			$Msg=__("ATTENZIONE. Rilevato potenziale pericolo di attacco informatico, l'operazione è stata annullata","albo-online");
 		}
 	}else{
-		$Msg="ATTENZIONE. Rilevato potenziale pericolo di attacco informatico, l'operazione &egrave; stata annullata";
+		$Msg=__("ATTENZIONE. Rilevato potenziale pericolo di attacco informatico, l'operazione è stata annullata","albo-online");
 	}
 }
 
@@ -63,14 +63,14 @@ echo '
 				<table class="widefat" style="width:100%;">
 					<thead>
 					<tr>
-						<th>Utente</th>
-						<th>Azzera Capacit&agrave; Utente</th>
-						<th>Capacit&agrave; di Amministrare l\'Albo</th>
-						<th>Capacit&agrave; di Editore dell\'Albo</th>
-						<th>Capacit&agrave; di Gestire l\'Albo</th>
-						<th>Ruolo Amministratore</th>
-						<th>Ruolo Editore</th>
-						<th>Ruolo Gestore</th>
+						<th>'.__("Utente","albo-online").'</th>
+						<th>'.__("Azzera Capacità Utente","albo-online").'</th>
+						<th>'.__("Capacità di Amministrare l'Albo","albo-online").'</th>
+						<th>'.__("Capacità di Editore dell'Albo","albo-online").'</th>
+						<th>'.__("Capacità di Gestire l'Albo","albo-online").'</th>
+						<th>'.__("Ruolo Amministratore","albo-online").'</th>
+						<th>'.__("Ruolo Editore","albo-online").'</th>
+						<th>'.__("Ruolo Gestore","albo-online").'</th>
 					</tr>
 					</thead>
 					<tbody>';
@@ -131,7 +131,7 @@ echo '					</tbody>
 				
 				<div style="margin-left:auto;width:140px;margin-right:auto;">
 					<p>
-					<input type="submit" name="memo" id="memo" class="button" value="Memorizza Permessi" />
+					<input type="submit" name="memo" id="memo" class="button" value="'.__("Memorizza Permessi","albo-online").'" />
 					</p>
 				</div>
 				</form>

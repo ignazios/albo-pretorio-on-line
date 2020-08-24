@@ -1,0 +1,1870 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: albo-online\n"
+"POT-Creation-Date: 2020-06-09 16:06+0200\n"
+"PO-Revision-Date: 2020-06-09 16:06+0200\n"
+"Last-Translator: \n"
+"Language-Team: ignazios@gmail.com\n"
+"Language: it_IT\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.3.1\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: AlboPretorio.php:33 AlboPretorio.php:37 AlboPretorio.php:1169
+#: admin/admin.php:116 admin/admin.php:127 admin/admin.php:135
+#: admin/admin.php:142 admin/admin.php:150 admin/admin.php:157
+#: admin/admin.php:164 admin/admin.php:827 admin/admin.php:830
+#: admin/admin.php:842 admin/admin.php:845 admin/atti.php:458
+#: admin/atti.php:462 admin/atti.php:469 admin/atti.php:473
+#: admin/categorie.php:20
+msgid ""
+"ATTENZIONE. Rilevato potenziale pericolo di attacco informatico, "
+"l'operazione è stata annullata"
+msgstr ""
+
+#: AlboPretorio.php:202 AlboPretorio.php:212
+msgid "Nessun atto trovato con questi parametri"
+msgstr ""
+
+#: AlboPretorio.php:261 admin/categorie.php:153
+msgid "Descrizione"
+msgstr ""
+
+#: AlboPretorio.php:379
+msgid "Errore:Pagina visualizzazione atto non impostata"
+msgstr ""
+
+#: AlboPretorio.php:456 AlboPretorio.php:935
+msgid "Atti Albo on line di riferimento"
+msgstr ""
+
+#: AlboPretorio.php:471
+msgid ""
+"Oooooo!<br />\n"
+"\t\t\t\t\t        Stai tentando di fare il furbo!<br />\n"
+"\t\t\t\t\t        Non puoi accedere a questo file direttamente."
+msgstr ""
+
+#: AlboPretorio.php:579 AlboPretorio.php:701 AlboPretorio.php:1399
+#: admin/atti.php:576 admin/atti.php:865 admin/atti.php:1339
+#: admin/atti.php:1462 admin/categorie.php:96
+msgid "Data"
+msgstr ""
+
+#: AlboPretorio.php:580
+msgid "Nome Allegato"
+msgstr ""
+
+#: AlboPretorio.php:581 admin/atti.php:831 admin/atti.php:1276
+#: admin/atti.php:1298
+msgid "File"
+msgstr ""
+
+#: AlboPretorio.php:702 admin/categorie.php:97
+msgid "Operazione"
+msgstr ""
+
+#: AlboPretorio.php:703 admin/admin.php:35 admin/admin.php:75
+#: admin/atti.php:705 admin/categorie.php:98
+msgid "Informazioni"
+msgstr ""
+
+#: AlboPretorio.php:711 admin/categorie.php:105
+msgid "Inserimento"
+msgstr ""
+
+#: AlboPretorio.php:714 admin/categorie.php:108
+msgid "Modifica"
+msgstr ""
+
+#: AlboPretorio.php:717 admin/categorie.php:111
+msgid "Cancellazione"
+msgstr ""
+
+#: AlboPretorio.php:720
+msgid "Approvazione"
+msgstr ""
+
+#: AlboPretorio.php:754
+msgid "Atti per pagina"
+msgstr ""
+
+#: AlboPretorio.php:950
+msgid "Atto Albo on line"
+msgstr ""
+
+#: AlboPretorio.php:1012
+msgid "Logo Albo on line pubblicità legale"
+msgstr ""
+
+#: AlboPretorio.php:1013
+msgid "Versione"
+msgstr ""
+
+#: AlboPretorio.php:1014
+msgid "Plugin sviluppato da"
+msgstr ""
+
+#: AlboPretorio.php:1014
+msgid "Invia email allo sviluppatore del plugin"
+msgstr ""
+
+#: AlboPretorio.php:1023
+msgid "Sommario"
+msgstr ""
+
+#: AlboPretorio.php:1026 AlboPretorio.php:1417 admin/admin.php:35
+#: admin/admin.php:72 admin/atti.php:133 admin/atti.php:145 admin/atti.php:157
+#: admin/atti.php:170 admin/atti.php:584 admin/atti.php:873 admin/atti.php:985
+#: admin/atti.php:1125 admin/atti.php:1347 admin/atti.php:1470
+msgid "Oggetto"
+msgstr ""
+
+#: AlboPretorio.php:1027 admin/atti.php:796
+msgid "N."
+msgstr ""
+
+#: AlboPretorio.php:1028
+msgid "In Attesa di Pubblicazione"
+msgstr ""
+
+#: AlboPretorio.php:1029
+msgid "Attivi"
+msgstr ""
+
+#: AlboPretorio.php:1030
+msgid "Scaduti"
+msgstr ""
+
+#: AlboPretorio.php:1031
+msgid "Da eliminare"
+msgstr ""
+
+#: AlboPretorio.php:1044 admin/categorie.php:51
+msgid "Categorie"
+msgstr ""
+
+#: AlboPretorio.php:1048 admin/atti.php:255 admin/atti.php:308
+#: admin/atti.php:626 admin/atti.php:795 admin/atti.php:1419
+#: admin/atti.php:1528
+msgid "Allegati"
+msgstr ""
+
+#: AlboPretorio.php:1056
+msgid "Sito di supporto"
+msgstr ""
+
+#: AlboPretorio.php:1059
+msgid "Manuale Albo Pretorio"
+msgstr ""
+
+#: AlboPretorio.php:1062
+msgid "Io utilizzo il plugin"
+msgstr ""
+
+#: AlboPretorio.php:1073
+msgid "Cruscotto"
+msgstr ""
+
+#: AlboPretorio.php:1077
+msgid "Ambito"
+msgstr ""
+
+#: AlboPretorio.php:1078 admin/atti.php:130 admin/atti.php:143
+#: admin/atti.php:154 admin/atti.php:167 admin/atti.php:706
+msgid "Stato"
+msgstr ""
+
+#: AlboPretorio.php:1079 AlboPretorio.php:1435 admin/atti.php:600
+#: admin/atti.php:885 admin/atti.php:991 admin/atti.php:1131
+#: admin/atti.php:1140 admin/atti.php:1363 admin/atti.php:1486
+msgid "Note"
+msgstr ""
+
+#: AlboPretorio.php:1080
+msgid "Azioni"
+msgstr ""
+
+#: AlboPretorio.php:1085
+msgid "Librerie"
+msgstr ""
+
+#: AlboPretorio.php:1092
+msgid "Senza questa libreria non puoi eseguire i Backup"
+msgstr ""
+
+#: AlboPretorio.php:1097
+msgid "Diritto all'oblio"
+msgstr ""
+
+#: AlboPretorio.php:1105 AlboPretorio.php:1119
+msgid "Rigenera files"
+msgstr ""
+
+#: AlboPretorio.php:1110
+msgid "Cartelle esistenza e permessi"
+msgstr ""
+
+#: AlboPretorio.php:1125
+msgid ""
+"per maggiori dettagli eseguire la verifica della procedura presente nel menu "
+"Utility"
+msgstr ""
+
+#: AlboPretorio.php:1131
+msgid ""
+"Non risultano categorie codificate, se vuoi posso impostare le categorie di "
+"default"
+msgstr ""
+
+#: AlboPretorio.php:1131
+msgid "Crea Categorie di Default"
+msgstr ""
+
+#: AlboPretorio.php:1139
+msgid ""
+"Non risultano <strong>Responsabili</strong> codificati, devi crearne almeno "
+"uno prima di iniziare a codificare gli Atti"
+msgstr ""
+
+#: AlboPretorio.php:1139
+msgid "Crea Responsabile"
+msgstr ""
+
+#: AlboPretorio.php:1148 AlboPretorio.php:1783 admin/atti.php:695
+msgid "Aggiorna Anno Albo ed Azzera numero Progressivo"
+msgstr ""
+
+#: AlboPretorio.php:1203
+msgid ""
+"Si attesta l'avvenuta pubblicazione del documento all'albo pretorio sopra "
+"indicato per il quale non sono pervenute osservazioni"
+msgstr ""
+
+#: AlboPretorio.php:1280
+msgid "Parametri"
+msgstr ""
+
+#: AlboPretorio.php:1287
+msgid "Impostazioni Generali"
+msgstr ""
+
+#: AlboPretorio.php:1288
+msgid "Interfaccia"
+msgstr ""
+
+#: AlboPretorio.php:1289
+msgid "Log"
+msgstr ""
+
+#: AlboPretorio.php:1290
+msgid "Shortcode"
+msgstr ""
+
+#: AlboPretorio.php:1291
+msgid "Testi"
+msgstr ""
+
+#: AlboPretorio.php:1292
+msgid "Soggetti predefiniti"
+msgstr ""
+
+#: AlboPretorio.php:1293
+msgid "Rest Api"
+msgstr ""
+
+#: AlboPretorio.php:1298 admin/admin.php:35 admin/admin.php:69
+msgid "Nome Ente"
+msgstr ""
+
+#: AlboPretorio.php:1302
+msgid "Visualizza Nome Ente"
+msgstr ""
+
+#: AlboPretorio.php:1306
+msgid "Titolo Nome Ente"
+msgstr ""
+
+#: AlboPretorio.php:1318
+msgid "Titolo Pagina Albo"
+msgstr ""
+
+#: AlboPretorio.php:1330
+msgid "Titolo Filtri"
+msgstr ""
+
+#: AlboPretorio.php:1342
+msgid "Numero Progressivo"
+msgstr ""
+
+#: AlboPretorio.php:1352
+msgid "Cartella Upload<br />organizzazione in Anno/Mese"
+msgstr ""
+
+#: AlboPretorio.php:1356
+msgid "Stile visualizzazione FrontEnd"
+msgstr ""
+
+#: AlboPretorio.php:1358
+msgid ""
+"Selezionare questa opzione per mantenere la visualizzazione classica del "
+"FrontEnd.<br />\n"
+"\t\t\t\t\tSe si deseleziona l'opzione verrà visualizzato il FrontEnd con "
+"layout in linea con le linee guida di"
+msgstr ""
+
+#: AlboPretorio.php:1364
+msgid "Tema compatibile con il Design KIT di Designers Italia"
+msgstr ""
+
+#: AlboPretorio.php:1366
+msgid ""
+"Selezionare questa opzione nel caso in cui si utilizza un tema sviluppato "
+"partendo dal Design KIT di <a href=\"https://designers.italia.it/\">design."
+"italia.it</a> verranno caricati i CSS ed i JS del Kit"
+msgstr ""
+
+#: AlboPretorio.php:1376
+msgid "Righe Atti Annullati"
+msgstr ""
+
+#: AlboPretorio.php:1382
+msgid "Righe Pari"
+msgstr ""
+
+#: AlboPretorio.php:1388
+msgid "Righe Dispari"
+msgstr ""
+
+#: AlboPretorio.php:1405 admin/atti.php:134 admin/atti.php:146
+#: admin/atti.php:158 admin/atti.php:171 admin/atti.php:1051
+#: admin/atti.php:1192
+msgid "Ente"
+msgstr ""
+
+#: AlboPretorio.php:1411 admin/admin.php:35 admin/admin.php:71
+#: admin/atti.php:132 admin/atti.php:144 admin/atti.php:156 admin/atti.php:169
+#: admin/atti.php:980 admin/atti.php:1120
+msgid "Riferimento"
+msgstr ""
+
+#: AlboPretorio.php:1423
+msgid "Validit&agrave;"
+msgstr ""
+
+#: AlboPretorio.php:1429 admin/admin.php:35 admin/admin.php:76
+#: admin/atti.php:139 admin/atti.php:149 admin/atti.php:163 admin/atti.php:175
+#: admin/atti.php:604 admin/atti.php:889 admin/atti.php:1054
+#: admin/atti.php:1195 admin/atti.php:1367 admin/atti.php:1490
+msgid "Categoria"
+msgstr ""
+
+#: AlboPretorio.php:1441 admin/atti.php:596 admin/atti.php:780
+#: admin/atti.php:1042 admin/atti.php:1183 admin/atti.php:1482
+msgid "Data Oblio"
+msgstr ""
+
+#: AlboPretorio.php:1450
+msgid "Pagina Atti Correnti"
+msgstr ""
+
+#: AlboPretorio.php:1468
+msgid "Pagina Albo Storico"
+msgstr ""
+
+#: AlboPretorio.php:1487
+msgid "Pagina Visualizzazione singolo atto"
+msgstr ""
+
+#: AlboPretorio.php:1507
+msgid "Immagine documenti"
+msgstr ""
+
+#: AlboPretorio.php:1511
+msgid "Dimensione max 256x256"
+msgstr ""
+
+#: AlboPretorio.php:1522
+msgid "Abilita il Log sulle Operazioni di gestione degli Oggetti dell'Albo"
+msgstr ""
+
+#: AlboPretorio.php:1524 AlboPretorio.php:1531
+msgid "Si"
+msgstr ""
+
+#: AlboPretorio.php:1525 AlboPretorio.php:1532
+msgid "No"
+msgstr ""
+
+#: AlboPretorio.php:1529
+msgid "Abilita il Log sulle Visualizzazioni/Download degli atti pubblicati"
+msgstr ""
+
+#: AlboPretorio.php:1540 AlboPretorio.php:1557 AlboPretorio.php:1574
+msgid ""
+"Ruoli Abilitati a visualizzare il pulsante per la creazione dello shortcode"
+msgstr ""
+
+#: AlboPretorio.php:1591
+msgid ""
+"Abilita l'inserimento automatico della visualizzazione degli atti nei Bandi "
+"di gara e contratti attraverso il MetaDato CIG"
+msgstr ""
+
+#: AlboPretorio.php:1599
+msgid "No Responsabile"
+msgstr ""
+
+#: AlboPretorio.php:1605
+msgid "Certificato Pubblicazione"
+msgstr ""
+
+#: AlboPretorio.php:1615
+msgid "Responsabile Giudirico Amministrativo"
+msgstr ""
+
+#: AlboPretorio.php:1621 AlboPretorio.php:2062 AlboPretorioFunctions.php:3108
+msgid "Responsabile Procedimento"
+msgstr ""
+
+#: AlboPretorio.php:1628 AlboPretorio.php:2062 AlboPretorioFunctions.php:3108
+msgid "Responsabile Pubblicazione"
+msgstr ""
+
+#: AlboPretorio.php:1641
+msgid "Abilitazione Rest Api"
+msgstr ""
+
+#: AlboPretorio.php:1644
+msgid "Selezionare questa opzione per abilitare le Rest Api per l'Albo"
+msgstr ""
+
+#: AlboPretorio.php:1649
+msgid "Url da abilitare"
+msgstr ""
+
+#: AlboPretorio.php:1652
+msgid ""
+"Inserire l'Url del sito client che in cui viene interrogato l'Albo, per "
+"abilitare la visualizzazione degli allegati"
+msgstr ""
+
+#: AlboPretorio.php:1657
+msgid "Endpoint per le Categorie"
+msgstr ""
+
+#: AlboPretorio.php:1665
+msgid "Endpoint per gli Enti"
+msgstr ""
+
+#: AlboPretorio.php:1673
+msgid "Endpoint per il singolo Atto"
+msgstr ""
+
+#: AlboPretorio.php:1679
+msgid "Numero_atto/Anno_Atto oppure"
+msgstr ""
+
+#: AlboPretorio.php:1684
+msgid "verranno restituiti i dati dell'atto n. 1 del 2018"
+msgstr ""
+
+#: AlboPretorio.php:1685
+msgid "verranno restituiti i dati dell'atto con "
+msgstr ""
+
+#: AlboPretorio.php:1693
+msgid "Endpoint per gli Atti"
+msgstr ""
+
+#: AlboPretorio.php:1699
+msgid "parametro1=valore1&amp;parametro2=valore2 ..."
+msgstr ""
+
+#: AlboPretorio.php:1704
+msgid "verranno restituiti i dati di tutti gli atti correnti"
+msgstr ""
+
+#: AlboPretorio.php:1708
+msgid "Parametro"
+msgstr ""
+
+#: AlboPretorio.php:1709
+msgid "Valore di Default"
+msgstr ""
+
+#: AlboPretorio.php:1710
+msgid "Valori ammissibili"
+msgstr ""
+
+#: AlboPretorio.php:1713
+msgid "stato"
+msgstr ""
+
+#: AlboPretorio.php:1715
+msgid "Numero 1 (atti correnti) o 2 (atti storico)"
+msgstr ""
+
+#: AlboPretorio.php:1720
+msgid "per tutti gli atti dello stato"
+msgstr ""
+
+#: AlboPretorio.php:1725
+msgid "Numero pagina"
+msgstr ""
+
+#: AlboPretorio.php:1729
+msgid "(Nessun filtro sulle categorie)"
+msgstr ""
+
+#: AlboPretorio.php:1730
+msgid "Elenco ID delle Categorie codificate separate da"
+msgstr ""
+
+#: AlboPretorio.php:1734
+msgid "ente principale"
+msgstr ""
+
+#: AlboPretorio.php:1735
+msgid "Ente degli atti"
+msgstr ""
+
+#: AlboPretorio.php:1739
+msgid "(Nessun filtro sul numero)"
+msgstr ""
+
+#: AlboPretorio.php:1740
+msgid "Numero atto"
+msgstr ""
+
+#: AlboPretorio.php:1744
+msgid "(Nessun filtro sull'anno)"
+msgstr ""
+
+#: AlboPretorio.php:1745
+msgid "Anno atto"
+msgstr ""
+
+#: AlboPretorio.php:1749
+msgid "(Nessun filtro sull'oggetto)"
+msgstr ""
+
+#: AlboPretorio.php:1750
+msgid "Oggetto atto"
+msgstr ""
+
+#: AlboPretorio.php:1754
+msgid "(Nessun filtro sul riferimento)"
+msgstr ""
+
+#: AlboPretorio.php:1755
+msgid "Riferimento atti"
+msgstr ""
+
+#: AlboPretorio.php:1759
+msgid "(Nessun filtro sulla data di inizio)"
+msgstr ""
+
+#: AlboPretorio.php:1760
+msgid "Data inizio intervallo di filtro in formato gg/mm/aaaa"
+msgstr ""
+
+#: AlboPretorio.php:1764
+msgid "(Nessun filtro sulla data di fine)"
+msgstr ""
+
+#: AlboPretorio.php:1765
+msgid "Data fine intervallo di filtro in formato gg/mm/aaaa"
+msgstr ""
+
+#: AlboPretorio.php:1773 AlboPretorio.php:2081
+msgid "Salva Modifiche"
+msgstr ""
+
+#: AlboPretorio.php:1899 admin/admin.php:287 admin/admin.php:347
+msgid "Tipo file non definito"
+msgstr ""
+
+#: AlboPretorio.php:1900 admin/admin.php:288
+msgid "File Pdf"
+msgstr ""
+
+#: AlboPretorio.php:1901 admin/admin.php:289
+msgid "File firmato digitalmente"
+msgstr ""
+
+#: AlboPretorio.php:1901 admin/admin.php:289
+msgid ""
+"Verifica firma con servizio fornito da Consiglio Nazionale del Notariato"
+msgstr ""
+
+#: AlboPretorio.php:2062 AlboPretorioFunctions.php:3108
+msgid "Gestore procedura"
+msgstr ""
+
+#: AlboPretorio.php:2062 AlboPretorioFunctions.php:3108
+msgid "Segretario Comunale"
+msgstr ""
+
+#: AlboPretorio.php:2062 AlboPretorioFunctions.php:3108
+msgid "Direttore dei Servizi e Amministrativi"
+msgstr ""
+
+#: AlboPretorioFunctions.php:22 AlboPretorioFunctions.php:27
+#: AlboPretorioFunctions.php:47 AlboPretorioFunctions.php:51
+#: AlboPretorioFunctions.php:66 AlboPretorioFunctions.php:1501
+#: AlboPretorioFunctions.php:2004 AlboPretorioFunctions.php:2010
+#: admin/admin.php:869 admin/admin.php:882
+msgid "Errore"
+msgstr ""
+
+#: AlboPretorioFunctions.php:39
+msgid "Inizio spostamento file"
+msgstr ""
+
+#: AlboPretorioFunctions.php:47
+msgid "nello spostamento dell'Allegato "
+msgstr ""
+
+#: AlboPretorioFunctions.php:48 AlboPretorioFunctions.php:2005
+msgid "Non sono riuscito a copiare il file"
+msgstr ""
+
+#: AlboPretorioFunctions.php:48 AlboPretorioFunctions.php:62
+#: AlboPretorioFunctions.php:216 AlboPretorioFunctions.php:2005
+msgid "in"
+msgstr ""
+
+#: AlboPretorioFunctions.php:51 AlboPretorioFunctions.php:2010
+msgid "errata cancellazione dell'Allegato"
+msgstr ""
+
+#: AlboPretorioFunctions.php:52 AlboPretorioFunctions.php:2011
+msgid "Non sono riuscito a cancellare il file"
+msgstr ""
+
+#: AlboPretorioFunctions.php:54 AlboPretorioFunctions.php:55
+#: AlboPretorioFunctions.php:2013 AlboPretorioFunctions.php:2014
+#: AlboPretorioFunctions.php:2020
+msgid "spostato in"
+msgstr ""
+
+#: AlboPretorioFunctions.php:61 AlboPretorioFunctions.php:2021
+#: AlboPretorioFunctions.php:2106
+msgid "Aggiornamento Link Allegato"
+msgstr ""
+
+#: AlboPretorioFunctions.php:62 AlboPretorioFunctions.php:2022
+msgid "Aggiornato il link nel Data Base per"
+msgstr ""
+
+#: AlboPretorioFunctions.php:66 admin/atti.php:830 admin/atti.php:1297
+msgid "Allegato"
+msgstr ""
+
+#: AlboPretorioFunctions.php:66
+msgid "Inesistente"
+msgstr ""
+
+#: AlboPretorioFunctions.php:160
+msgid "Non risco a Creare il file robots.txt in"
+msgstr ""
+
+#: AlboPretorioFunctions.php:162
+msgid "File robots.txt creato con successo in"
+msgstr ""
+
+#: AlboPretorioFunctions.php:202
+msgid "Non hai il permesso di accedere a questa risorsa"
+msgstr ""
+
+#: AlboPretorioFunctions.php:216
+msgid "Non risco a Creare il file"
+msgstr ""
+
+#: AlboPretorioFunctions.php:218
+msgid "creato con successo in"
+msgstr ""
+
+#: AlboPretorioFunctions.php:226
+msgid "Non risco a Creare il file index.php in"
+msgstr ""
+
+#: AlboPretorioFunctions.php:228
+msgid "File index.php creato con successo in"
+msgstr ""
+
+#: AlboPretorioFunctions.php:277
+msgid "Bandi e gare"
+msgstr ""
+
+#: AlboPretorioFunctions.php:278
+msgid "Contratti - Personale ATA"
+msgstr ""
+
+#: AlboPretorioFunctions.php:279
+msgid "Contratti - Personale Docente"
+msgstr ""
+
+#: AlboPretorioFunctions.php:280
+msgid "Contratti e convenzioni"
+msgstr ""
+
+#: AlboPretorioFunctions.php:281
+msgid "Convocazioni"
+msgstr ""
+
+#: AlboPretorioFunctions.php:282
+msgid "Delibere Consiglio di Istituto"
+msgstr ""
+
+#: AlboPretorioFunctions.php:283
+msgid "Documenti altre P.A."
+msgstr ""
+
+#: AlboPretorioFunctions.php:284
+msgid "Esiti esami"
+msgstr ""
+
+#: AlboPretorioFunctions.php:285
+msgid "Graduatorie"
+msgstr ""
+
+#: AlboPretorioFunctions.php:286
+msgid "Organi collegiali"
+msgstr ""
+
+#: AlboPretorioFunctions.php:287
+msgid "Organi collegiali - Elezioni"
+msgstr ""
+
+#: AlboPretorioFunctions.php:288
+msgid "Privacy"
+msgstr ""
+
+#: AlboPretorioFunctions.php:289
+msgid "Programmi annuali e Consuntivi"
+msgstr ""
+
+#: AlboPretorioFunctions.php:290
+msgid "Regolamenti"
+msgstr ""
+
+#: AlboPretorioFunctions.php:291
+msgid "Sicurezza"
+msgstr ""
+
+#: AlboPretorioFunctions.php:412
+#, php-format
+msgid "Non sono riuscito a creare il campo %s Nella Tabella %s Errore %s "
+msgstr ""
+
+#: AlboPretorioFunctions.php:453
+#, php-format
+msgid "Non sono riuscito a modificare il campo %s Nella Tabella %s Errore %s "
+msgstr ""
+
+#: AlboPretorioFunctions.php:463
+#, php-format
+msgid "Non sono riuscito a modificare il campo %s Nella Tabella %s Errore %s"
+msgstr ""
+
+#: AlboPretorioFunctions.php:847 admin/atti.php:539 admin/atti.php:1007
+#: admin/atti.php:1147
+msgid "Nome Meta"
+msgstr ""
+
+#: AlboPretorioFunctions.php:848 admin/atti.php:540 admin/atti.php:1008
+#: admin/atti.php:1148
+msgid "Valore Meta"
+msgstr ""
+
+#: AlboPretorioFunctions.php:849
+msgid "Elimina riga"
+msgstr ""
+
+#: AlboPretorioFunctions.php:975
+msgid "Non sono riuscito ad inserire la Nuova Categoria"
+msgstr ""
+
+#: AlboPretorioFunctions.php:1040
+msgid "Non sono riuscito a modifire la Categoria"
+msgstr ""
+
+#: AlboPretorioFunctions.php:1054 AlboPretorioFunctions.php:1055
+#: AlboPretorioFunctions.php:1057 AlboPretorioFunctions.php:1107
+#: AlboPretorioFunctions.php:1108 AlboPretorioFunctions.php:1110
+#: AlboPretorioFunctions.php:1541 AlboPretorioFunctions.php:1555
+#: AlboPretorioFunctions.php:1556 AlboPretorioFunctions.php:1558
+#: AlboPretorioFunctions.php:1704 AlboPretorioFunctions.php:1707
+#: AlboPretorioFunctions.php:1708 AlboPretorioFunctions.php:1710
+#: AlboPretorioFunctions.php:1726 AlboPretorioFunctions.php:1729
+#: AlboPretorioFunctions.php:1730 AlboPretorioFunctions.php:1732
+#: AlboPretorioFunctions.php:2119 AlboPretorioFunctions.php:2130
+#: AlboPretorioFunctions.php:2131 AlboPretorioFunctions.php:2133
+msgid "Nessuno"
+msgstr ""
+
+#: AlboPretorioFunctions.php:1143
+msgid "Ci sono"
+msgstr ""
+
+#: AlboPretorioFunctions.php:1143
+msgid "Atti nella Categoria"
+msgstr ""
+
+#: AlboPretorioFunctions.php:1195
+msgid "Cancellazione Categoria"
+msgstr ""
+
+#: AlboPretorioFunctions.php:1356
+#, php-format
+msgid "Non sono riuscito ad inserire il nuovo Atto Sql==%s Ultimo errore==%s"
+msgstr ""
+
+#: AlboPretorioFunctions.php:1394
+msgid "Cancellazione Atto"
+msgstr ""
+
+#: AlboPretorioFunctions.php:1467 AlboPretorioFunctions.php:1475
+msgid "Non sono riuscito a modifire l'Atto"
+msgstr ""
+
+#: AlboPretorioFunctions.php:1478
+msgid "Atto Aggiornato"
+msgstr ""
+
+#: AlboPretorioFunctions.php:1490
+msgid "Atto gia' PUBBLICATO con Numero Progressivo "
+msgstr ""
+
+#: AlboPretorioFunctions.php:1492 AlboPretorioFunctions.php:1501
+msgid "Atto non PUBBLICATO"
+msgstr ""
+
+#: AlboPretorioFunctions.php:1492
+msgid "Progressivo da ultima pubblicazione"
+msgstr ""
+
+#: AlboPretorioFunctions.php:1492
+msgid "Progressivo da parametri"
+msgstr ""
+
+#: AlboPretorioFunctions.php:1504 admin/atti.php:316
+msgid "Pubblicato"
+msgstr ""
+
+#: AlboPretorioFunctions.php:1508 AlboPretorioFunctions.php:1778
+msgid "Atto PUBBLICATO"
+msgstr ""
+
+#: AlboPretorioFunctions.php:1523 admin/atti.php:240 admin/atti.php:276
+#: admin/atti.php:316
+msgid "Annullato"
+msgstr ""
+
+#: AlboPretorioFunctions.php:1767
+#, php-format
+msgid "Atto Originale Id %s Numero %s/%s del %s Pubblicazione dal %s al %s"
+msgstr ""
+
+#: AlboPretorioFunctions.php:1776
+#, php-format
+msgid "Atto Duplicato Id %s Numero %s/%s del %s Pubblicazione dal %s al %s"
+msgstr ""
+
+#: AlboPretorioFunctions.php:1793
+#, php-format
+msgid "    Allegato Originale Id %s Duplicato Id %s Allegato %s"
+msgstr ""
+
+#: AlboPretorioFunctions.php:1795
+#, php-format
+msgid "Atto Id %s Numero %s/%s del %s %s"
+msgstr ""
+
+#: AlboPretorioFunctions.php:1795
+msgid "Annullamento per interruzione del sevizio di pubblicazione"
+msgstr ""
+
+#: AlboPretorioFunctions.php:1799
+msgid "Ripubblicazione effettuata con successo"
+msgstr ""
+
+#: AlboPretorioFunctions.php:1801
+msgid "Ripubblicazione non effettuata a causa del seguente errore"
+msgstr ""
+
+#: AlboPretorioFunctions.php:1918
+msgid "Allegato non modificato"
+msgstr ""
+
+#: AlboPretorioFunctions.php:1933
+msgid "Non sono riuscito ad inserire il nuovo allegato"
+msgstr ""
+
+#: AlboPretorioFunctions.php:2003
+msgid "Errore nello spostamento Allegato"
+msgstr ""
+
+#: AlboPretorioFunctions.php:2004
+msgid "nello spostamento dell'Allegato"
+msgstr ""
+
+#: AlboPretorioFunctions.php:2009
+msgid "Errore nella cancellazione Allegato"
+msgstr ""
+
+#: AlboPretorioFunctions.php:2039 AlboPretorioFunctions.php:2047
+msgid "Errore nella Cancellazione del file"
+msgstr ""
+
+#: AlboPretorioFunctions.php:2045 AlboPretorioFunctions.php:2883
+msgid "Cancellato"
+msgstr ""
+
+#: AlboPretorioFunctions.php:2052
+msgid "non cancellata"
+msgstr ""
+
+#: AlboPretorioFunctions.php:2056 AlboPretorioFunctions.php:2057
+msgid "non vuota"
+msgstr ""
+
+#: AlboPretorioFunctions.php:2061
+msgid "cancellata"
+msgstr ""
+
+#: AlboPretorioFunctions.php:2063 AlboPretorioFunctions.php:2064
+#: AlboPretorioFunctions.php:2068 AlboPretorioFunctions.php:2074
+#: AlboPretorioFunctions.php:2075
+msgid "La directory"
+msgstr ""
+
+#: AlboPretorioFunctions.php:2063 AlboPretorioFunctions.php:2064
+msgid "non e' stata cancellata"
+msgstr ""
+
+#: AlboPretorioFunctions.php:2069
+msgid "non esiste"
+msgstr ""
+
+#: AlboPretorioFunctions.php:2074 AlboPretorioFunctions.php:2075
+msgid ""
+"non essendo una sottocartella della cartella Uploads di sistema, non deve "
+"essere cancellata"
+msgstr ""
+
+#: AlboPretorioFunctions.php:2197
+msgid "Non sono riuscito ad inserire il Nuovo Responsabile"
+msgstr ""
+
+#: AlboPretorioFunctions.php:2246
+msgid "Non sono riuscito a modifire il resposnabile del Trattamento"
+msgstr ""
+
+#: AlboPretorioFunctions.php:2296
+msgid "Tutti gli Enti"
+msgstr ""
+
+#: AlboPretorioFunctions.php:2390
+msgid "Non sono riuscito ad inserire il Nuovo Ente"
+msgstr ""
+
+#: AlboPretorioFunctions.php:2442
+msgid "Non sono riuscito a modifire l'Ente"
+msgstr ""
+
+#: AlboPretorioFunctions.php:2492
+msgid "Errore nell'estrazione della struttura della tabella"
+msgstr ""
+
+#: AlboPretorioFunctions.php:2554
+msgid "cancellato"
+msgstr ""
+
+#: AlboPretorioFunctions.php:2557
+msgid "non può; essere cancellato"
+msgstr ""
+
+#: AlboPretorioFunctions.php:2582 AlboPretorioFunctions.php:2584
+msgid "Risultato del Backup"
+msgstr ""
+
+#: AlboPretorioFunctions.php:2585
+msgid "Verifica struttura Directory destinazione"
+msgstr ""
+
+#: AlboPretorioFunctions.php:2593 AlboPretorioFunctions.php:2604
+#: AlboPretorioFunctions.php:2615 AlboPretorioFunctions.php:2625
+#, php-format
+msgid "Non sono riuscito a creare la directory %s Fine Operazione"
+msgstr ""
+
+#: AlboPretorioFunctions.php:2595 AlboPretorioFunctions.php:2606
+#: AlboPretorioFunctions.php:2617 AlboPretorioFunctions.php:2627
+#, php-format
+msgid "Directory %s Verificata"
+msgstr ""
+
+#: AlboPretorioFunctions.php:2597
+#, php-format
+msgid "Non sono riuscito a creare la directory  %s \\n Fine Operazione"
+msgstr ""
+
+#: AlboPretorioFunctions.php:2608 AlboPretorioFunctions.php:2619
+#: AlboPretorioFunctions.php:2629
+#, php-format
+msgid "Non sono riuscito a creare la directory %s \\n Fine Operazione"
+msgstr ""
+
+#: AlboPretorioFunctions.php:2645
+msgid ""
+"Avvio Backup Dati ed Allegati Albo Pretrorio \n"
+" effettuato in data"
+msgstr ""
+
+#: AlboPretorioFunctions.php:2647
+msgid "Svuotamento tabella"
+msgstr ""
+
+#: AlboPretorioFunctions.php:2650
+msgid "Avvio Backup Dati (Tabelle del Data Base)"
+msgstr ""
+
+#: AlboPretorioFunctions.php:2654 AlboPretorioFunctions.php:2655
+#: AlboPretorioFunctions.php:2656 AlboPretorioFunctions.php:2659
+#: AlboPretorioFunctions.php:2660
+msgid "Tabella"
+msgstr ""
+
+#: AlboPretorioFunctions.php:2654 AlboPretorioFunctions.php:2655
+#: AlboPretorioFunctions.php:2656 AlboPretorioFunctions.php:2659
+#: AlboPretorioFunctions.php:2660 AlboPretorioFunctions.php:2662
+msgid "Aggiunta"
+msgstr ""
+
+#: AlboPretorioFunctions.php:2680 AlboPretorioFunctions.php:2681
+msgid "Aggiunto all'archivio"
+msgstr ""
+
+#: AlboPretorioFunctions.php:2685
+msgid "Avvio Backup Allegati"
+msgstr ""
+
+#: AlboPretorioFunctions.php:2693
+msgid "Aggiunto all'allegato"
+msgstr ""
+
+#: AlboPretorioFunctions.php:2694
+msgid "Aggiunto"
+msgstr ""
+
+#: AlboPretorioFunctions.php:2696
+msgid "Allegato NON Aggiunto, estensione non permessa"
+msgstr ""
+
+#: AlboPretorioFunctions.php:2697
+msgid "NON Aggiunto, estensione non permessa"
+msgstr ""
+
+#: AlboPretorioFunctions.php:2700
+msgid "File Allegato non trovato"
+msgstr ""
+
+#: AlboPretorioFunctions.php:2701
+msgid "NON Aggiunto, file inesistente"
+msgstr ""
+
+#: AlboPretorioFunctions.php:2709
+msgid "Archivio creato con successo"
+msgstr ""
+
+#: AlboPretorioFunctions.php:2718 AlboPretorioFunctions.php:2719
+#: AlboPretorioFunctions.php:2720
+msgid ""
+"Non risulta Installata la libreria per Zippare i files indispensabile per la "
+"procedura"
+msgstr ""
+
+#: AlboPretorioFunctions.php:2853
+msgid "Non riesco a creare le cartelle necessarie all'operazione"
+msgstr ""
+
+#: AlboPretorioFunctions.php:2875
+msgid "all'Atto Cancellati"
+msgstr ""
+
+#: AlboPretorioFunctions.php:2878
+msgid "all'Atto NON Cancellati"
+msgstr ""
+
+#: AlboPretorioFunctions.php:2887
+#, php-format
+msgid ""
+"Impossibile cancellare un Atto che contiene Allegati %%br%%Cancellare prima "
+"gli Allegati e poi riprovare"
+msgstr ""
+
+#: AlboPretorioFunctions.php:2890
+msgid "NON Cancellato"
+msgstr ""
+
+#: AlboPretorioFunctions.php:2895
+#, php-format
+msgid "OPERAZIONE NON AMMESSA! %%br%%l'atto non è ancora da eliminare"
+msgstr ""
+
+#: AlboPretorioFunctions.php:3110
+msgid "Caricamento valori di default avvenuto con successo"
+msgstr ""
+
+#: AlboPretorioWidget.php:16
+msgid ""
+"Grazie a questo widget è possibile visualizzare sulla sidebar le ultime "
+"pubblicazioni dell Albo Pretorio"
+msgstr ""
+
+#: AlboPretorioWidget.php:23
+msgid "Dati Atti"
+msgstr ""
+
+#: AlboPretorioWidget.php:24 AlboPretorioWidget.php:163
+msgid "Atti Correnti"
+msgstr ""
+
+#: AlboPretorioWidget.php:33 AlboPretorioWidget.php:211
+msgid "Titolo widget"
+msgstr ""
+
+#: AlboPretorioWidget.php:39
+msgid "Titolo cartella dati atti correnti"
+msgstr ""
+
+#: AlboPretorioWidget.php:45
+msgid "Titolo lista atti correnti"
+msgstr ""
+
+#: AlboPretorioWidget.php:51 AlboPretorioWidget.php:217
+msgid "Numero Atti da visualizzare"
+msgstr ""
+
+#: AlboPretorioWidget.php:58 AlboPretorioWidget.php:224
+msgid "Pagina Albo"
+msgstr ""
+
+#: AlboPretorioWidget.php:61 AlboPretorioWidget.php:227
+msgid "Seleziona la pagina"
+msgstr ""
+
+#: AlboPretorioWidget.php:77 AlboPretorioWidget.php:243
+msgid "Ordine Elenco"
+msgstr ""
+
+#: AlboPretorioWidget.php:80 AlboPretorioWidget.php:246
+msgid "In base a"
+msgstr ""
+
+#: AlboPretorioWidget.php:83 AlboPretorioWidget.php:249
+msgid "Data Pubblicazione"
+msgstr ""
+
+#: AlboPretorioWidget.php:84 AlboPretorioWidget.php:250
+msgid "Data Scadenza"
+msgstr ""
+
+#: AlboPretorioWidget.php:90 AlboPretorioWidget.php:256
+msgid "Ordine"
+msgstr ""
+
+#: AlboPretorioWidget.php:93 AlboPretorioWidget.php:259
+msgid "Crescente"
+msgstr ""
+
+#: AlboPretorioWidget.php:94 AlboPretorioWidget.php:260
+msgid "Decrescente"
+msgstr ""
+
+#: AlboPretorioWidget.php:148 AlboPretorioWidget.php:308
+msgid "Nessun Atto Codificato"
+msgstr ""
+
+#: AlboPretorioWidget.php:153 AlboPretorioWidget.php:313
+msgid "Le righe evidenziate con questo sfondo"
+msgstr ""
+
+#: AlboPretorioWidget.php:153 AlboPretorioWidget.php:313
+msgid "indicano Atti Annullati"
+msgstr ""
+
+#: AlboPretorioWidget.php:164
+msgid "di cui Annullati"
+msgstr ""
+
+#: AlboPretorioWidget.php:196
+msgid ""
+"Grazie a questo widget &eacute; possibile visualizzare gli atti correnti "
+"dell'Albo Pretorio"
+msgstr ""
+
+#: AlboPretorioWidget.php:202
+msgid "Albo On Line Ultimi Atti"
+msgstr ""
+
+#: AlboPretorioWidget.php:275
+msgid "Albo Pretorio"
+msgstr ""
+
+#: admin/admin.php:26
+msgid " File non trovato"
+msgstr ""
+
+#: admin/admin.php:35 admin/admin.php:70 admin/atti.php:725
+msgid "Numero Atto"
+msgstr ""
+
+#: admin/admin.php:35 admin/admin.php:73
+msgid "Data Inizio"
+msgstr ""
+
+#: admin/admin.php:35 admin/admin.php:74
+msgid "Data Fine"
+msgstr ""
+
+#: admin/admin.php:35 admin/admin.php:77 admin/atti.php:564 admin/atti.php:1450
+msgid "Data Annullamento"
+msgstr ""
+
+#: admin/admin.php:35 admin/admin.php:78 admin/atti.php:568 admin/atti.php:1454
+msgid "Motivo Annullamento"
+msgstr ""
+
+#: admin/admin.php:127 admin/admin.php:135 admin/admin.php:142
+#: admin/admin.php:150 admin/admin.php:157 admin/admin.php:164
+msgid "Problemi di sicurezza"
+msgstr ""
+
+#: admin/admin.php:187
+msgid "Operazione Annullata"
+msgstr ""
+
+#: admin/admin.php:372 admin/admin.php:433 admin/admin.php:483
+msgid "Email non valida"
+msgstr ""
+
+#: admin/admin.php:432 admin/admin.php:482
+msgid "Bisogna valorizzare il Nome dell'Ente"
+msgstr ""
+
+#: admin/admin.php:484
+msgid "PEC non valida"
+msgstr ""
+
+#: admin/admin.php:836
+msgid "File associato"
+msgstr ""
+
+#: admin/admin.php:836 admin/admin.php:879
+msgid "Percorso completo"
+msgstr ""
+
+#: admin/admin.php:849
+msgid "Allegati caricati n."
+msgstr ""
+
+#: admin/admin.php:858
+msgid "Dimensione"
+msgstr ""
+
+#: admin/admin.php:860
+msgid "File non selezionato Oppure operazione annullata"
+msgstr ""
+
+#: admin/admin.php:863
+msgid "Tipo file non valido"
+msgstr ""
+
+#: admin/admin.php:866
+#, php-format
+msgid "Il file caricato è di %s Mb, il limite massimo è di %s Mb"
+msgstr ""
+
+#: admin/admin.php:879
+msgid "File caricato"
+msgstr ""
+
+#: admin/admin.php:879 admin/categorie.php:137
+msgid "Nome"
+msgstr ""
+
+#: admin/admin.php:882
+msgid "Il File non caricato"
+msgstr ""
+
+#: admin/allegati.php:14 admin/atti.php:523 admin/atti.php:681
+#: admin/atti.php:965 admin/atti.php:1104 admin/atti.php:1243
+#: admin/atti.php:1407
+msgid "Torna indietro"
+msgstr ""
+
+#: admin/allegati.php:15
+msgid "Associa nuovo Allegato con file precedentemente caricato"
+msgstr ""
+
+#: admin/allegati.php:30 admin/atti.php:1267
+msgid "Dati Allegato"
+msgstr ""
+
+#: admin/allegati.php:35 admin/atti.php:1272
+msgid "Descrizione Allegato"
+msgstr ""
+
+#: admin/allegati_multi.php:31
+msgid "Seleziona gli allegati da caricare"
+msgstr ""
+
+#: admin/allegati_multi.php:35
+msgid "Nessun file selezionato per il caricamento"
+msgstr ""
+
+#: admin/allegati_multi.php:38
+msgid "Carica"
+msgstr ""
+
+#: admin/allegati_multi.php:70
+msgid ""
+"Tipo di file non permesso. Riprova selezionando un file con estensione "
+"diversa."
+msgstr ""
+
+#: admin/atti.php:131 admin/atti.php:155 admin/atti.php:168
+msgid "Numero"
+msgstr ""
+
+#: admin/atti.php:135 admin/atti.php:147 admin/atti.php:159 admin/atti.php:1502
+msgid "Meta Dati"
+msgstr ""
+
+#: admin/atti.php:136 admin/atti.php:148 admin/atti.php:160 admin/atti.php:172
+msgid "Del"
+msgstr ""
+
+#: admin/atti.php:137 admin/atti.php:161 admin/atti.php:173
+msgid "Validità Dal/Al"
+msgstr ""
+
+#: admin/atti.php:138 admin/atti.php:162 admin/atti.php:174 admin/atti.php:291
+msgid "Oblio"
+msgstr ""
+
+#: admin/atti.php:233 admin/atti.php:839 admin/atti.php:1312
+msgid "Visualizza dati atto"
+msgstr ""
+
+#: admin/atti.php:239
+msgid "Scaduto"
+msgstr ""
+
+#: admin/atti.php:245 admin/atti.php:298
+msgid "Cancella Atto"
+msgstr ""
+
+#: admin/atti.php:251 admin/atti.php:304 admin/atti.php:1309
+msgid "Modifica atto"
+msgstr ""
+
+#: admin/atti.php:259 admin/atti.php:312
+msgid "Pubblica atto"
+msgstr ""
+
+#: admin/atti.php:262 admin/atti.php:295
+msgid "Da Pubblicare"
+msgstr ""
+
+#: admin/atti.php:267 admin/atti.php:278
+msgid "Gestisci metadati Atto"
+msgstr ""
+
+#: admin/atti.php:271
+msgid "Stampa Avviso di Affissione"
+msgstr ""
+
+#: admin/atti.php:281
+msgid "Stampa Certificato Pubblicazione"
+msgstr ""
+
+#: admin/atti.php:288
+msgid "Oblio Atto"
+msgstr ""
+
+#: admin/atti.php:322
+msgid "Annulla atto"
+msgstr ""
+
+#: admin/atti.php:330
+msgid "Ente non definito"
+msgstr ""
+
+#: admin/atti.php:370
+msgid "Non Definita"
+msgstr ""
+
+#: admin/atti.php:382
+msgid "Elimina"
+msgstr ""
+
+#: admin/atti.php:431
+#, php-format
+msgid "Anno Albo settato a %s Numero progressivo settato a 0"
+msgstr ""
+
+#: admin/atti.php:436 admin/atti.php:442 admin/atti.php:445
+msgid "Modifica in Approvazione"
+msgstr ""
+
+#: admin/atti.php:536 admin/atti.php:1004 admin/atti.php:1144
+msgid "Meta Dati Personalizzati"
+msgstr ""
+
+#: admin/atti.php:538 admin/atti.php:1006 admin/atti.php:1146
+msgid "Meta già codificati"
+msgstr ""
+
+#: admin/atti.php:546
+msgid "Memorizza Modifiche MetaDati Atto"
+msgstr ""
+
+#: admin/atti.php:558 admin/atti.php:1445
+msgid "Ente emittente"
+msgstr ""
+
+#: admin/atti.php:572 admin/atti.php:861 admin/atti.php:1019
+#: admin/atti.php:1159 admin/atti.php:1335 admin/atti.php:1458
+msgid "Numero Albo"
+msgstr ""
+
+#: admin/atti.php:580 admin/atti.php:869 admin/atti.php:1343
+#: admin/atti.php:1466
+msgid "Codice di Riferimento"
+msgstr ""
+
+#: admin/atti.php:588 admin/atti.php:877 admin/atti.php:1033
+#: admin/atti.php:1173 admin/atti.php:1351 admin/atti.php:1474
+msgid "Data inizio Pubblicazione"
+msgstr ""
+
+#: admin/atti.php:592 admin/atti.php:881 admin/atti.php:1036
+#: admin/atti.php:1177 admin/atti.php:1355 admin/atti.php:1478
+msgid "Data fine Pubblicazione"
+msgstr ""
+
+#: admin/atti.php:608 admin/atti.php:1060 admin/atti.php:1201
+#: admin/atti.php:1371 admin/atti.php:1508
+msgid "Soggetti"
+msgstr ""
+
+#: admin/atti.php:646 admin/atti.php:1548
+msgid "File non trovato, il file è stato cancellato o spostato!"
+msgstr ""
+
+#: admin/atti.php:661
+msgid ""
+"Questa Operazione non ti è consentita, operazione di pertinenza "
+"dell'amministratore dell'Albo o del redattore"
+msgstr ""
+
+#: admin/atti.php:674
+msgid "Validato perchè primo atto dopo la MIGRAZIONE"
+msgstr ""
+
+#: admin/atti.php:686
+msgid "Approvazione Atto"
+msgstr ""
+
+#: admin/atti.php:707 admin/atti.php:829 admin/atti.php:1296
+msgid "Operazioni"
+msgstr ""
+
+#: admin/atti.php:712
+msgid "Anno Atto"
+msgstr ""
+
+#: admin/atti.php:716 admin/atti.php:729 admin/atti.php:743 admin/atti.php:763
+#: admin/atti.php:765 admin/atti.php:785 admin/atti.php:787 admin/atti.php:799
+msgid "Ok"
+msgstr ""
+
+#: admin/atti.php:719 admin/atti.php:732
+msgid "Verificata incongruenza, bisogna rimediare prima di proseguire"
+msgstr ""
+
+#: admin/atti.php:726
+#, php-format
+msgid "da Parametri %s Progressivo da ultima pubblicazione"
+msgstr ""
+
+#: admin/atti.php:733
+msgid "Imposta Parametro a"
+msgstr ""
+
+#: admin/atti.php:739
+msgid "Data Inizio Pubblicazione"
+msgstr ""
+
+#: admin/atti.php:746
+msgid "Aggiornare la data di Inizio Pubblicazione"
+msgstr ""
+
+#: admin/atti.php:747 admin/atti.php:771 admin/atti.php:788 admin/atti.php:1044
+#: admin/atti.php:1185
+msgid "Aggiorna a"
+msgstr ""
+
+#: admin/atti.php:758
+msgid "Data Fine Pubblicazione"
+msgstr ""
+
+#: admin/atti.php:759
+#, php-format
+msgid ""
+"%s Giorni Pubblicazione Atto %s Giorni Pubblicazione standard Categoria %s"
+msgstr ""
+
+#: admin/atti.php:770
+msgid "Aggiornare la data di Fine Pubblicazione"
+msgstr ""
+
+#: admin/atti.php:781
+#, php-format
+msgid "%s - Data Oblio da Decreto n. 33/2013 art. 8 %s"
+msgstr ""
+
+#: admin/atti.php:802
+msgid "Da revisionare"
+msgstr ""
+
+#: admin/atti.php:803
+msgid "Inserisci Allegato"
+msgstr ""
+
+#: admin/atti.php:852 admin/atti.php:856 admin/atti.php:1330
+#: admin/atti.php:1440
+msgid "Dati atto"
+msgstr ""
+
+#: admin/atti.php:958 admin/atti.php:1096
+msgid "Validazione Dati"
+msgstr ""
+
+#: admin/atti.php:959 admin/atti.php:1097 admin/categorie.php:23
+msgid "Lista Campi con Errori"
+msgstr ""
+
+#: admin/atti.php:959 admin/atti.php:1099 admin/categorie.php:23
+msgid "Correggere gli errori per continuare"
+msgstr ""
+
+#: admin/atti.php:964 admin/atti.php:1103 admin/atti.php:1242
+msgid "Atti"
+msgstr ""
+
+#: admin/atti.php:967 admin/atti.php:1106 admin/categorie.php:128
+msgid "i campi contrassegnati dall'asterisco sono <strong>obbligatori</strong>"
+msgstr ""
+
+#: admin/atti.php:969
+msgid "Nuovo Atto"
+msgstr ""
+
+#: admin/atti.php:982 admin/atti.php:1122
+msgid "Codice di riferimento dell'atto, es. N. Protocollo"
+msgstr ""
+
+#: admin/atti.php:987 admin/atti.php:1127
+msgid "Descrizione sintetica dell'atto"
+msgstr ""
+
+#: admin/atti.php:1000
+msgid "Eventuali note a corredo dell'atto"
+msgstr ""
+
+#: admin/atti.php:1004 admin/atti.php:1144
+msgid "Aggiungi Meta Valore"
+msgstr ""
+
+#: admin/atti.php:1009 admin/atti.php:1149
+msgid "Aggiungi"
+msgstr ""
+
+#: admin/atti.php:1009 admin/atti.php:1149
+msgid "Anulla"
+msgstr ""
+
+#: admin/atti.php:1017 admin/atti.php:1157
+msgid "Memorizza"
+msgstr ""
+
+#: admin/atti.php:1023
+msgid "Memorizza Atto"
+msgstr ""
+
+#: admin/atti.php:1028 admin/atti.php:1168
+msgid "Date"
+msgstr ""
+
+#: admin/atti.php:1030 admin/atti.php:1170
+msgid "Data di codifica dell'atto"
+msgstr ""
+
+#: admin/atti.php:1033 admin/atti.php:1173
+msgid ""
+"Data in cui inizia a validità legale dell'atto. Viene impostata "
+"automaticamente in fase di pubblicazione"
+msgstr ""
+
+#: admin/atti.php:1036 admin/atti.php:1177
+msgid "Data fine validità legale dell'atto"
+msgstr ""
+
+#: admin/atti.php:1039 admin/atti.php:1180
+msgid ""
+"Data in cui l'atto viene eliminato dall'archivio, in base al Decreto n. "
+"33/2013 art.8:<br />5 anni, decorrenti dal 1° gennaio dell'anno successivo a "
+"quello\n"
+"da cui decorre l'obbligo di pubblicazione, e comunque fino a che gli atti "
+"pubblicati producono i loro effetti,\n"
+"fatti salvi i diversi termini previsti dalla normativa in materia di "
+"trattamento dei dati personali e quanto\n"
+"previsto dagli articoli 14, comma 2, e 15, comma 4"
+msgstr ""
+
+#: admin/atti.php:1049 admin/atti.php:1190
+msgid "Meta dati"
+msgstr ""
+
+#: admin/atti.php:1051 admin/atti.php:1192
+msgid ""
+"Ente che pubblica l'atto; potrebbe essere diverso dall'ente titolare del "
+"sito web se la pubblicazione avviene per conto di altro ente"
+msgstr ""
+
+#: admin/atti.php:1054 admin/atti.php:1195
+msgid ""
+"Categoria in cui viene collocato l'atto, questo sistema permette di "
+"ragguppare gli oggetti in base alla lor natura"
+msgstr ""
+
+#: admin/atti.php:1062 admin/atti.php:1203
+msgid ""
+"In questo spazio bisogna codificare i soggetti che sono coinvolti in questo "
+"atto possono essere specificati più soggetti"
+msgstr ""
+
+#: admin/atti.php:1108
+msgid "Modifica Atto"
+msgstr ""
+
+#: admin/atti.php:1163
+msgid "Memorizza Modifiche Atto"
+msgstr ""
+
+#: admin/atti.php:1170
+msgid "viene inserita automaticamente nel momento in cui viene creato"
+msgstr ""
+
+#: admin/atti.php:1244
+msgid "Allegati Atto"
+msgstr ""
+
+#: admin/atti.php:1258
+msgid "Modifica Allogato"
+msgstr ""
+
+#: admin/atti.php:1281
+msgid "Aggiorna Allegato"
+msgstr ""
+
+#: admin/atti.php:1282
+msgid "Annulla Operazione"
+msgstr ""
+
+#: admin/atti.php:1290 admin/categorie.php:28
+msgid "Aggiungi nuovo"
+msgstr ""
+
+#: admin/atti.php:1290
+msgid "Associa file"
+msgstr ""
+
+#: admin/atti.php:1306
+msgid "Cancella atto"
+msgstr ""
+
+#: admin/atti.php:1326
+msgid "Dati Atto"
+msgstr ""
+
+#: admin/atti.php:1359
+msgid "Data oblio"
+msgstr ""
+
+#: admin/atti.php:1408
+msgid "Visualizza dati Atto"
+msgstr ""
+
+#: admin/atti.php:1418
+msgid "Atto"
+msgstr ""
+
+#: admin/atti.php:1420
+msgid "Statistiche Visite"
+msgstr ""
+
+#: admin/atti.php:1421
+msgid "Statistiche Download"
+msgstr ""
+
+#: admin/categorie.php:11
+msgid "Elemento aggiunto."
+msgstr ""
+
+#: admin/categorie.php:12
+msgid "Elemento cancellato."
+msgstr ""
+
+#: admin/categorie.php:13
+msgid "Elemento aggiornato."
+msgstr ""
+
+#: admin/categorie.php:14
+msgid "Elemento non aggiunto."
+msgstr ""
+
+#: admin/categorie.php:15
+msgid "Elemento non aggiornato."
+msgstr ""
+
+#: admin/categorie.php:16
+msgid "Elemento non cancellato."
+msgstr ""
+
+#: admin/categorie.php:17
+msgid ""
+"Impossibile cancellare Categorie che contengono Categorie Figlio. Cancellare "
+"prima i Figli"
+msgstr ""
+
+#: admin/categorie.php:18
+msgid "Impossibile cancellare Categorie che sono collegate ad Atti"
+msgstr ""
+
+#: admin/categorie.php:19
+msgid "Bisogna assegnare il nome alla nuova categoria"
+msgstr ""
+
+#: admin/categorie.php:27
+msgid "Categorie Atti"
+msgstr ""
+
+#: admin/categorie.php:47
+msgid "Elenco Categorie codificate"
+msgstr ""
+
+#: admin/categorie.php:68
+msgid "Cancella categoria"
+msgstr ""
+
+#: admin/categorie.php:75
+msgid "Modifica categoria"
+msgstr ""
+
+#: admin/categorie.php:81
+msgid "Nessuna Categoria Codificata"
+msgstr ""
+
+#: admin/categorie.php:139
+msgid "Nome della categoria."
+msgstr ""
+
+#: admin/categorie.php:142
+msgid "Parente di"
+msgstr ""
+
+#: admin/categorie.php:150
+msgid ""
+"Se si sta creando una sottocategoria, selezionare il genitore. Questo "
+"sistema permette di creare una struttura gerarchica di categorie."
+msgstr ""
+
+#: admin/categorie.php:155
+msgid "Breve descrizione della categoria"
+msgstr ""
+
+#: admin/categorie.php:160
+msgid ""
+"Durata di default, espressa in giorni, di validità degli atti di questa "
+"categoria"
+msgstr ""
+
+#: admin/categorie.php:167
+msgid "Aggiungi nuova Categoria"
+msgstr ""
+
+#: admin/enti.php:12 admin/responsabili.php:12 admin/soggetti.php:12
+#: admin/tabelle.php:35 admin/tipidifiles.php:12
+msgid "Item added."
+msgstr ""
+
+#: admin/enti.php:13 admin/responsabili.php:13 admin/soggetti.php:13
+#: admin/tabelle.php:36 admin/tipidifiles.php:13
+msgid "Item deleted."
+msgstr ""
+
+#: admin/enti.php:14 admin/responsabili.php:14 admin/soggetti.php:14
+#: admin/tabelle.php:37 admin/tipidifiles.php:14
+msgid "Item updated."
+msgstr ""
+
+#: admin/enti.php:16 admin/responsabili.php:16 admin/soggetti.php:16
+#: admin/tabelle.php:39 admin/tipidifiles.php:16
+msgid "Item not updated."
+msgstr ""
+
+#: admin/enti.php:17 admin/responsabili.php:17 admin/soggetti.php:17
+#: admin/tabelle.php:40 admin/tipidifiles.php:17
+msgid "Item not deleted."
+msgstr ""
+
+#: admin/enti.php:18 admin/tabelle.php:41
+msgid "Impossibile cancellare Enti che sono collegati ad Atti"
+msgstr ""
+
+#: admin/responsabili.php:15 admin/soggetti.php:15 admin/tipidifiles.php:15
+msgid "Item not added."
+msgstr ""
+
+#: admin/responsabili.php:18
+msgid "Impossibile cancellare Responsabili che sono collegati ad Atti"
+msgstr ""
+
+#: admin/soggetti.php:18
+msgid "Impossibile cancellare Soggetti che sono collegati ad Atti"
+msgstr ""
+
+#: admin/tipidifiles.php:18
+msgid "Impossibile cancellare i Tipi di files che sono collegati ad Atti"
+msgstr ""
+
+#: admin/tipidifiles.php:19
+msgid "Impossibile creare il Tipo di file perchè mancano dati obbligatori"
+msgstr ""
+
+#: js/buttonEditorGruppiAlbo.php:21 js/buttonEditorVisAtto.php:21
+#: js/gencode.php:21
+msgid "You are not allowed to access this file."
+msgstr ""

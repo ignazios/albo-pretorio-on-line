@@ -89,3 +89,8 @@ transform-origin: 50% 50% 0;
 h3{
     margin: 10px 0 10px 0;
 }
+.evidenziato{
+	font-weight: bold;
+	font-size:1.2em;
+	color:red;
+}

@@ -2,31 +2,34 @@
 /**
  * Gestione Soggetti Procedimento.
  * @link       http://www.eduva.org
- * @since      4.4.4
+ * @since      4.4.5
  *
  * @package    Albo On Line
  */
 
 if(preg_match('#' . basename(__FILE__) . '#', $_SERVER['PHP_SELF'])) { die('You are not allowed to call this page directly.'); }
 
-$messages[1] = __('Item added.');
-$messages[2] = __('Item deleted.');
-$messages[3] = __('Item updated.');
-$messages[4] = __('Item not added.');
-$messages[5] = __('Item not updated.');
-$messages[6] = __('Item not deleted.');
-$messages[7] = __('Impossibile cancellare Soggetti che sono collegati ad Atti');
-$messages[80] = 'ATTENZIONE. Rilevato potenziale pericolo di attacco informatico, l\'operazione &egrave; stata annullata';
+$messages[1] = __('Elemento aggiunto.','albo-online');
+$messages[2] = __('Elemento cancellato.','albo-online');
+$messages[3] = __('Elemento aggiornato.','albo-online');
+$messages[4] = __('Elemento non aggiunto.','albo-online');
+$messages[5] = __('Elemento non aggiornato.','albo-online');
+$messages[6] = __('Elemento non cancellato.','albo-online');
+$messages[7] = __('Impossibile cancellare Soggetti che sono collegati ad Atti','albo-online');
+$messages[80] = __("ATTENZIONE. Rilevato potenziale pericolo di attacco informatico, l'operazione è stata annullata","albo-online");
 ?>
-<div id="errori" title="Validazione Dati" style="display:none">
-  <h3>Lista Campi con Errori:</h3><p id="ElencoCampiConErrori"></p><p style='color:red;font-weight: bold;'>Correggere gli errori per continuare</p>
+<div id="errori" title="<?php _e("Validazione Dati","albo-online");?>" style="display:none">
+  <h3><?php _e("Lista Campi con Errori","albo-online");?>:</h3>
+  	<p id="ElencoCampiConErrori"></p>
+  	<p style='color:red;font-weight: bold;'><?php  _e("Correggere gli errori per continuare","albo-online");?></p>
 </div>
 <div class="wrap nosubsub">
 	<div class="HeadPage">
-		<h2 class="wp-heading-inline"><span class="dashicons dashicons-businessman" style="font-size: 1.1em;"></span> Soggetti Procedimento
-		<a href="?page=soggetti" class="add-new-h2">Aggiungi nuovo</a></h2>
+		<h2 class="wp-heading-inline"><span class="dashicons dashicons-businessman" style="font-size: 1.1em;"></span> <?php _e("Soggetti Procedimento","albo-online");?>
+		<a href="?page=soggetti" class="add-new-h2"><?php _e("Aggiungi nuovo","albo-online");?></a></h2>
 	</div>
 <?php
+$SoggettiAtti=ap_get_NumAttiSoggetti();
 $NC="";
 if (isset($_REQUEST['action']) And $_REQUEST['action']=="delete-responsabile"){
 	if (!isset($_REQUEST['cancresp'])) {
@@ -35,9 +38,8 @@ if (isset($_REQUEST['action']) And $_REQUEST['action']=="delete-responsabile"){
 		if (!wp_verify_nonce($_REQUEST['cancresp'],'deleteresponsabile')){
 			$NC=$messages[80];
 		}else{
-			$risultato=ap_del_responsabile((int)$_REQUEST['id']);
-			if(is_array($risultato)){
-				$NC="Il Soggetto non pu&oacute; essere cancellato perch&egrave; ci sono ".$risultato["atti"]." atti a lui assegnati";
+			if($SoggettiAtti[(int)$_REQUEST['id']]>0){
+				$NC=__('Impossibile cancellare Soggetti che sono collegati ad Atti','albo-online');
 			}
 		}
 	}	
@@ -61,11 +63,11 @@ if (isset($_REQUEST['action']) And $_REQUEST['action']=="edit"){
 <div id="col-container">
 <div id="col-right">
 <div class="col-wrap">
-<h3>Elenco Soggetti</h3>
+<h3><?php  _e("Elenco Soggetti","albo-online");?></h3>
 <table class="widefat" id="elenco-responsabili"> 
     <thead>
     	<tr>
-        	<th scope="col" style="text-align:center;">Responsabili</th>
+        	<th scope="col" style="text-align:center;"><?php  _e("Soggetti","albo-online");?></th>
 		</tr>
     </thead>
     <tbody id="the-list">
@@ -79,21 +81,21 @@ if ($lista){
 		$Funzione=ap_get_Funzione_Responsabile($riga->Funzione,"Descrizione");
 		echo'<li style="text-align:left;padding-left:1px;">';
 		$Tab=0;
-		if(ap_num_responsabili_atto($riga->IdResponsabile)==0)
+		if(ap_get_NumAttiSoggetto($riga->IdResponsabile)==0)
 			echo '<span class="cancella"><a href="?page=soggetti&amp;action=delete-responsabile&amp;id='.$riga->IdResponsabile.'&amp;cancresp='.wp_create_nonce('deleteresponsabile').'" rel="'.$riga->Cognome.'" class="dr">
-			<span class="dashicons dashicons-trash" title="Cancella soggetto"></span>
+			<span class="dashicons dashicons-trash" title="'.__("Cancella soggetto","albo-online").'"></span>
 			</a></span>';
 		else
 			$Tab=23;
 		echo '
 			<a href="?page=soggetti&amp;action=edit-responsabile&amp;id='.$riga->IdResponsabile.'&amp;modresp='.wp_create_nonce('editresponsabile').'" rel="'.$riga->Cognome.'">
-			<span class="dashicons dashicons-edit" title="Modifica soggettoSoggett" style="margin-left:'.$Tab.'px;"></span>
+			<span class="dashicons dashicons-edit" title="'.__("Modifica soggetto","albo-online").'" style="margin-left:'.$Tab.'px;"></span>
 			</a>
-			('.$riga->IdResponsabile.') '.$riga->Cognome .' (n&ordm; atti '.ap_num_responsabili_atto($riga->IdResponsabile).') <strong>'.$Funzione.'</strong>
+			('.$riga->IdResponsabile.') '.$riga->Cognome .' (n&ordm; atti '.(isset($SoggettiAtti[$riga->IdResponsabile])?$SoggettiAtti[$riga->IdResponsabile]:0).') <strong>'.$Funzione.'</strong>
 			</li>'; 
 	}
 } else {
-		echo '<li>Nessun Soggetto Codificato</li>';
+		echo '<li>'.__("Nessun Soggetto Codificato","albo-online").'</li>';
 }
 echo '</td>
 	</tr>
@@ -108,22 +110,23 @@ echo'
 	<table class="widefat">
 	    <thead>
 		<tr>
-			<th style="font-size:1.2em;">Data</th>
-			<th style="font-size:1.2em;">Operazione</th>
-			<th style="font-size:1.2em;">Informazioni</th>
+			<th style="font-size:1.2em;">'.__("Data","albo-online").'</th>
+			<th style="font-size:1.2em;">'.__("Operazione","albo-online").'</th>
+			<th style="font-size:1.2em;">'.__("Informazioni","albo-online").'</th>
 		</tr>
 	    </thead>
 	    <tbody id="righe-log">';
 foreach ($righe as $riga) {
 	switch ($riga->TipoOperazione){
 	 	case 1:
-	 		$Operazione="Inserimento";
+	 	case 1:
+	 		$Operazione=__("Inserimento","albo-online");
 	 		break;
 	 	case 2:
-	 		$Operazione="Modifica";
+	 		$Operazione=__("Modifica","albo-online");
 			break;
 	 	case 3:
-	 		$Operazione="Cancellazione";
+	 		$Operazione=__("Cancellazione","albo-online");
 			break;
 	}
 	echo '<tr  title="'.$riga->Utente.' da '.$riga->IPAddress.'">
@@ -140,7 +143,7 @@ echo '    </tbody>
 
 <div id="col-left">
 	<div class="Obbligatori">
-		<span style="color:red;font-weight: bold;">*</span> i campi contrassegnati dall'asterisco sono <strong>obbligatori</strong>
+		<span style="color:red;font-weight: bold;">*</span> <?php printf(__("i campi contrassegnati dall'asterisco sono %s obbligatori %s","albo-online"),"<strong>","</strong>");?>
 	</div>
 <div class="form-wrap">
 <form id="addtag" method="post" action="?page=soggetti" class="<?php if($edit) echo "edit"; else echo "validate"; ?>"  >
@@ -149,42 +152,42 @@ echo '    </tbody>
 	<input type="hidden" name="responsabili" value="<?php echo wp_create_nonce('elabresponsabili')?>" />
 
 <div class="form-field form-required">
-	<label for="resp-cognome">Cognome<span style="color:red;font-weight: bold;">*</span></label>
-	<input name="resp-cognome" id="resp-cognome" type="text" value="<?php if($edit) echo stripslashes($risultato[0]->Cognome); else echo htmlentities((isset($_GET['resp-cognome'])?$_GET['resp-cognome']:"")); ?>" size="20" alt="Cognome Responsabile" class="richiesto" />
+	<label for="resp-cognome"><?php _e("Cognome","albo-online");?><span style="color:red;font-weight: bold;">*</span></label>
+	<input name="resp-cognome" id="<?php _e("Cognome","albo-online");?>" type="text" value="<?php if($edit) echo stripslashes($risultato[0]->Cognome); else echo htmlentities((isset($_GET['resp-cognome'])?$_GET['resp-cognome']:"")); ?>" size="20" class="richiesto" />
 </div>
 <div class="form-field form-required">
-	<label for="resp-nome">Nome <span style="color:red;font-weight: bold;">*</span></label>
-	<input name="resp-nome" id="resp-nome" type="text" value="<?php if($edit) echo stripslashes($risultato[0]->Nome); else echo htmlentities((isset($_GET['resp-nome'])?$_GET['resp-nome']:"")); ?>" size="20" alt="Nome Responsabile" class="richiesto" />
+	<label for="resp-nome"><?php _e("Nome","albo-online");?> <span style="color:red;font-weight: bold;">*</span></label>
+	<input name="resp-nome" id="<?php _e("Nome","albo-online");?>" type="text" value="<?php if($edit) echo stripslashes($risultato[0]->Nome); else echo htmlentities((isset($_GET['resp-nome'])?$_GET['resp-nome']:"")); ?>" size="20" class="richiesto" />
 </div>
 <div class="form-field form-required">
-	<label for="resp-funzione">Funzione</label>
+	<label for="resp-funzione"><?php _e("Funzione","albo-online");?></label>
 	<?php echo ap_get_Funzioni_Responsabili($Output="Select",$ID="resp-funzione",$Name="resp-funzione",$Selezionato=($edit)?$risultato[0]->Funzione:"");?>
 <div class="form-field form-required">
-	<label for="resp-email">Email <span style="color:red;font-weight: bold;">*</span></label>
-	<input name="resp-email" id="resp-email" type="text" value="<?php if($edit) echo stripslashes($risultato[0]->Email); else echo htmlentities((isset($_GET['resp-email'])?$_GET['resp-email']:""));?>" size="100" alt="Email Responsabile" class="richiesto" />
+	<label for="resp-email"><?php _e("Email","albo-online");?> <span style="color:red;font-weight: bold;">*</span></label>
+	<input name="resp-email" id="<?php _e("Email","albo-online");?>" type="text" value="<?php if($edit) echo stripslashes($risultato[0]->Email); else echo htmlentities((isset($_GET['resp-email'])?$_GET['resp-email']:""));?>" size="100" class="richiesto" />
 </div>
 <div class="form-field form-required">
-	<label for="resp-telefono">Telefono</label>
+	<label for="resp-telefono"><?php _e("Telefono","albo-online");?></label>
 	<input name="resp-telefono" id="resp-telefono" type="text" value="<?php if($edit) echo stripslashes($risultato[0]->Telefono); else echo htmlentities((isset($_GET['resp-telefono'])?$_GET['resp-telefono']:"")); ?>" size="30" aria-required="true" />
 </div>
 <div class="form-field form-required">
-	<label for="resp-orario">Orario ricevimento</label>
+	<label for="resp-orario"><?php _e("Orario ricevimento","albo-online");?></label>
 	<input name="resp-orario" id="resp-orario" type="text" value="<?php if($edit) echo stripslashes($risultato[0]->Orario);  else echo htmlentities((isset($_GET['resp-orario'])?$_GET['resp-orario']:""));?>" size="60" aria-required="true" />
 </div>
 <div class="form-field">
-	<label for="resp-description">Note</label>
+	<label for="resp-description"><?php _e("Note","albo-online");?></label>
 	<textarea name="resp-note" id="resp-note" rows="5" cols="40"><?php if($edit) echo stripslashes($risultato[0]->Note); else echo htmlentities((isset($_GET['resp-note'])?$_GET['resp-note']:"")); ?></textarea>
-	<p>inserire eventuali informazioni aggiuntive</p>
+	<p><?php _e("inserire eventuali informazioni aggiuntive","albo-online");?></p>
 </div>
 
 <?php
 if($edit) {
-	echo '<input type="submit" name="SaveData" id="SaveData" class="button" value="Memorizza Modifiche Soggetto '.$risultato[0]->Cognome.'" rel="'.stripslashes($risultato[0]->Cognome).'" />';
+	echo '<input type="submit" name="SaveData" id="SaveData" class="button" value="'. __("Memorizza Modifiche Soggetto","albo-online").' '.$risultato[0]->Cognome.'" rel="'.stripslashes($risultato[0]->Cognome).'" />';
 }else{
  	if (isset($_REQUEST['action']) And $_REQUEST['action']=="edit_err")
-		echo '<input type="submit" name="SaveData" id="SaveData" class="button" value="Memorizza Modifiche Soggetto '.htmlentities($_GET['resp-cognome']).'" rel="'.htmlentities($_GET['resp-cognome']).'" />';
+		echo '<input type="submit" name="SaveData" id="SaveData" class="button" value="'. __("Memorizza Dati Soggetto","albo-online").' '.htmlentities($_GET['resp-cognome']).'" rel="'.htmlentities($_GET['resp-cognome']).'" />';
 	else
-		echo '<input type="submit" name="SaveData" id="SaveData" class="button" value="Aggiungi nuovo Soggetto"  />';	
+		echo '<input type="submit" name="SaveData" id="SaveData" class="button" value="'. __("Aggiungi nuovo Soggetto","albo-online").'"  />';	
 }
 ?>
 </form>

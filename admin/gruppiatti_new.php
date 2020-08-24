@@ -2,7 +2,7 @@
 /**
  * Gestione FrontEnd.
  * @link       http://www.eduva.org
- * @since      4.4.4
+ * @since      4.4.5
  *
  * @package    Albo On Line
  */
@@ -32,14 +32,16 @@ function Lista_AttiGruppo($Parametri){
 	echo '	<div class="TabellaAtti">    
 		<h3>'.$Parametri['titolo'].'</h3>                    
 		<table id="elenco-atti" class="Table Table--withBorder u-text-r-xs js-TableResponsive tablesaw tablesaw-stack" data-tablesaw-mode="stack">
-		    <caption class="u-hiddenVisually">Atti</caption>
+		    <caption class="u-hiddenVisually">'. __("Atti","albo-online").'</caption>
 		<thead>
 	    	<tr class="u-border-bottom-xs">
-				<th scope="col">Stato</th>
-	        	<th scope="col">Prog.</th>';
+				<th scope="col">'. __("Stato","albo-online").'</th>
+	        	<th scope="col">'. __("Prog.","albo-online").'</th>';
 	foreach($FEColsOption as $Opzione => $Valore){
+		if($Opzione=="Validita") $Opzione="Validità";
+		if($Opzione=="DataOblio") $Opzione="Data Oblio";
 		if($Valore==1){
-			echo '			<th scope="col">'.$Opzione.'</th>';
+			echo '			<th scope="col">'.__($Opzione,"albo-online").'</th>';
 		}
 	}
 	echo '	</tr>
@@ -67,9 +69,9 @@ function Lista_AttiGruppo($Parametri){
 				$classe='style="background-color: '.$coloreAnnullati.';"';
 				$CeAnnullato=true;
 			}
-			$Stato="Scaduto";
+			$Stato=__("Scaduto","albo-online");
 			if ($riga->DataFine>date("Y-m-d")){
-				$Stato="Corrente";
+				$Stato=__("Corrente","albo-online");
 				$Link='<a href="'.$PaginaAttiCor.$sep.'action=visatto&amp;id='.$riga->IdAtto.'"  style="text-decoration: underline;">';
 			}else{
 				$Link='<a href="'.$PaginaAttiSto.$sep.'action=visatto&amp;id='.$riga->IdAtto.'"  style="text-decoration: underline;">';
@@ -123,7 +125,7 @@ function Lista_AttiGruppo($Parametri){
 			}
 	} else {
 			echo '<tr>
-					<td colspan="6">Nessun Atto Codificato</td>
+					<td colspan="6">'. __("Nessun Atto Codificato","albo-online").'</td>
 				  </tr>';
 	}
 	echo '
@@ -131,7 +133,7 @@ function Lista_AttiGruppo($Parametri){
     </table>';
 echo '</div>';
 	if ($CeAnnullato) 
-		echo '<p>Le righe evidenziate con questo sfondo <span style="background-color: '.$coloreAnnullati.';">&nbsp;&nbsp;&nbsp;</span> indicano Atti Annullati</p>';
+		echo '<p>'. __('Le righe evidenziate con questo sfondo','albo-online').' <span style="background-color: '.$coloreAnnullati.';">&nbsp;&nbsp;&nbsp;</span> '. __('indicano Atti Annullati','albo-online').'</p>';
 return ob_get_clean();
 }
 ?>

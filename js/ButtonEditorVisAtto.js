@@ -8,7 +8,7 @@
 			}
     		ed.addCommand('frmAlbovisatto', function() {
 				ed.windowManager.open({
-					title : 'Albo Pretorio Visualizza Atto',
+					title : title_button_atto,
 					file : url + '/buttonEditorVisAtto.php',
 					width : 350, 
 					height : 200,
@@ -16,7 +16,7 @@
 				});
 			});
              ed.addButton('albo_visatto', {
-                title : 'Albo Visualizza Atto',
+                title : title_button_atto,
                 image : str+'img/albovisatto.png',
                 cmd   : 'frmAlbovisatto'
             });

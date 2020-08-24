@@ -8,14 +8,6 @@
   form ol {
 	padding-left: 0;
   }
-  form li, div > p {
-background: #eee;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-    list-style-type: none;
-    border: 1px solid black;
-  }
   form img {
 	order: 1;
   }
@@ -111,7 +103,7 @@ background: #eee;
 	-webkit-transform-origin: 50% 50% 0;
 	transform-origin: 50% 50% 0;
 }
-.elemento input{
+.elemento .des{
 	width:100%;
 }
   form label:hover, form button:hover {

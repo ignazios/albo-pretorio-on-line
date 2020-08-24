@@ -16,33 +16,33 @@ jQuery(document).ready(function($){
       }
      }		
     $('#GridFunzioni').appendGrid({
- 	caption: 'Tabella Funzioni Soggetti',
+ 	caption: TabFunSog,
     initRows: 1,
     columns: [
-			{ name: 'ID', display: 'Codice', type: 'text', ctrlAttr: { maxlength: 3 }, ctrlCss: { width: '50px'},
+			{ name: 'ID', display: Codice, type: 'text', ctrlAttr: { maxlength: 3 }, ctrlCss: { width: '50px'},
           onChange: function (evt, rowIndex) {
                    if( !isLunghezza($("#GridFunzioni_ID_"+(rowIndex+1)).val(),2,3)){
                        $("#GridFunzioni_ID_"+(rowIndex+1)).focus();
-                        alert("Il campo Codice deve essere di 2 o 3 caratteri");
+                        alert(ValidateCodice);
                     }
                 }},
-			{ name: 'funzione', display: 'Funzione', type: 'text', ctrlAttr: { maxlength: 100 }, ctrlCss: { width: '250px'},
+			{ name: 'funzione', display: Funzione, type: 'text', ctrlAttr: { maxlength: 100 }, ctrlCss: { width: '250px'},
           onChange: function (evt, rowIndex) {
                    if( !isLunghezza($("#GridFunzioni_Funzione_"+(rowIndex+1)).val(),5,0)){
                        $("#GridFunzioni_Funzione_"+(rowIndex+1)).focus();
-                        alert("Il campo Funzione deve essere di almeno 5 caratteri");
+                        alert(ValidateFunzione);
                     }
                 }},
- 			{ name: 'visualizza', display:'Visualizza',
+ 			{ name: 'visualizza', display:Visualizza,
  			        displayCss: { 'cursor': 'pointer','text-decoration':'underline' },
  				displayTooltip: {items: 'td',
-                    		   content: 'Visualizza in elenco Soggetti nei dettagli dell\'atto',
+                    		   content: ValidateVisualizza,
                     			  show: {effect: 'slideDown', delay: 250}
 								} , type: 'checkbox'},
- 			{ name: 'staincert', display: 'Stampa',
+ 			{ name: 'staincert', display: Stampa,
  			        displayCss: { 'cursor': 'pointer','text-decoration':'underline' },
  				displayTooltip: {items: 'td',
-                    		   content: 'Stampa nella colonna Sinitra del Certificato di Pubblicazione<br />Da impostarne uno solo, comunque verr&agrave; preso in considerazione solo il primo',
+                    		   content: ValidateStampa,
                     			  show: {effect: 'slideDown', delay: 250}
 								} ,  type: 'checkbox'}
         ],

@@ -24,7 +24,7 @@ if ( !is_user_logged_in() || !current_user_can('edit_posts') )
 ?>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title>Albo Pretorio on Line</title>
+	<title><?php _e("Albo OnLine","albo-online");?></title>
 	<base target="_self" />
 	<meta http-equiv="Content-Type" content="<?php bloginfo('html_type'); ?>; charset=<?php echo get_option('blog_charset'); ?>" />
 	<script language="javascript" type="text/javascript" src="<?php echo site_url(); ?>/wp-includes/js/tinymce/tiny_mce_popup.js"></script>
@@ -78,35 +78,35 @@ $Ele_Cate=ap_get_dropdown_categorie("Categoria","Categoria","","","Nessuna", TRU
 	<div class="mceActionPanel">
 		<form name="form" action="#" method="get" accept-charset="utf-8">
 				<p>
-				<label for="StatoAtti"><strong>Stato Atti</strong></label>
+				<label for="StatoAtti"><strong><?php _e("Stato Atti","albo-online");?></strong></label>
 					<select id="StatoAtti" name="StatoAtti">
-						<option value="1">Atti Correnti</option>
-						<option value="2">Atti Scaduti, Storico</option>
+						<option value="1"><?php _e("Atti Correnti","albo-online");?></option>
+						<option value="2"><?php _e("Atti Scaduti, Storico","albo-online");?></option>
 					</select>
 				</p>
 				<p>
-					<label for="Categoria"><strong>Categoria</strong></label>
+					<label for="Categoria"><strong><?php _e("Categoria","albo-online");?></strong></label>
 					<?php echo $Ele_Cate; ?>
 				</p>
 				<p>
-					<label for="Filtri"><strong>Visualizza Filtri</strong></label>
+					<label for="Filtri"><strong><?php _e("Visualizza Filtri","albo-online");?></strong></label>
 					<input type="checkbox" name="Filtri" id="Filtri" value="si"/>
 				</p>
 				<p>
-					<label for="MinFiltri"><strong>Finestra Filtri sempre visibile</strong></label>
+					<label for="MinFiltri"><strong><?php _e("Finestra Filtri sempre visibile","albo-online");?></strong></label>
 					<input type="checkbox" name="MinFiltri" id="MinFiltri" value="si"/>
 				</p>
 				<p>
-					<label for="MinFiltri"><strong>Numero atti da visualizzare</strong></label>
+					<label for="MinFiltri"><strong><?php _e("Numero atti da visualizzare","albo-online");?></strong></label>
 					<input type="number" name="Per_page" id="Per_page" value="10" style="width:40px;" />
 				</p>
 		</form>
 	</div>
 		<div style="float: left">
-			<input type="submit" id="insert" name="insert" value="Inserisci" onclick="insertAlboShortCode();" />
+			<input type="submit" id="insert" name="insert" value="<?php _e("Inserisci","albo-online");?>" onclick="insertAlboShortCode();" />
 		</div>
 		<div style="float: right">
-			<input type="button" id="cancel" name="cancel" value="Annulla" onclick="tinyMCEPopup.close();" />
+			<input type="button" id="cancel" name="cancel" value="<?php _e("Annulla","albo-online");?>" onclick="tinyMCEPopup.close();" />
 		</div>
 </body>
 </html>

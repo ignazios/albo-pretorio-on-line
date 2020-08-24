@@ -39,6 +39,7 @@ div.Visallegato{
 	width: 100%;
 	border: thin dashed;
 	font-size: 1em;
+	clear: both;
 }
 
 div.Visallegato .Allegato{
@@ -221,4 +222,23 @@ font-weight: bold;
 	-webkit-transform-origin: 50% 50% 0;
 	transform-origin: 50% 50% 0;
 }
-
+.evidenziato{
+	font-weight: bold;
+	font-size:1.2em;
+	color:red;
+}
+.secondaColonna{
+	margin-left:60px;
+}
+div.VisInfo{
+	width: 100%;
+	border: thin;
+	clear: both;
+	padding:0 10px 10px 10px;
+}
+.text-15{
+	font-size: 1.5em!important;
+}
+.text-1{
+	font-size: 1em!important;
+}

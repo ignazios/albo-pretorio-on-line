@@ -2,7 +2,7 @@
 /**
  * Gestione FrontEnd.
  * @link       http://www.eduva.org
- * @since      4.4.4
+ * @since      4.4.5
  *
  * @package    Albo On Line
  */
@@ -13,57 +13,56 @@ ob_start();
 
 if(isset($_REQUEST['id']) And !is_numeric($_REQUEST['id'])){
 	$_REQUEST['id']=0;
-	echo "<br /><span style='color:red;'>ATTENZIONE:</span> E' stato indicato un VALORE non valido per il parametro <span style='color:red;'>ID</span>";
-	return;
+	echo "<br />".sprintf(__("%sATTENZIONE.%s E' stato indicato un VALORE non valido per il parametro %s","albo-online"),'<span style="color:red;">',"</span>",'<span style="color:red;">ID</span>');
 }
 if(isset($_REQUEST['action']) And $_REQUEST['action']!=wp_strip_all_tags($_REQUEST['action'])){
 	unset($_REQUEST['action']);
-	echo "<br /><span style='color:red;'>ATTENZIONE:</span> E' stato indicato un VALORE non valido per il parametro <span style='color:red;'>Action</span>";
+	echo "<br />".sprintf(__("%sATTENZIONE.%s E' stato indicato un VALORE non valido per il parametro %s","albo-online"),'<span style="color:red;">',"</span>",'<span style="color:red;">Action</span>');
 	return;
 }
 if(isset($_REQUEST['categoria']) And !is_numeric($_REQUEST['categoria'])){
 	$_REQUEST['categoria']=0;
-	echo "<br /><span style='color:red;'>ATTENZIONE:</span> E' stato indicato un VALORE non valido per il parametro <span style='color:red;'>Categoria</span>";
+	echo "<br />".sprintf(__("%sATTENZIONE.%s E' stato indicato un VALORE non valido per il parametro %s","albo-online"),'<span style="color:red;">',"</span>",'<span style="color:red;">Categoria</span>');
 }
 if(isset($_REQUEST['numero']) And $_REQUEST['numero']!="" AND !is_numeric($_REQUEST['numero'])){
 	$_REQUEST['numero']="";
-	echo "<br /><span style='color:red;'>ATTENZIONE:</span> E' stato indicato un VALORE non valido per il parametro <span style='color:red;'>Numero</span>";
+	echo "<br />".sprintf(__("%sATTENZIONE.%s E' stato indicato un VALORE non valido per il parametro %s","albo-online"),'<span style="color:red;">',"</span>",'<span style="color:red;">Numero</span>');
 }
 if(isset($_REQUEST['anno']) And !is_numeric($_REQUEST['anno'])){
 	$_REQUEST['anno']=0;
-	echo "<br /><span style='color:red;'>ATTENZIONE:</span> E' stato indicato un VALORE non valido per il parametro <span style='color:red;'>Anno</span>";
+	echo "<br />".sprintf(__("%sATTENZIONE.%s E' stato indicato un VALORE non valido per il parametro %s","albo-online"),'<span style="color:red;">',"</span>",'<span style="color:red;">Anno</span>');
 }
 if(isset($_REQUEST['ente']) And !is_numeric($_REQUEST['ente'])){
 	$_REQUEST['ente']="-1";
-	echo "<br /><span style='color:red;'>ATTENZIONE:</span> E' stato indicato un VALORE non valido per il parametro <span style='color:red;'>Ente</span>";
+	echo "<br />".sprintf(__("%sATTENZIONE.%s E' stato indicato un VALORE non valido per il parametro %s","albo-online"),'<span style="color:red;">',"</span>",'<span style="color:red;">Ente</span>');
 }
 if(isset($_REQUEST['Pag']) And !is_numeric($_REQUEST['Pag'])){
 	$_REQUEST['Pag']=1;
-	echo "<br /><span style='color:red;'>ATTENZIONE:</span> E' stato indicato un VALORE non valido per il parametro <span style='color:red;'>Pag</span>";
+	echo "<br />".sprintf(__("%sATTENZIONE.%s E' stato indicato un VALORE non valido per il parametro %s","albo-online"),'<span style="color:red;">',"</span>",'<span style="color:red;">Pag</span>');
 }
 if(isset($_REQUEST['oggetto']) And $_REQUEST['oggetto']!=wp_strip_all_tags($_REQUEST['oggetto'])){
 	$_REQUEST['oggetto']="";
-	echo "<br /><span style='color:red;'>ATTENZIONE:</span> E' stato indicato un VALORE non valido per il parametro <span style='color:red;'>Oggetto</span>";
+	echo "<br />".sprintf(__("%sATTENZIONE.%s E' stato indicato un VALORE non valido per il parametro %s","albo-online"),'<span style="color:red;">',"</span>",'<span style="color:red;">Oggetto</span>');
 }
 if(isset($_REQUEST['riferimento']) And $_REQUEST['riferimento']!=wp_strip_all_tags($_REQUEST['riferimento'])){
 	$_REQUEST['riferimento']="";
-	echo "<br /><span style='color:red;'>ATTENZIONE:</span> E' stato indicato un VALORE non valido per il parametro <span style='color:red;'>Riferimento</span>";
+	echo "<br />".sprintf(__("%sATTENZIONE.%s E' stato indicato un VALORE non valido per il parametro %s","albo-online"),'<span style="color:red;">',"</span>",'<span style="color:red;">Riferimento</span>');
 }
 if(isset($_REQUEST['DataInizio']) And $_REQUEST['DataInizio']!=wp_strip_all_tags($_REQUEST['DataInizio'])){
 	$_REQUEST['DataInizio']="";
-	echo "<br /><span style='color:red;'>ATTENZIONE:</span> E' stato indicato un VALORE non valido per il parametro <span style='color:red;'>Da Data</span>";
+	echo "<br />".sprintf(__("%sATTENZIONE.%s E' stato indicato un VALORE non valido per il parametro %s","albo-online"),'<span style="color:red;">',"</span>",'<span style="color:red;">Da Data</span>');
 }
 if(isset($_REQUEST['DataFine']) And $_REQUEST['DataFine']!=wp_strip_all_tags($_REQUEST['DataFine'])){
 	$_REQUEST['DataFine']="";
-	echo "<br /><span style='color:red;'>ATTENZIONE:</span> E' stato indicato un VALORE non valido per il parametro <span style='color:red;'>A Data</span>";
+	echo "<br />".sprintf(__("%sATTENZIONE.%s E' stato indicato un VALORE non valido per il parametro %s","albo-online"),'<span style="color:red;">',"</span>",'<span style="color:red;">A Data</span>');
 }
-if(isset($_REQUEST['filtra']) And $_REQUEST['filtra']!="Filtra"){
+if(isset($_REQUEST['filtra']) And ($_REQUEST['filtra']!=__("Filtra","albo-online") And $_REQUEST['filtra']!=__("Annulla Filtro","albo-online"))){
 	$_REQUEST['filtra']="Filtra";
-	echo "<br /><span style='color:red;'>ATTENZIONE:</span> E' stato indicato un VALORE non valido per il parametro <span style='color:red;'>filtra</span>";
+	echo "<br />".sprintf(__("%sATTENZIONE.%s E' stato indicato un VALORE non valido per il parametro %s","albo-online"),'<span style="color:red;">',"</span>",'<span style="color:red;">filtra</span>');
 }
-if(isset($_REQUEST['vf']) And ($_REQUEST['vf']!="s" OR $_REQUEST['vf']!="undefined")){
+if(isset($_REQUEST['vf']) And ($_REQUEST['vf']!="s" And $_REQUEST['vf']!="h" And $_REQUEST['vf']!="undefined")){
 	$_REQUEST['vf']="undefined";
-	echo "<br /><span style='color:red;'>ATTENZIONE:</span> E' stato indicato un VALORE non valido per il parametro <span style='color:red;'>vf</span>";
+	echo "<br />".sprintf(__("%sATTENZIONE.%s E' stato indicato un VALORE non valido per il parametro %s","albo-online"),'<span style="color:red;">',"</span>",'<span style="color:red;">vf</span>');
 }
 foreach($_REQUEST as $Key => $Val){
 	$_REQUEST[$Key]=htmlspecialchars(wp_strip_all_tags($_REQUEST[$Key]));
@@ -81,19 +80,19 @@ if(isset($_REQUEST['action'])){
                     StampaAtto($_REQUEST['id'], 'a');
                 }
             }else{
-				echo "ATTENZIONE:<br />E' stato indicato un parametro non valido che può rappresentare un ATTACCO INFORMATICO AL SITO";
+				echo sprintf(__("ATTENZIONE:%sE' stato indicato un parametro non valido che può rappresentare un ATTACCO INFORMATICO AL SITO","albo-online"),"<br />");
 			}
             break;
 		case 'visatto':
 			if(is_numeric($_REQUEST['id']))
 				$ret=VisualizzaAtto($_REQUEST['id']);
 			else{
-				echo "ATTENZIONE:<br />E' stato indicato un parametro non valido che può rappresentare un ATTACCO INFORMATICO AL SITO";
+				echo sprintf(__("ATTENZIONE:%sE' stato indicato un parametro non valido che può rappresentare un ATTACCO INFORMATICO AL SITO","albo-online"),"<br />");
 			}
 			break;
 		case 'addstatall':
 			if(is_numeric($_GET['id']) and is_numeric($_GET['idAtto']))
-				ap_insert_log(6,5,(int)$_GET['id'],"Download",(int)$_GET['idAtto']);
+				ap_insert_log(5,5,(int)$_GET['id'],"Visualizzazione",(int)$_GET['idAtto']);
 			break;
 		default: 
 			if (isset($_REQUEST['filtra'])){
@@ -101,15 +100,15 @@ if(isset($_REQUEST['action'])){
 				   !is_numeric($_REQUEST['numero']) OR
 				   !is_numeric($_REQUEST['anno']) OR
 				   !is_numeric($_REQUEST['ente'])){
-						echo "ATTENZIONE:<br />E' stato indicato un parametro non valido che può rappresentare un ATTACCO INFORMATICO AL SITO";
+						echo sprintf(__("ATTENZIONE:%sE' stato indicato un parametro non valido che può rappresentare un ATTACCO INFORMATICO AL SITO","albo-online"),"<br />");
 						break;
 				}
 			if($_REQUEST['oggetto']!=wp_strip_all_tags($_REQUEST['oggetto'])){
-				echo "ATTENZIONE:<br />E' stato indicato un parametro non valido nel campo Oggetto che può rappresentare un ATTACCO INFORMATICO AL SITO";
+				echo sprintf(__("ATTENZIONE:%sE' stato indicato un parametro non valido che può rappresentare un ATTACCO INFORMATICO AL SITO","albo-online"),"<br />");
 				break;
 			}
 			if($_REQUEST['riferimento']!=wp_strip_all_tags($_REQUEST['riferimento'])){
-				echo "ATTENZIONE:<br />E' stato indicato un parametro non valido nel campo Riferimento che può rappresentare un ATTACCO INFORMATICO AL SITO";
+				echo sprintf(__("ATTENZIONE:%sE' stato indicato un parametro non valido che può rappresentare un ATTACCO INFORMATICO AL SITO","albo-online"),"<br />");
 				break;
 			}
 	 		$ret=Lista_Atti($Parametri,$_REQUEST['categoria'],(int)$_REQUEST['numero'],(int)$_REQUEST['anno'], htmlentities($_REQUEST['oggetto']),htmlentities($_REQUEST['DataInizio']),htmlentities($_REQUEST['DataFine']), htmlentities($_REQUEST['riferimento']),$_REQUEST['ente']);
@@ -133,15 +132,15 @@ if(isset($_REQUEST['action'])){
 			   (isset($_REQUEST['numero']) And $_REQUEST['numero']!="" AND !is_numeric($_REQUEST['numero'])) OR
 			   (isset($_REQUEST['anno']) And !is_numeric($_REQUEST['anno'])) OR
 			   (isset($_REQUEST['ente']) And !is_numeric($_REQUEST['ente']))){
-					echo "ATTENZIONE:<br />E' stato indicato un parametro non valido che può rappresentare un ATTACCO INFORMATICO AL SITO";
+					echo sprintf(__("ATTENZIONE:%sE' stato indicato un parametro non valido che può rappresentare un ATTACCO INFORMATICO AL SITO","albo-online"),"<br />");
 					return;
 			}
 			if($_REQUEST['oggetto']!=wp_strip_all_tags($_REQUEST['oggetto'])){
-				echo "ATTENZIONE:<br />E' stato indicato un parametro non valido nel campo Oggetto che può rappresentare un ATTACCO INFORMATICO AL SITO";
+				echo sprintf(__("ATTENZIONE:%sE' stato indicato un parametro non valido che può rappresentare un ATTACCO INFORMATICO AL SITO","albo-online"),"<br />");
 				return;
 			}
 			if($_REQUEST['riferimento']!=wp_strip_all_tags($_REQUEST['riferimento'])){
-				echo "ATTENZIONE:<br />E' stato indicato un parametro non valido nel campo Riferimento che può rappresentare un ATTACCO INFORMATICO AL SITO";
+				echo sprintf(__("ATTENZIONE:%sE' stato indicato un parametro non valido che può rappresentare un ATTACCO INFORMATICO AL SITO","albo-online"),"<br />");
 				return;
 			}
 			$ret=Lista_Atti($Parametri,(int)$_REQUEST['categoria'],(int)$_REQUEST['numero'],(int)$_REQUEST['anno'], htmlentities($_REQUEST['oggetto']),htmlentities($_REQUEST['DataInizio']),htmlentities($_REQUEST['DataFine']), htmlentities($_REQUEST['riferimento']),(int)$_REQUEST['ente']);			
@@ -157,7 +156,6 @@ if(isset($_REQUEST['action'])){
 				 $ret=Lista_Atti($Parametri);
 			}else{
 				$ret=Lista_Atti($Parametri);
-
 			}
 	}
 	
@@ -166,72 +164,100 @@ function VisualizzaAtto($id){
 	$risultato=$risultato[0];
 	$risultatocategoria=ap_get_categoria($risultato->IdCategoria);
 	$risultatocategoria=$risultatocategoria[0];
-	$allegati=ap_get_all_allegati_atto($id);
-	$responsabile=ap_get_responsabile($risultato->RespProc);
-	$responsabile=$responsabile[0];
 	ap_insert_log(5,5,$id,"Visualizzazione");
 	$coloreAnnullati=get_option('opt_AP_ColoreAnnullati');
-	if($risultato->DataAnnullamento!='0000-00-00')
-		$Annullato='<p style="background-color: '.$coloreAnnullati.';text-align:center;font-size:1.5em;">Atto Annullato dal Responsabile del Procedimento<br /><br />Motivo: <span style="font-size:1;font-style: italic;">'.stripslashes($risultato->MotivoAnnullamento).'</span></p>';
+	$Unitao=ap_get_unitaorganizzativa($risultato->IdUnitaOrganizzativa);
+	if ($Unitao!==FALSE)
+		$UnitaoNome=$Unitao->Nome;
 	else
-		$Annullato='';
+		$UnitaoNome="";
+	$NomeResp=ap_get_responsabile($risultato->RespProc);
+	if (count($NomeResp)>0) {
+		$NomeResp=$NomeResp[0];
+		$NomeResp=stripslashes($NomeResp->Nome." ".$NomeResp->Cognome);
+	} else
+		$NomeResp="";
 echo '
 <div>
-	<p style="margin-bottom:1.5em;"><a href="'.$_SERVER['HTTP_REFERER'].'" title="Torna alla lista degli atti">Torna alla lista</a>
-	'.$Annullato.'
-	</p>
-	<h3>Dati atto</h3>
-	<div class="Grid Grid--withGutter u-padding-all-l">
+	<button class="h" onclick="window.location.href=\''.$_SERVER['HTTP_REFERER'].'\'"><span class="dashicons dashicons-controls-back"></span>'.__("Torna alla Lista","albo-online").'</button>
+	<h3>'.__("Dati atto","albo-online").'</h3>
+	<div class="Grid Grid--withGutter u-padding-all-l">';
+	if($risultato->DataAnnullamento!='0000-00-00'){
+		echo '<div class="Grid-cell u-padding-bottom-m" >
+	<p style="text-align:center;font-size:1.5em;background-color: '.$coloreAnnullati.'">';
+		echo sprintf(__('Atto Annullato dal Responsabile del Procedimento %s Motivo: %s','albo-online'),'<br /><br />','<span style="font-size:1;font-style: italic;">'.stripslashes($risultato->MotivoAnnullamento).'</span>');
+		echo '    </p>
+	</div>';
+	}
+echo '
 		<div class="Grid-cell u-size1of2 u-lg-size1of2 HeadAtto">
-			<div class="u-background-50 u-color-white u-margin-bottom-xs u-borderRadius-m u-padding-all-m">Ente titolare dell\'Atto</div>
+			<div class="u-background-50 u-color-white u-margin-bottom-xs u-borderRadius-m u-padding-all-m">'.__("Ente titolare dell'Atto","albo-online").'</div>
 		</div>
 		<div class="Grid-cell u-size1of2 u-lg-size1of2">
 			<div class="u-margin-bottom-xs u-padding-all-m u-border-bottom-xxs">'.stripslashes(ap_get_ente($risultato->Ente)->Nome).'</div>
 		</div>
 		<div class="Grid-cell u-size1of2 u-lg-size1of2 HeadAtto">
-			<div class="u-background-50 u-color-white u-margin-bottom-xs u-borderRadius-m u-padding-all-m">Numero Albo</div>
+			<div class="u-background-50 u-color-white u-margin-bottom-xs u-borderRadius-m u-padding-all-m">'.__("Numero Albo","albo-online").'</div>
 		</div>
 		<div class="Grid-cell u-size1of2 u-lg-size1of2">
 			<div class="u-margin-bottom-xs u-padding-all-m u-border-bottom-xxs">'.$risultato->Numero."/".$risultato->Anno.'</div>
 		</div>
 		<div class="Grid-cell u-size1of2 u-lg-size1of2 HeadAtto">
-			<div class="u-background-50 u-color-white u-margin-bottom-xs u-borderRadius-m u-padding-all-m">Codice di Riferimento</div>
+			<div class="u-background-50 u-color-white u-margin-bottom-xs u-borderRadius-m u-padding-all-m">'.__("Codice di Riferimento","albo-online").'</div>
 		</div>
 		<div class="Grid-cell u-size1of2 u-lg-size1of2">
 			<div class="u-margin-bottom-xs u-padding-all-m u-border-bottom-xxs">'.stripslashes($risultato->Riferimento).'</div>
 		</div>
 		<div class="Grid-cell u-size1of2 u-lg-size1of2 HeadAtto">
-			<div class="u-background-50 u-color-white u-margin-bottom-xs u-borderRadius-m u-padding-all-m">Oggetto</div>
+			<div class="u-background-50 u-color-white u-margin-bottom-xs u-borderRadius-m u-padding-all-m">'.__("Oggetto","albo-online").'</div>
 		</div>
 		<div class="Grid-cell u-size1of2 u-lg-size1of2">
 			<div class="u-margin-bottom-xs u-margin-top-xs u-padding-left-m u-padding-right-m u-padding-top-xxs u-padding-bottom-s u-border-bottom-xxs">'.stripslashes($risultato->Oggetto).'</div>
 		</div>
 		<div class="Grid-cell u-size1of2 u-lg-size1of2 HeadAtto">
-			<div class="u-background-50 u-color-white u-margin-bottom-xs u-borderRadius-m u-padding-all-m">Data inizio Pubblicazione</div>
+			<div class="u-background-50 u-color-white u-margin-bottom-xs u-borderRadius-m u-padding-all-m">'.__("Data di registrazione","albo-online").'</div>
+		</div>
+		<div class="Grid-cell u-size1of2 u-lg-size1of2">
+			<div class="u-margin-bottom-xs u-padding-all-m u-border-bottom-xxs">'.ap_VisualizzaData($risultato->Data).'</div>
+		</div>
+		<div class="Grid-cell u-size1of2 u-lg-size1of2 HeadAtto">
+			<div class="u-background-50 u-color-white u-margin-bottom-xs u-borderRadius-m u-padding-all-m">'.__("Data inizio Pubblicazione","albo-online").'</div>
 		</div>
 		<div class="Grid-cell u-size1of2 u-lg-size1of2">
 			<div class="u-margin-bottom-xs u-padding-all-m u-border-bottom-xxs">'.ap_VisualizzaData($risultato->DataInizio).'</div>
 		</div>
 		<div class="Grid-cell u-size1of2 u-lg-size1of2 HeadAtto">
-			<div class="u-background-50 u-color-white u-margin-bottom-xs u-borderRadius-m u-padding-all-m">Data fine Pubblicazione</div>
+			<div class="u-background-50 u-color-white u-margin-bottom-xs u-borderRadius-m u-padding-all-m">'.__("Data fine Pubblicazione","albo-online").'</div>
 		</div>
 		<div class="Grid-cell u-size1of2 u-lg-size1of2">
 			<div class="u-margin-bottom-xs u-padding-all-m u-border-bottom-xxs">'.ap_VisualizzaData($risultato->DataFine).'</div>
 		</div>
 		<div class="Grid-cell u-size1of2 u-lg-size1of2 HeadAtto">
-			<div class="u-background-50 u-color-white u-margin-bottom-xs u-borderRadius-m u-padding-all-m">Data oblio</div>
+			<div class="u-background-50 u-color-white u-margin-bottom-xs u-borderRadius-m u-padding-all-m">'.__("Data oblio","albo-online").'</div>
 		</div>
 		<div class="Grid-cell u-size1of2 u-lg-size1of2">
 			<div class="u-margin-bottom-xs u-padding-all-m u-border-bottom-xxs">'.ap_VisualizzaData($risultato->DataOblio).'</div>
 		</div>
 		<div class="Grid-cell u-size1of2 u-lg-size1of2 HeadAtto">
-			<div class="u-background-50 u-color-white u-margin-bottom-xxs u-borderRadius-m u-padding-all-m">Note</div>
+			<div class="u-background-50 u-color-white u-margin-bottom-xs u-borderRadius-m u-padding-all-m">'.__("Richiedente","albo-online").'</div>
 		</div>
 		<div class="Grid-cell u-size1of2 u-lg-size1of2">
-			<div class="u-margin-bottom-xs u-margin-top-xs u-padding-left-m u-padding-right-m u-padding-top-xxs u-padding-bottom-s u-border-bottom-xxs">'.(strlen(stripslashes($risultato->Informazioni))>0?stripslashes($risultato->Informazioni):"&nbsp;&nbsp;").'</div>
+			<div class="u-margin-bottom-xs u-padding-all-m u-border-bottom-xxs">'.stripslashes($risultato->Richiedente).'</div>
 		</div>
 		<div class="Grid-cell u-size1of2 u-lg-size1of2 HeadAtto">
-			<div class="u-background-50 u-color-white u-margin-bottom-xs u-borderRadius-m u-padding-all-m">Categoria</div>
+			<div class="u-background-50 u-color-white u-margin-bottom-xs u-borderRadius-m u-padding-all-m">'.__("Unità Organizzativa Responsabile","albo-online").'</div>
+		</div>
+		<div class="Grid-cell u-size1of2 u-lg-size1of2">
+		<div class="u-margin-bottom-xs u-padding-all-m u-border-bottom-xxs">'.$UnitaoNome.'</div>
+		</div>		
+		<div class="Grid-cell u-size1of2 u-lg-size1of2 HeadAtto">
+			<div class="u-background-50 u-color-white u-margin-bottom-xs u-borderRadius-m u-padding-all-m">'.__("Responsabile del procedimento amministrativo","albo-online").'</div>
+		</div>
+		<div class="Grid-cell u-size1of2 u-lg-size1of2">
+		<div class="u-margin-bottom-xs u-padding-all-m u-border-bottom-xxs">'.$NomeResp.'</div>
+		</div>
+		<div class="Grid-cell u-size1of2 u-lg-size1of2 HeadAtto">
+			<div class="u-background-50 u-color-white u-margin-bottom-xs u-borderRadius-m u-padding-all-m">'.__("Categoria","albo-online").'</div>
 		</div>
 		<div class="Grid-cell u-size1of2 u-lg-size1of2">
 			<div class="u-margin-bottom-xs u-padding-all-m u-border-bottom-xxs">'.stripslashes($risultatocategoria->Nome).'</div>
@@ -245,19 +271,25 @@ if($MetaDati!==FALSE){
 	$Meta=substr($Meta,0,-3);
 		echo'	
 		<div class="Grid-cell u-size1of2 u-lg-size1of2 HeadAtto">
-			<div class="u-background-50 u-color-white u-margin-bottom-xs u-borderRadius-m u-padding-all-m">Meta Dati</div>
+			<div class="u-background-50 u-color-white u-margin-bottom-xs u-borderRadius-m u-padding-all-m">'.__("Meta Dati","albo-online").'</div>
 		</div>
 		<div class="Grid-cell u-size1of2 u-lg-size1of2">
 			<div class="u-margin-bottom-xs u-padding-all-m u-border-bottom-xxs">'.$Meta.'</div>
 		</div>';
 }
-echo'</div>
+echo'		<div class="Grid-cell u-size1of2 u-lg-size1of2 HeadAtto">
+				<div class="u-background-50 u-color-white u-margin-bottom-xxs u-borderRadius-m u-padding-all-m">'.__("Note","albo-online").'</div>
+			</div>
+			<div class="Grid-cell u-size1of2 u-lg-size1of2">
+				<div class="u-margin-bottom-xs u-margin-top-xs u-padding-left-m u-padding-right-m u-padding-top-xxs u-padding-bottom-s u-border-bottom-xxs">'.(strlen(stripslashes($risultato->Informazioni))>0?stripslashes($risultato->Informazioni):"&nbsp;&nbsp;").'</div>
+			</div>
+		</div>
 </div>';
 $Soggetti=unserialize($risultato->Soggetti);
 $Ruolo="";
 if($Soggetti){
 	$Soggetti=ap_get_alcuni_soggetti_ruolo(implode(",",$Soggetti));
-	echo "		<h3 style=\"text-align:center;\">Soggetti</h3>";
+	echo "		<h3 style=\"text-align:center;\">".__("Soggetti","albo-online")."</h3>";
 }else{
 	$Soggetti=array();
 }
@@ -270,102 +302,123 @@ foreach($Soggetti as $Soggetto){
 	}
 	if($Soggetto->Funzione!=$Ruolo){
 		echo '<div>
-	<h4>'.ap_get_Funzione_Responsabile($Soggetto->Funzione,"Descrizione").'</h4>
-	<div class="Grid Grid--withGutter u-padding-all-l">';
+	<h4>'.ap_get_Funzione_Responsabile($Soggetto->Funzione,"Descrizione").'</h4>';
 	}
 	$Ruolo=$Soggetto->Funzione;
-	echo'		<div class="Grid-cell u-size1of2 u-lg-size1of2 HeadAtto">
-			<div class="u-background-50 u-color-white u-margin-bottom-xs u-borderRadius-m u-padding-all-m">Persona</div>
+	echo'<div class="Grid Grid--withGutter u-padding-all-l">		
+		<div class="Grid-cell u-size1of2 u-lg-size1of2 HeadAtto">
+			<div class="u-background-50 u-color-white u-margin-bottom-xs u-borderRadius-m u-padding-all-m">'.__("Persona","albo-online").'</div>
 		</div>
 		<div class="Grid-cell u-size1of2 u-lg-size1of2">
 			<div class="u-margin-bottom-xs u-padding-all-m u-border-bottom-xxs">'.$Soggetto->Cognome." ".$Soggetto->Nome.'</div>
 		</div>';		
 	if ($Soggetto->Email)
-	echo'				<div class="Grid-cell u-size1of2 u-lg-size1of2 HeadAtto">
-			<div class="u-background-50 u-color-white u-margin-bottom-xs u-borderRadius-m u-padding-all-m">email</div>
+	echo'
+		<div class="Grid-cell u-size1of2 u-lg-size1of2 HeadAtto">
+			<div class="u-background-50 u-color-white u-margin-bottom-xs u-borderRadius-m u-padding-all-m">'.__("Email","albo-online").'</div>
 		</div>
 		<div class="Grid-cell u-size1of2 u-lg-size1of2">
 			<div class="u-margin-bottom-xs u-padding-all-m u-border-bottom-xxs"><a href="mailto:'.$Soggetto->Email.'">'.$Soggetto->Email.'</a></div>
 		</div>';
 	if ($Soggetto->Telefono)
-	echo'					<div class="Grid-cell u-size1of2 u-lg-size1of2 HeadAtto">
-			<div class="u-background-50 u-color-white u-margin-bottom-xs u-borderRadius-m u-padding-all-m">Telefono</div>
+	echo'
+		<div class="Grid-cell u-size1of2 u-lg-size1of2 HeadAtto">
+			<div class="u-background-50 u-color-white u-margin-bottom-xs u-borderRadius-m u-padding-all-m">'.__("Telefono","albo-online").'</div>
 		</div>
 		<div class="Grid-cell u-size1of2 u-lg-size1of2">
 			<div class="u-margin-bottom-xs u-padding-all-m u-border-bottom-xxs">'.$Soggetto->Telefono.'</div>
 		</div>		
 		<tr>';
 	if ($Soggetto->Orario)
-	echo'				<div class="Grid-cell u-size1of2 u-lg-size1of2 HeadAtto">
-			<div class="u-background-50 u-color-white u-margin-bottom-xs u-borderRadius-m u-padding-all-m">Orario ricevimento</div>
+	echo'
+		<div class="Grid-cell u-size1of2 u-lg-size1of2 HeadAtto">
+			<div class="u-background-50 u-color-white u-margin-bottom-xs u-borderRadius-m u-padding-all-m">'.__("Orario ricevimento","albo-online").'</div>
 		</div>
 		<div class="Grid-cell u-size1of2 u-lg-size1of2">
 			<div class="u-margin-bottom-xs u-padding-all-m u-border-bottom-xxs">'.$Soggetto->Orario.'</div>
 		</div>
 		<tr>';
 	if ($Soggetto->Note)
-	echo'		<div class="Grid-cell u-size1of2 u-lg-size1of2 HeadAtto">
-			<div class="u-background-50 u-color-white u-margin-bottom-xs u-borderRadius-m u-padding-all-m">Note</div>
+	echo'		
+		<div class="Grid-cell u-size1of2 u-lg-size1of2 HeadAtto">
+			<div class="u-background-50 u-color-white u-margin-bottom-xs u-borderRadius-m u-padding-all-m">'.__("Note","albo-online").'</div>
 		</div>
 		<div class="Grid-cell u-size1of2 u-lg-size1of2">
 			<div class="u-margin-bottom-xs u-padding-all-m u-border-bottom-xxs">'.$Soggetto->Note.'</div>
 		</div>';
-echo'</div>';
+	echo'</div>';
 }
 if($Ruolo!=""){
 	echo '</div>';
 }
-
-echo '
-<div>
-	<h3>Allegati</h3>
-		<div class="Grid Grid--withGutter u-padding-all-l">';
-//print_r($_SERVER);
 $TipidiFiles=ap_get_tipidifiles();
-foreach ($allegati as $allegato) {
-	$Estensione=ap_ExtensionType($allegato->Allegato);
-	echo'
-		<div class="Grid-cell u-size1of2 u-lg-size1of2 HeadAllegati">
-			<div class="u-margin-bottom-xs u-borderRadius-m u-padding-all-m u-border-all-xxs">';
-		if(isset($allegato->TipoFile) and $allegato->TipoFile!="" and ap_isExtensioType($allegato->TipoFile)){
-			$Estensione=ap_ExtensionType($allegato->TipoFile);
-			echo '<img src="'.$TipidiFiles[$Estensione]['Icona'].'" alt="'.$TipidiFiles[$Estensione]['Descrizione'].'" height="30" width="30"/>';
-		}else{
-			echo '<img src="'.$TipidiFiles[strtolower($Estensione)]['Icona'].'" alt="'.$TipidiFiles[strtolower($Estensione)]['Descrizione'].'" height="30" width="30"allegato/>';
+if (strpos(get_permalink(),"?")>0)
+	$sep="&amp;";
+else
+	$sep="?";
+$documenti=ap_get_documenti_atto($id);
+if(count($documenti)>0){
+	echo '
+		<h3>'. __("Documenti firmati","albo-online").'</h3>
+			<div class="Grid Grid--withGutter u-padding-all-l">';
+	//print_r($_SERVER);
+	foreach ($documenti as $allegato) {
+		$Estensione=ap_ExtensionType($allegato->Allegato);
+		echo'
+			<div class="Grid-cell HeadAllegati">
+				<div class="u-margin-bottom-xs u-borderRadius-m u-padding-all-m u-border-all-xxs">
+					<img src="'.$TipidiFiles[strtolower($Estensione)]['Icona'].'" alt="'.$TipidiFiles[strtolower($Estensione)]['Descrizione'].'" height="30" width="30"allegato/> '.($allegato->DocIntegrale!="1"?'<span class="evidenziato">'.__("Pubblicato per Estratto","albo-online")."</span><br />":"").'<strong>'.__("Descrizione","albo-online").'</strong>: '.strip_tags(($allegato->TitoloAllegato?$allegato->TitoloAllegato:basename( $allegato->Allegato))).'</strong><br /><strong>'.__("Impronta","albo-online").'</strong>: '.$allegato->Impronta.'<br /><strong>'.__("Dimensione file","albo-online").'</strong>: '.ap_Formato_Dimensione_File(is_file($allegato->Allegato)?filesize($allegato->Allegato):0)."<br /><br />";
+				if (is_file($allegato->Allegato))
+					echo '<a href="'.ap_DaPath_a_URL($allegato->Allegato).'" class="addstatdw noUnderLine" rel="'.get_permalink().$sep.'action=addstatall&amp;id='.$allegato->IdAllegato.'&amp;idAtto='.$id.'" title="'.__("Visualizza Allegato","albo-online").'" target="_blank"><span class="u-text-r-l Icon Icon-zoom-in"></span></a> '.htmlspecialchars_decode($TipidiFiles[strtolower($Estensione)]['Verifica']).' <a href="'.get_permalink().$sep.'action=dwnalle&amp;id='.$allegato->IdAllegato.'&amp;idAtto='.$id.'" class="noUnderLine" title="'.__("Scarica allegato","albo-online").'"><span class="u-text-r-l Icon Icon-download"></span></a>';	
+				else
+					echo basename( $allegato->Allegato).' '.__("File non trovato, il file è stato cancellato o spostato!","albo-online");
+		echo '</div>
+			</div>
+		';
 		}
-	echo " ".strip_tags(($allegato->TitoloAllegato?$allegato->TitoloAllegato:basename( $allegato->Allegato))).'('.ap_Formato_Dimensione_File(filesize($allegato->Allegato)).')</div>
-		</div>
-		<div class="Grid-cell u-size1of2 u-lg-size1of2 FunctionAllegati">
-			<div class="u-margin-bottom-xs u-borderRadius-m u-padding-all-m">';
-			if (strpos(get_permalink(),"?")>0)
-				$sep="&amp;";
-			else
-				$sep="?";
-			if (is_file($allegato->Allegato))
-				echo '<a href="'.ap_DaPath_a_URL($allegato->Allegato).'" class="addstatdw noUnderLine" rel="'.get_permalink().$sep.'action=addstatall&amp;id='.$allegato->IdAllegato.'&amp;idAtto='.$id.'" title="Visualizza Allegato" target="_blank"><span class="u-text-r-l Icon Icon-zoom-in"></span></a> '.htmlspecialchars_decode($TipidiFiles[strtolower($Estensione)]['Verifica']).' <a href="'.get_permalink().$sep.'action=dwnalle&amp;id='.$allegato->IdAllegato.'&amp;idAtto='.$id.'" class="noUnderLine" title="Scarica Allegato"><span class="u-text-r-l Icon Icon-download"></span></a>';
-				
-			else
-				echo basename( $allegato->Allegato)." File non trovato, il file &egrave; stato cancellato o spostato!";
+	echo '</div>';
+}
+$allegati=ap_get_allegati_atto($id);
+if(count($allegati)>0){
+	echo '
+		<h3>'. __("Allegati","albo-online").'</h3>
+			<div class="Grid Grid--withGutter u-padding-all-l">';
+	//print_r($_SERVER);
+	foreach ($allegati as $allegato) {
+		$Estensione=ap_ExtensionType($allegato->Allegato);
+		echo'
+			<div class="Grid-cell HeadAllegati">
+				<div class="u-margin-bottom-xs u-borderRadius-m u-padding-all-m u-border-all-xxs">
+					<img src="'.$TipidiFiles[strtolower($Estensione)]['Icona'].'" alt="'.$TipidiFiles[strtolower($Estensione)]['Descrizione'].'" height="30" width="30"allegato/> '.($allegato->DocIntegrale!="1"?'<span class="evidenziato">'.__("Pubblicato per Estratto","albo-online")."</span><br />":"").'<strong>'.__("Descrizione","albo-online").'</strong>: '.strip_tags(($allegato->TitoloAllegato?$allegato->TitoloAllegato:basename( $allegato->Allegato))).'</strong><br /><strong>'.__("Impronta","albo-online").'</strong>: '.$allegato->Impronta.'<br /><strong>'.__("Dimensione file","albo-online").'</strong>: '.ap_Formato_Dimensione_File(is_file($allegato->Allegato)?filesize($allegato->Allegato):0)."<br /><br />";
+				if (is_file($allegato->Allegato))
+					echo '<a href="'.ap_DaPath_a_URL($allegato->Allegato).'" class="addstatdw noUnderLine" rel="'.get_permalink().$sep.'action=addstatall&amp;id='.$allegato->IdAllegato.'&amp;idAtto='.$id.'" title="'.__("Visualizza Allegato","albo-online").'" target="_blank"><span class="u-text-r-l Icon Icon-zoom-in"></span></a> '.htmlspecialchars_decode($TipidiFiles[strtolower($Estensione)]['Verifica']).' <a href="'.get_permalink().$sep.'action=dwnalle&amp;id='.$allegato->IdAllegato.'&amp;idAtto='.$id.'" class="noUnderLine" title="'.__("Scarica allegato","albo-online").'"><span class="u-text-r-l Icon Icon-download"></span></a>';	
+				else
+					echo basename( $allegato->Allegato).' '.__("File non trovato, il file è stato cancellato o spostato!","albo-online");
+		echo '</div>
+			</div>
+		';
+		}
 	echo '</div>
-		</div>';
-	}
-echo '</div>
+<div class="Prose Alert Alert--info Alert--withIcon" role="alert">
+    <h3 class="u-text-h3">'.__("Informazioni","albo-online").'</h3>
+    <p class="u-text-p">'.__("L'impronta dei files è calcolata con algoritmo SHA256 al momento dell'upload","albo-online").'</p>
 </div>';
+}
 }
 
 function Lista_Atti($Parametri,$Categoria=0,$Numero=0,$Anno=0,$Oggetto='',$Dadata=0,$Adata=0,$Riferimento='',$Ente=-1){
 		switch ($Parametri['stato']){
 			case 0:
-				$TitoloAtti="Tutti gli Atti";
+				$TitoloAtti=__("Tutti gli atti","albo-online");
 				break;
 			case 1:
-				$TitoloAtti="Atti in corso di Validit&agrave;";
+				$TitoloAtti=__("Atti in corso di Validità","albo-online");
 				break;
 			case 2:
-				$TitoloAtti="Atti Scaduti";
+				$TitoloAtti=__("Atti Scaduti","albo-online");
 				break;
 			case 3:
-				$TitoloAtti="Atti da Pubblicare";
+				$TitoloAtti=__("Atti da Pubblicare","albo-online");
 				break;
 	}
 	if (isset($Parametri['per_page'])){
@@ -398,8 +451,7 @@ function Lista_Atti($Parametri,$Categoria=0,$Numero=0,$Anno=0,$Oggetto='',$Dadat
 			$Da=($_REQUEST['Pag']-1)*$N_A_pp;
 			$A=$N_A_pp;
 		}else{
-			echo "ATTENZIONE:<br />E' stato indicato un parametro non valido che può rappresentare un ATTACCO INFORMATICO AL SITO";
-			return ob_get_clean();
+			echo sprintf(__("ATTENZIONE:%sE' stato indicato un parametro non valido che può rappresentare un ATTACCO INFORMATICO AL SITO","albo-online"),"<br />");
 		}
 	}
 	if (!isset($_REQUEST['ente'])){
@@ -420,10 +472,10 @@ function Lista_Atti($Parametri,$Categoria=0,$Numero=0,$Anno=0,$Oggetto='',$Dadat
 	if(isset($Parametri['minfiltri']) And $Parametri['minfiltri']=="si"){
 		if(isset($_REQUEST['vf']) and  $_REQUEST['vf']=="s"){
 //			$VisFiltro='<img src="'.Albo_URL.'img/minimize.png" id="maxminfiltro" class="s" alt="icona minimizza finestra filtri"/>';
-			$VisFiltro='<button id="maxminfiltro" class="s"><span class="dashicons dashicons-filter"></span> Chiudi Ricerca atti mediante filtri</button>';
+			$VisFiltro='<button id="maxminfiltro" class="s"><span class="dashicons dashicons-filter"></span> '.__("Chiudi Ricerca atti mediante filtri","albo-online").'</button>';
 		}else{
 //			$VisFiltro='<img src="'.Albo_URL.'img/maximize.png" id="maxminfiltro" class="h" alt="icona massimizza finestra filtri"/>';
-			$VisFiltro='<button id="maxminfiltro" class="h"><span class="dashicons dashicons-filter"></span> Apri Ricerca atti mediante filtri</button>';
+			$VisFiltro='<button id="maxminfiltro" class="h"><span class="dashicons dashicons-filter"></span> '.__("Apri Ricerca atti mediante filtri","albo-online").'</button>';
 		}
 	}
 echo ' <div class="Visalbo">
@@ -456,12 +508,12 @@ if ($TotAtti>$N_A_pp){
 			$PagSuc=$Pagcur+1;
 			echo'	
 				<li class="Grid-cell u-textCenter">
-					<a href="'.$Para.'1" class="u-color-50 u-textClean u-block" title="Prima pagina">
+					<a href="'.$Para.'1" class="u-color-50 u-textClean u-block" title="'.__("Vai alla Prima pagina","albo-online").'">
 						<span class="u-text-r-m">&laquo;</span>
 					</a>
 				</li>
 				<li class="Grid-cell u-textCenter u-block">
-					<a href="'.$Para.$PagPre.'" class="u-color-50 u-textClean u-block" title="Pagina precedente">
+					<a href="'.$Para.$PagPre.'" class="u-color-50 u-textClean u-block" title="'.__("Vai alla Pagina precedente","albo-online").'">
 						<span class="u-text-r-m">&lsaquo;</span>
 					</a>
 				</li>';			
@@ -496,12 +548,12 @@ if ($TotAtti>$N_A_pp){
 		}else{
 			$PagSuc=$Pagcur+1;
 			echo'				 
-					<a href="'.$Para.$PagSuc.'" class="u-color-50 u-textClean u-block" title="Prima successiva">
+					<a href="'.$Para.$PagSuc.'" class="u-color-50 u-textClean u-block" title="'.__("Vai alla Prima successiva","albo-online").'">
 					<span class="u-text-r-m">&rsaquo;</span>
 				</a>
 			</li>
 			<li class="Grid-cell u-textCenter u-block">
-				<a href="'.$Para.$Npag.'" class="u-color-50 u-textClean u-block" title="Ultima pagina">
+				<a href="'.$Para.$Npag.'" class="u-color-50 u-textClean u-block" title="'.__("Vai all'Ultima pagina","albo-online").'">
 					<span class="u-text-r-m">&raquo;</span>
 				</a>
 			</li>';
@@ -523,13 +575,13 @@ if(!is_array($FEColsOption)){
 $FEColsOption=json_decode($FEColsOption,TRUE);
 }	
 echo '	<div class="tabalbo">                               
-		<table id="elenco-atti" class="Table Table--withBorder u-text-r-xs js-TableResponsive tablesaw tablesaw-stack" data-tablesaw-mode="stack">	    <caption class="u-hiddenVisually">Atti</caption>
+		<table id="elenco-atti" class="Table Table--withBorder u-text-r-xs js-TableResponsive tablesaw tablesaw-stack" data-tablesaw-mode="stack">	    <caption class="u-hiddenVisually">'.__("Atti","albo-online").'</caption>
 		<thead>
 	    	<tr class="u-border-bottom-xs">
-	        	<th scope="col">Prog.</th>';
+	        	<th scope="col">'.__("Numero Atto","albo-online").'</th>';
 foreach($FEColsOption as $Opzione => $Valore){
 		if($Valore==1){
-			echo '			<th scope="col">'.$Opzione.'</th>';
+			echo '			<th scope="col">'.__(($Opzione=="Validita"?"Validità":$Opzione),"albo-online").'</th>';
 		}
 }
 echo '	</tr>
@@ -546,10 +598,6 @@ echo '	</tr>
 			$Link='<a href="'.get_permalink().$sep.'action=visatto&amp;id='.$riga->IdAtto.'"  style="text-decoration: underline;">';
 			$categoria=ap_get_categoria($riga->IdCategoria);
 			$cat=$categoria[0]->Nome;
-			$responsabileprocedura=ap_get_responsabile($riga->RespProc);
-			$respproc=$responsabileprocedura[0]->Cognome." ".$responsabileprocedura[0]->Nome;
-	//		$NumeroAtto=ap_get_num_anno($riga->IdAtto);
-	//		Bonifica_Url();
 			$NumeroAtto=$riga->Numero;
 			$classe='';
 			if ($pari) 
@@ -599,11 +647,6 @@ echo '	</tr>
 					<td '.$classe.'>
 						'.$Link.stripslashes($riga->Informazioni) .'</a>
 					</td>';
-			if (isset($FEColsOption['RespProc']) And $FEColsOption['RespProc']==1)
-				echo'
-					<td '.$classe.'>
-						'.$Link.$respproc .'</a>
-					</td>';	
 			if (isset($FEColsOption['DataOblio']) And $FEColsOption['DataOblio']==1)
 				echo'
 					<td '.$classe.'>
@@ -614,7 +657,7 @@ echo '	</tr>
 			}
 	} else {
 			echo '<tr>
-					<td colspan="6">Nessun Atto Codificato</td>
+					<td colspan="6">'.__("Nessun Atto Codificato","albo-online").'</td>
 				  </tr>';
 	}
 	echo '
@@ -622,8 +665,8 @@ echo '	</tr>
     </table>';
 echo '</div>';
 	if ($CeAnnullato) 
-		echo '<p>Le righe evidenziate con questo sfondo <span style="background-color: '.$coloreAnnullati.';">&nbsp;&nbsp;&nbsp;</span> indicano Atti Annullati</p>';
-echo '</div><!-- /wrap -->	';
-return ob_get_clean();
+		echo '<p>'. sprintf(__('Le righe evidenziate con questo sfondo %s indicano Atti Annullati','albo-online'),' <span style="background-color: '.$coloreAnnullati.';">&nbsp;&nbsp;&nbsp;</span>').'</p>';
+	echo '</div><!-- /wrap -->	';
+	return ob_get_clean();
 }
 ?>

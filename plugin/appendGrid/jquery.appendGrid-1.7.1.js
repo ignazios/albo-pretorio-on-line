@@ -1,4 +1,4 @@
-﻿/*!
+/*!
 * jQuery appendGrid v1.7.1
 * https://appendgrid.apphb.com/
 *
@@ -141,14 +141,14 @@
         notSupportMethod: 'Method is not supported by `appendGrid`: '
     };
     var _defaultTextResources = {
-        append: 'Aggiungi Riga',
-        removeLast: 'Rimuovi ultima Riga',
-        insert: 'Inserisci Riga prima',
-        remove: 'Rimuovi la Riga corrente',
-        moveUp: 'Sposta Su',
-        moveDown: 'Sposta Giù',
-        rowDrag: 'Ordina Riga',
-        rowEmpty: 'Questa Griglia è vuota'
+        append: append,
+        removeLast: removeLast,
+        insert: insert,
+        remove: remove,
+        moveUp: moveUp,
+        moveDown: moveDown,
+        rowDrag: rowDrag,
+        rowEmpty: rowEmpty
     };
     var _defaultButtonClasses = { append: null, removeLast: null, insert: null, remove: null, moveUp: null, moveDown: null, rowDrag: null };
     var _defaultSectionClasses = { caption: null, header: null, body: null, subPanel: null, footer: null };

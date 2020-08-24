@@ -2,7 +2,7 @@
 /**
  * Codice che viene eseguito in fase di disinstallazione del plugin Albo Pretorio OnLine
  * @link       http://www.eduva.org
- * @since      4.4.4
+ * @since      4.4.5
  *
  * @package    Albo On Line
  */
@@ -32,6 +32,7 @@ define("AP_BASE_DIR",$uploads['basedir']."/");
 		$wpdb->table_name_Log=$table_prefix . "albopretorio_log";
 		$wpdb->table_name_RespProc=$table_prefix . "albopretorio_resprocedura";
 		$wpdb->table_name_Enti=$table_prefix . "albopretorio_enti";
+		$wpdb->table_name_UO=$table_prefix . "albopretorio_unitaorganizzative";
 		$nf=ap_BackupDatiFiles($Data);
 		copy($nf, AP_BASE_DIR."BackupAlboPretorioUninstall".$Data.".zip");
 // Eliminazioni capacità
@@ -62,7 +63,7 @@ define("AP_BASE_DIR",$uploads['basedir']."/");
 		$wpdb->query("DROP TABLE IF EXISTS ".$wpdb->table_name_RespProc);
 		$wpdb->query("DROP TABLE IF EXISTS ".$wpdb->table_name_Enti);
 		$wpdb->query("DROP TABLE IF EXISTS ".$wpdb->table_name_Attimeta);
-		
+		$wpdb->query("DROP TABLE IF EXISTS ".$wpdb->table_name_UO);		
 // Eliminazioni Opzioni
 		delete_option( 'opt_AP_Ente' );
 		delete_option( 'opt_AP_NumeroProgressivo' );
@@ -97,6 +98,7 @@ define("AP_BASE_DIR",$uploads['basedir']."/");
 		delete_option( 'opt_AP_TabResp' );
 		delete_option( 'opt_AP_TipidiFiles' );
 		delete_option( 'opt_AP_UpCSSNewInterface' );
+		delete_option( 'opt_AP_FolderUploadMeseAnno' );
 		ap_Rmdir(AlboBCK);
 		ap_Rmdir(AP_BASE_DIR.'AllegatiAttiAlboPretorio');
 ?>

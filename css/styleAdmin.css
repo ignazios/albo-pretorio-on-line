@@ -170,3 +170,23 @@ button.append, button.removeLast, button.remove, button.moveUp,button.moveDown,b
 #Stato, #the-list > tr > td.Stato{
 	width:15%;
 }
+.evidenziato{
+	font-weight: bold;
+	font-size:1.2em;
+	color:red;
+}
+.lista ol {
+    counter-reset: item;
+    padding-left: 10px;
+	list-style: bold;
+}
+.lista li{
+    display: block;
+}
+.lista li:before {
+    content: counters(item, ".") " ";
+    counter-increment: item
+}
+.listaTitolo{
+	font-weight:bold;
+}

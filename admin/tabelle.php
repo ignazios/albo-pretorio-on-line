@@ -2,7 +2,7 @@
 /**
  * WGestione Enti.
  * @link       http://www.eduva.org
- * @since      4.4.4
+ * @since      4.4.5
  *
  * @package    Albo On Line
  */
@@ -23,7 +23,7 @@ jQuery(document).ready(function($){
 	$('#GridFunzioni').appendGrid('load', [
 <?php
 	  foreach($TR as $Ruolo){
-	  	echo "{ 'ID': '".$Ruolo->ID."', 'funzione': '".$Ruolo->Funzione."', 'visualizza': ".($Ruolo->Display=="Si" ? "true" : "false").", 'staincert': ".($Ruolo->StaCert=="Si" ? "true" : "false")." },";
+	  	echo "{ 'ID': '".$Ruolo->ID."', 'funzione': '".$Ruolo->Funzione."','visualizza': ".($Ruolo->Display=="Si" ? "true" : "false").", 'staincert': ".($Ruolo->StaCert=="Si" ? "true" : "false")." },";
 		}
 ?>
         ]);	  
@@ -32,14 +32,14 @@ jQuery(document).ready(function($){
 <?php	  
 		
 }
-$messages[1] = __('Item added.');
-$messages[2] = __('Item deleted.');
-$messages[3] = __('Item updated.');
-$messages[4] = "Elemento non Memorizzato";
-$messages[5] = __('Item not updated.');
-$messages[6] = __('Item not deleted.');
-$messages[7] = __('Impossibile cancellare Enti che sono collegati ad Atti');
-$messages[80] = 'ATTENZIONE. Rilevato potenziale pericolo di attacco informatico, l\'operazione &egrave; stata annullata';
+$messages[1] = __('Elemento aggiunto.','albo-online');
+$messages[2] = __('Elemento cancellato.','albo-online');
+$messages[3] = __('Elemento aggiornato.','albo-online');
+$messages[4] = __('Elemento non aggiunto.','albo-online');
+$messages[5] = __('Elemento non aggiornato.','albo-online');
+$messages[6] = __('Elemento non cancellato.','albo-online');
+$messages[7] = __('Impossibile cancellare Enti che sono collegati ad Atti','albo-online');
+$messages[80] = __("ATTENZIONE. Rilevato potenziale pericolo di attacco informatico, l'operazione è stata annullata","albo-online");
 load_Data_Funzioni();
 ?>
 <div id="ElaborazioneTabella" style="width: 200px;height: 200px;position: absolute;top: 50%;left: 50%; margin-top: -100px; margin-left: -100px;display:none;" >
@@ -47,19 +47,19 @@ load_Data_Funzioni();
 </div>
 <div class="wrap nosubsub">
 	<div class="HeadPage">
-		<h2 class="wp-heading-inline"><span class="dashicons dashicons-media-spreadsheet" style="font-size: 1.1em;"></span> Tabelle
+		<h2 class="wp-heading-inline"><span class="dashicons dashicons-media-spreadsheet" style="font-size: 1.1em;"></span> <?php _e("Tabelle","albo-online");?>
 	</div>
 
 	<div id="config-tabs-container" style="margin-top:20px;">
 		<ul>
-			<li><a href="#Conf-tab-1">Funzioni</a></li>
+			<li><a href="#Conf-tab-1"><?php _e("Funzioni","albo-online");?></a></li>
 		</ul>	 
 		<div id="Conf-tab-1">
 
 		  <form action="" method="post" id="FormFunzioni">
 		  	<table id="GridFunzioni"></table>
-		  	<button type="button" id="MemoFunzioni" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"><span class="dashicons dashicons-edit"></span> Memorizza Tabella Funzioni</button>
-		  	<button type="button" id="LoadDefaultFunzioni" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"><span class="dashicons dashicons-update"></span> Carica i valori di default</button>
+		  	<button type="button" id="MemoFunzioni" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"><span class="dashicons dashicons-edit"></span> <?php _e("Memorizza Tabella Funzioni","albo-online");?></button>
+		  	<button type="button" id="LoadDefaultFunzioni" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"><span class="dashicons dashicons-update"></span> <?php _e("Carica i valori di default","albo-online");?></button>
 		  </form>
 		</div>
 	</div>
