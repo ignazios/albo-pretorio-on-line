@@ -242,9 +242,6 @@ if(count($allegati)>0){
 	echo '</div>';
 }	
 echo '
-	<div class="VisInfo">
-	    <p class="text-1"><strong><span class="dashicons dashicons-info"></span> '.__("Informazioni","albo-online").'</strong>: '.__("L'impronta dei files è calcolata con algoritmo SHA256 al momento dell'upload","albo-online").'</p>
-	</div>
 </div>';	
 return ob_get_clean();
 }

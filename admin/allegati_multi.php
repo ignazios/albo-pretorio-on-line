@@ -18,7 +18,7 @@ if(preg_match('#' . basename(__FILE__) . '#', $_SERVER['PHP_SELF'])) { die('You 
 		$TEE.='.'.$Tipo["."].', ';
 		$AI.='"'.$Tipo["."].'":"'.$Tipo["Icon"].'", ';
 	}
-	$TA=substr($TA,0,-2);
+	$TEE=substr($TEE,0,-2);
 	$TE=substr($TE,0,-2);
 	$AI=substr($AI,0,-2);
 ?>

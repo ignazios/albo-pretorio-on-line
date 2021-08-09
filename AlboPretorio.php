@@ -102,7 +102,7 @@ if (!class_exists('AlboPretorio')) {
     <div class="updated notice albo-notice-dismis is-dismissible" >
         <h3>Albo Online</h3>
         <p><?php echo sprintf(__('Aggiornato alla versione %s', 'albo-online' ),$this->version); ?></p>
-        <p><?php echo sprintf(__('Per visualizzare le modifiche apportate consultare il %sLog change%s', 'albo-online' ),'<a href="admin.php?page=logagg">','</a>'); ?></p>
+        <p><?php echo sprintf(__('Per visualizzare le modifiche apportare consultare il %sLong change%s', 'albo-online' ),'<a href="admin.php?page=logagg">','</a>'); ?></p>
     </div>
 
 
@@ -530,8 +530,7 @@ if (!class_exists('AlboPretorio')) {
 			}
 		}
 	}
-	function Albo_Admin_Enqueue_Scripts( $hook_suffix ) {
-		if(strpos($hook_suffix,'albo-online')===false)	return;?>
+	function Albo_Admin_Enqueue_Scripts( $hook_suffix ) {?>
 <script type='text/javascript'>
 	var myajaxsec = "<?php echo wp_create_nonce('adminsecretAlboOnLine');?>",
 	    title_button_albo="<?php echo str_replace('"',"''",__('Albo OnLine','albo-online'));?>",
@@ -559,6 +558,7 @@ if (!class_exists('AlboPretorio')) {
         rowEmpty= "<?php echo str_replace('"',"''",__("Questa Griglia è vuota","albo-online"));?>";  
 </script>
 	<?php		
+		$TitoloAlbo=sanitize_title(__('Albo OnLine','albo-online'));
 		$path=plugins_url('', __FILE__ );
 	    wp_enqueue_script('jquery');
 	    wp_enqueue_script('jquery-ui-core');
@@ -567,6 +567,8 @@ if (!class_exists('AlboPretorio')) {
 		wp_enqueue_script( 'jquery-ui-datepicker', '', array('jquery'));
 		wp_enqueue_script( 'wp-color-picker', '', array('jquery'));
 		wp_enqueue_script( 'my-public-admin', $path.'/js/Albo.admin.public.js');
+	    if(strpos($hook_suffix,$TitoloAlbo)===false)
+			return;
 	    wp_enqueue_script( 'my-admin-fields', $path.'/js/Fields.js');
 	    wp_enqueue_script( 'my-admin', $path.'/js/Albo.admin.js');
 		wp_enqueue_style( 'wp-color-picker' );

@@ -2,7 +2,7 @@
 /**
  * Gestione Responsabili.
  * @link       http://www.eduva.org
- * @since      4.4.4
+ * @since      4.4.5
  *
  * @package    Albo On Line
  */

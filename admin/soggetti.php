@@ -91,7 +91,7 @@ if ($lista){
 			<a href="?page=soggetti&amp;action=edit-responsabile&amp;id='.$riga->IdResponsabile.'&amp;modresp='.wp_create_nonce('editresponsabile').'" rel="'.$riga->Cognome.'">
 			<span class="dashicons dashicons-edit" title="'.__("Modifica soggetto","albo-online").'" style="margin-left:'.$Tab.'px;"></span>
 			</a>
-			('.$riga->IdResponsabile.') '.$riga->Cognome .' (n&ordm; atti '.(isset($SoggettiAtti[$riga->IdResponsabile])?$SoggettiAtti[$riga->IdResponsabile]:0).') <strong>'.$Funzione.'</strong>
+				('.$riga->IdResponsabile.') '.$riga->Cognome .' (n&ordm; atti '.(isset($SoggettiAtti[$riga->IdResponsabile])?$SoggettiAtti[$riga->IdResponsabile]:0).') <strong>'.$Funzione.'</strong>
 			</li>'; 
 	}
 } else {

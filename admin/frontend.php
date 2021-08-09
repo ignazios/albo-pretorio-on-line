@@ -165,17 +165,10 @@ function VisualizzaAtto($id){
 	$risultatocategoria=ap_get_categoria($risultato->IdCategoria);
 	$risultatocategoria=$risultatocategoria[0];
 	$Unitao=ap_get_unitaorganizzativa($risultato->IdUnitaOrganizzativa);
-	if (isset($Unitao))
-		$UnitaoNome=$Unitao->Nome;
-	else
-		$UnitaoNome="";
 	$NomeResp=ap_get_responsabile($risultato->RespProc);
-	if (count($NomeResp)>0) {
-		$NomeResp=$NomeResp[0];
-		$NomeResp=stripslashes($NomeResp->Nome." ".$NomeResp->Cognome);
-	}
-	else
-		$NomeResp="";
+	$NomeResp=$NomeResp[0];
+
+	$allegati=ap_get_all_allegati_atto($id);
 	ap_insert_log(5,5,$id,"Visualizzazione");
 	$coloreAnnullati=get_option('opt_AP_ColoreAnnullati');
 echo '
@@ -217,6 +210,10 @@ echo '
 			<td style="vertical-align: middle;">'.ap_VisualizzaData($risultato->DataInizio).'</td>
 		</tr>
 		<tr>
+			<th>'.__("Data inizio Pubblicazione","albo-online").'</th>
+			<td style="vertical-align: middle;">'.ap_VisualizzaData($risultato->DataInizio).'</td>
+		</tr>
+		<tr>
 			<th>'.__("Data fine Pubblicazione","albo-online").'</th>
 			<td style="vertical-align: middle;">'.ap_VisualizzaData($risultato->DataFine).'</td>
 		</tr>
@@ -230,11 +227,11 @@ echo '
 		</tr>
 		<tr>
 			<th>'.__("Unità Organizzativa Responsabile","albo-online").'</th>
-			<td style="vertical-align: middle;">'.stripslashes($UnitaoNome).'</td>
+			<td style="vertical-align: middle;">'.stripslashes($Unitao->Nome).'</td>
 		</tr>
 		<tr>
 			<th>'.__("Responsabile del procedimento amministrativo","albo-online").'</th>
-			<td style="vertical-align: middle;">'.stripslashes($NomeResp).'</td>
+			<td style="vertical-align: middle;">'.stripslashes($NomeResp->Nome." ".$NomeResp->Cognome).'</td>
 		</tr>
 		<tr>
 			<th>'.__("Categoria","albo-online").'</th>

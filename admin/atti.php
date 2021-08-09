@@ -1044,7 +1044,6 @@ function Nuovo_atto(){
 		$Richiedente=$_REQUEST['Richiedente'];
 	else	
 		$Richiedente="";
-	
 	$DefaultSoggetti=get_option('opt_AP_DefaultSoggetti',
 								array("RP"=>0,
 	  								  "RB"=>0,
@@ -1585,8 +1584,7 @@ else
 	if(isset($NomeResp[0]))
 		$NomeResp=$NomeResp[0];
 	else
-		$NomeResp="";
-	echo '
+		$NomeResp="";	echo '
 <div class="wrap nosubsub">
 	<div class="HeadPage">
 		<h2 class="wp-heading-inline"><span class="dashicons dashicons-portfolio"></span> Atti</h2>

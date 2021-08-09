@@ -164,19 +164,12 @@ function VisualizzaAtto($id){
 	$risultato=$risultato[0];
 	$risultatocategoria=ap_get_categoria($risultato->IdCategoria);
 	$risultatocategoria=$risultatocategoria[0];
+	$allegati=ap_get_all_allegati_atto($id);
 	ap_insert_log(5,5,$id,"Visualizzazione");
 	$coloreAnnullati=get_option('opt_AP_ColoreAnnullati');
 	$Unitao=ap_get_unitaorganizzativa($risultato->IdUnitaOrganizzativa);
-	if ($Unitao!==FALSE)
-		$UnitaoNome=$Unitao->Nome;
-	else
-		$UnitaoNome="";
 	$NomeResp=ap_get_responsabile($risultato->RespProc);
-	if (count($NomeResp)>0) {
-		$NomeResp=$NomeResp[0];
-		$NomeResp=stripslashes($NomeResp->Nome." ".$NomeResp->Cognome);
-	} else
-		$NomeResp="";
+	$NomeResp=$NomeResp[0];
 echo '
 <div>
 	<button class="h" onclick="window.location.href=\''.$_SERVER['HTTP_REFERER'].'\'"><span class="dashicons dashicons-controls-back"></span>'.__("Torna alla Lista","albo-online").'</button>
@@ -248,13 +241,13 @@ echo '
 			<div class="u-background-50 u-color-white u-margin-bottom-xs u-borderRadius-m u-padding-all-m">'.__("Unità Organizzativa Responsabile","albo-online").'</div>
 		</div>
 		<div class="Grid-cell u-size1of2 u-lg-size1of2">
-		<div class="u-margin-bottom-xs u-padding-all-m u-border-bottom-xxs">'.$UnitaoNome.'</div>
+			<div class="u-margin-bottom-xs u-padding-all-m u-border-bottom-xxs">'.stripslashes($Unitao->Nome).'</div>
 		</div>		
 		<div class="Grid-cell u-size1of2 u-lg-size1of2 HeadAtto">
 			<div class="u-background-50 u-color-white u-margin-bottom-xs u-borderRadius-m u-padding-all-m">'.__("Responsabile del procedimento amministrativo","albo-online").'</div>
 		</div>
 		<div class="Grid-cell u-size1of2 u-lg-size1of2">
-		<div class="u-margin-bottom-xs u-padding-all-m u-border-bottom-xxs">'.$NomeResp.'</div>
+			<div class="u-margin-bottom-xs u-padding-all-m u-border-bottom-xxs">'.stripslashes($NomeResp->Nome." ".$NomeResp->Cognome).'</div>
 		</div>
 		<div class="Grid-cell u-size1of2 u-lg-size1of2 HeadAtto">
 			<div class="u-background-50 u-color-white u-margin-bottom-xs u-borderRadius-m u-padding-all-m">'.__("Categoria","albo-online").'</div>
