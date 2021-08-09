@@ -2,7 +2,7 @@
 /**
  * Gestione Stampe.
  * @link       http://www.eduva.org
- * @since      4.4.5
+ * @since      4.5.6
  *
  * @package    Albo On Line
  */
@@ -72,14 +72,18 @@ function StampaAtto($id, $tipo) {
 	if($PaginaAttiCor===FALSE){
 		$PaginaAttiCor="";		
 	}
+	$NomeResp=ap_get_responsabile($risultato->RespProc);
+	$Soggetto=$NomeResp[0];
+	$Responsabile=$Soggetto->Cognome." ".$Soggetto->Nome;
+	$Unitao=ap_get_unitaorganizzativa($risultato->IdUnitaOrganizzativa);
 	foreach($Soggetti as $Soggetto){
 		if($Soggetto->Funzione==$DatiSeg[0]){
 			$Segretario=$Soggetto->Cognome." ".$Soggetto->Nome;
 		}  
-		if($Soggetto->Funzione=="RP"){
+/*		if($Soggetto->Funzione=="RP"){
 			$Responsabile=$Soggetto->Cognome." ".$Soggetto->Nome;
 		}
-		if($Soggetto->Funzione=="RB"){
+*/		if($Soggetto->Funzione=="RB"){
 			$ResponsabilePub=$Soggetto->Cognome." ".$Soggetto->Nome;
 		}
 	}  
@@ -116,8 +120,12 @@ function StampaAtto($id, $tipo) {
                         <h2 style="font-size: 210%;"><?php  _e("Albo Pretorio","albo-online");?></h2>
                     </td></tr>
                 <tr>
-                    <td colspan="2" style="background: #fff; border: none; font-size: 140%;">
-                        <h3><?php  _e("Responsabile","albo-online");?>: <?php echo $Responsabile; ?></h3>
+                    <td colspan="2" style="background: #fff; border: none;">
+                        <ul style="list-style: none;">
+                        	<li><h4 style="font-size: 120%;"><?php  _e("Richidente","albo-online");?>: <span style="font-weight:normal"><?php echo $risultato->Richiedente ?></span></h4></li>
+                        	<li><h4 style="font-size: 120%;"><?php  _e("Unità Organizzativa Responsabile","albo-online");?>: <span style="font-weight:normal"><?php echo stripslashes($Unitao->Nome); ?></span></h4></li>
+                         	<li><h4 style="font-size: 120%;"><?php  _e("Responsabile Del Procedimento Amministrativo","albo-online");?>: <span style="font-weight:normal"><?php echo $Responsabile; ?></span></h4></li>   
+                         </ul>                
                     </td>
                 </tr>
                 <?php if ($tipo == 'a') echo $rigadata; ?>

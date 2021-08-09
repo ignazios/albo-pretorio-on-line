@@ -2,7 +2,7 @@
 /**
  * Gestione Filtri FrontEnd.
  * @link       http://www.eduva.org
- * @since      4.4.5
+ * @since      4.5.6
  *
  * @package    Albo On Line
  */

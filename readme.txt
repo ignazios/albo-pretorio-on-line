@@ -3,8 +3,8 @@ Contributors: Scimone Ignazio
 Donate link: 
 Tags: Albo Pretorio, Codice Amministrazione Digitale, Upload File
 Requires at least: 3.5
-Tested up to: 5.3.2
-Stable tag: 4.4.5
+Tested up to: 5.7.2
+Stable tag: 4.5.6
 Albo Pretorio On Line permette la gestione dell'albo pretorio on line in base al nuovo Codice dell'Amministrazione Digitale
 == Description ==
 
@@ -45,6 +45,41 @@ Di seguito sono riportati i passi necessari per l'installazione del plugin. la p
 Per maggiori informazioni usare il repo si github https://github.com/ignazios/albo-pretorio-on-line
 Per segnalare problemi, proposte di modifiche utilizzare l'indirizzo email ignazios@gmail.com
 == Changelog ==
+= 4.5.6 =
+- <strong>Risolto</strong> un errore nell'interfaccia per temi basato su Bootstrap Italia di Designers Italia, non venivano visualizzate le icone.
+= 4.5.5 =
+- <strong>Risolti</strong> alcuni errori sulla gestione dei soggetti
+= 4.5.4 =
+- <strong>Risolti</strong> alcuni errori minori
+- <strong>implementata</strong> la possibilità di cancellare cancellare gli allegati degli atti scaduti e di modificare la data dell'oblio per poterli cancellare. Per cancellare gli allegati bisogna inserire la motivazione che verrà riportata nella visualizzazione dell'atto.
+= 4.5.3 =
+- <strong>Risolti</strong> alcuni errori minori della visualizzazione frontend per tema Bootstrap Italia 
+- <strong>Risolto</strong> problema per calcolo impronta Allegati
+- <strong>Implementata</strong> utility per ricalcolo impronta Allegati
+= 4.5.2 =
+- <strong>Implementata</strong> la gestione del template Bootstrap Italia di Designers Italia attivabile apposita opzione da Impostazioni 
+- <strong>Corretti</strong> alcuni bug minori 
+= 4.5.1 =
+- <strong>Corretti</strong> un bug in visatto.php e visatto_new.php 
+= 4.5 =
+- <strong>Modifiche Atti</strong>
+-- <strong>La numerazione viene riportata con 7 cifre con riempimento a sinistra con 0</strong>. Questa modifica non comporta modifiche strutturali ai dati.
+-- <strong>Aggiunto</strong>, nell’atto, un campo di Testo di massimo 100 caratteri per l’inserimento della denominazione del richiedente la pubblicazione.
+-- <strong>Aggiunto</strong>, nell’atto, un campo per inserire il riferimento all’unità organizzativa responsabile (riconducibile all’ufficio dell’Ente o Area Organizzativa Omogenea)
+-- <strong>Aggiunto</strong>, nell’atto, un campo per inserire il riferimento al responsabile del procedimento amministrativo. Questa informazione era già presente nella gestione dell’albo nella gestione dei soggetti, però in quel caso non era obbligatorio indicare il responsabile del procedimento ma bastava indicare almeno un soggetto. Il riferimento al responsabile del procedimento amministrativo sarà recuperato dalla tabella dei Soggetti.
+-- <strong>Corretto</strong> bug ripubblicazione atti, la data oblio veniva, erroneamente, riportata a 00/00/0000
+- <strong>Unità Organizzative</strong>
+-- <strong>Inserita</strong> una tabella per la gestione delle unità organizzative in cui è articolato l’Ente/Area Organizzativa Omogenea
+-- <strong>Creata</strong> l’interfaccia per la gestione (Inserimento/Modifica/Cancellazione) delle unità organizzative
+-- <strong>Aggiunti</strong> i riferimenti alle unità organizzative nella gestione dell’albo.
+- <strong>Modifiche Allegati</strong>
+-- <strong>Aggiunto</strong> un flag che indica se l’allegato è Documento (documento informatico sottoscritto con firma digitale
+-- <strong>Aggiunto</strong> un flag che indica se l’allegato è pubblicato in forma integrale o per estratto
+-- <strong>Aggiunto</strong> un campo in cui viene riportata l’impronta del file calcolata con algoritmo SHA256 calcolato al momento dell’upload del file.
+-- <strong>Modificate</strong> tutte le interfacce degli atti in cui vengono visualizzati i files. Adesso i files sono organizzati in documenti ed allegati e vengono riportati tutte le informazioni aggiunte e descritte nei precedenti punti.
+-- <strong>Modificato</strong> il sistema che rende il nome file univocoadesso prima del numero viene inserito un _
+- <strong>Traduzioni</strong>
+- <strong>Implementata</strong> la possibilità di tradurre il plugin, sia lato frontend che backend
 = 4.4.5 =
 - <strong>Corretto</strong> bug che dava un falso errore sui parametri della pagina di visualizzazione della lista degli atti nel caso in cui il filtro era minimizzato.
 = 4.4.4 =

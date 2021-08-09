@@ -8,11 +8,41 @@ jQuery.noConflict();
                jQuery.ajax({url: ajaxurl,data: {action: 'dismiss_alboonline_notice',security:myajaxsec}});
             });
 		$(function() {  
-             $('#Prova').click(function() {
-                var post = new wp.api.models.Post( { title: 'This is a test post' } );
-                    post.save();
-            } );
-            $('#AddMeta').click(function(){
+			$('span.CancellaAllegato').click(function(){
+				var motivo=$('#motivo'+$(this).attr('id')).val();
+				var azione=$(this).attr('rel')+'\n con la motivazione: \n'+motivo;
+				var answer = confirm('Confermi la cancellazione dell\'allegato: \n' +azione);
+				var ID=$(this).attr('id');
+			if (answer){
+				$.ajax({type: 'POST',
+						url: ajaxurl,
+					  	data: {
+					  	action: 	'rimuoviAllegato',
+					  	idAllegato:	$(this).attr('id'),
+					  	idAtto: 	$('#IdAtto').val(),
+					  	desmotivo:	motivo,
+					  	security:	myajaxsec
+					  	},
+                        success: function(risposta){
+                            $('#IDA'+ID).remove();
+                            $('#LblIDA'+ID).remove();
+                            $('#file'+ID).remove();
+                            $('#motivo'+ID).remove();
+                            $('#SR'+ID).remove();
+                            $('#'+ID).remove();
+                            $('#Note'+ID).html("<strong> "+motivo+"</strong>");
+                            alert("Allegato "+azione+" "+risposta);
+                         },                   
+                        error: function(error) { 
+                             alert(error);
+                        }
+				});
+			}
+			else{
+				return false;
+			}					
+		});
+	        $('#AddMeta').click(function(){
                  $('#newMeta').css('display', 'inline');
              });
             $('#UndoNewMedia').click(function(){

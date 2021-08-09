@@ -4,7 +4,7 @@
  * Plugin Name:       Albo Pretorio On line
  * Plugin URI:        https://it.wordpress.org/plugins/albo-pretorio-on-line/
  * Description:       Plugin utilizzato per la pubblicazione degli atti da inserire nell'albo pretorio dell'ente.
- * Version:           4.4.6
+ * Version:           4.5.6
  * Author:            Ignazio Scimone
  * Author URI:        eduva.org
  * License:           GPL-2.0+
@@ -84,6 +84,8 @@ if (!class_exists('AlboPretorio')) {
 		add_action( 'wp_ajax_MemoFunzioni','ap_MemoFunzioni' );
 		add_action( 'wp_ajax_LoadDefaultFunzioni','ap_LoadDefaultFunzioni' );
 		add_action( 'wp_ajax_dismiss_alboonline_notice','ap_dismiss_alboonline_notice' );
+		add_action( 'wp_ajax_rimuoviAllegato','ap_rimuoviallegatoPP' );
+
 		$RestApi=get_option('opt_AP_RestApi');
 	  	if($RestApi=="Si"){
 			add_action( 'rest_api_init', array($this, 'Reg_rest_api_route'));
@@ -92,7 +94,9 @@ if (!class_exists('AlboPretorio')) {
 			$this->activate();
 		} 
 		$this->load_dependencies();
-		if( $this->version=="4.4.6" && empty( get_option( 'alboonline-notice-dismissed' ) ) ) {
+		$MsgLetto=get_option( 'alboonline-notice-dismissed' );
+//		var_dump($MsgLetto);
+		if( $this->version=="4.4.6" && empty( $MsgLetto ) || $MsgLetto===FALSE) {
   			add_action( 'admin_notices', array($this, 'admin_notice' ));
 		}
 	}
@@ -102,7 +106,7 @@ if (!class_exists('AlboPretorio')) {
     <div class="updated notice albo-notice-dismis is-dismissible" >
         <h3>Albo Online</h3>
         <p><?php echo sprintf(__('Aggiornato alla versione %s', 'albo-online' ),$this->version); ?></p>
-        <p><?php echo sprintf(__('Per visualizzare le modifiche apportare consultare il %sLong change%s', 'albo-online' ),'<a href="admin.php?page=logagg">','</a>'); ?></p>
+        <p><?php echo sprintf(__('Per visualizzare le modifiche apportate consultare il %sLog change%s', 'albo-online' ),'<a href="admin.php?page=logagg">','</a>'); ?></p>
     </div>
 
 
@@ -530,7 +534,8 @@ if (!class_exists('AlboPretorio')) {
 			}
 		}
 	}
-	function Albo_Admin_Enqueue_Scripts( $hook_suffix ) {?>
+	function Albo_Admin_Enqueue_Scripts( $hook_suffix ) {
+		if($hook_suffix=="widgets.php") return;?>
 <script type='text/javascript'>
 	var myajaxsec = "<?php echo wp_create_nonce('adminsecretAlboOnLine');?>",
 	    title_button_albo="<?php echo str_replace('"',"''",__('Albo OnLine','albo-online'));?>",
@@ -932,12 +937,14 @@ static function add_albo_plugin_visatto($plugin_array) {
 	    wp_enqueue_script('Albo-Public-Jquery-UI',plugins_url('js/jquery-ui.min.js', __FILE__ ));
 	    wp_enqueue_script('jquery-ui-tabs', '', array('jquery'));
 		wp_enqueue_script( 'jquery-ui-datepicker', '', array('jquery'));
-		wp_enqueue_script( 'Albo-Public', plugins_url('js/Albo.public.js', __FILE__ ));
+		if(get_option('opt_AP_BootstrapItalia')!="Si")
+			wp_enqueue_script( 'Albo-Public', plugins_url('js/Albo.public.js', __FILE__ ));
+//		var_dump($OldInterfaccia);var_dump($UploadCSSNI);
     if($OldInterfaccia!="Si"  AND $UploadCSSNI!="Si"){
 		wp_register_style('AlboPretorioWTS', plugins_url( 'css/build/build.css', __FILE__ ) );
         wp_enqueue_style( 'AlboPretorioWTS');
-		wp_register_style('AlboPretorioNewStyle', plugins_url( 'css/stylenew.css', __FILE__ ) );
-        wp_enqueue_style( 'AlboPretorioNewStyle');
+//		wp_register_style('AlboPretorioNewStyle', plugins_url( 'css/stylenew.css', __FILE__ ) );
+//        wp_enqueue_style( 'AlboPretorioNewStyle');
 		wp_enqueue_script('Albo-PublicDesignItalia', plugins_url('css/build/IWT.min.js', __FILE__ ));
 	}
         wp_register_style('AlboPretorioStyle', plugins_url( 'css/style.css', __FILE__ ) );
@@ -963,11 +970,14 @@ static function add_albo_plugin_visatto($plugin_array) {
 			'per_page' =>'10'
 		), $Parametri,"Albo");
 		$OldInterfaccia=get_option('opt_AP_OldInterfaccia');
+		$BootstrapItalia= get_option('opt_AP_BootstrapItalia');
 		if(is_file(get_stylesheet_directory()."/plugins/albo-pretorio-on-line/admin/frontend.php")){
 			require_once ( get_stylesheet_directory()."/plugins/albo-pretorio-on-line/admin/frontend.php");
 		}else{
 			if($OldInterfaccia=="Si"){
 				require_once ( dirname (__FILE__) . '/admin/frontend.php' );
+			}elseif($BootstrapItalia=="Si"){
+				require_once ( dirname (__FILE__) . '/admin/frontend_new2.php' );
 			}else{
 				require_once ( dirname (__FILE__) . '/admin/frontend_new.php' );
 			}		
@@ -984,11 +994,18 @@ static function add_albo_plugin_visatto($plugin_array) {
 			'valore' => '',
 		), $Parametri,"AlboGruppiAtti");
 		$OldInterfaccia=get_option('opt_AP_OldInterfaccia');
-		if($OldInterfaccia=="Si"){
-			require_once ( dirname (__FILE__) . '/admin/gruppiatti.php' );
+		$BootstrapItalia= get_option('opt_AP_BootstrapItalia');
+		if(is_file(get_stylesheet_directory()."/plugins/albo-pretorio-on-line/admin/gruppiatti.php")){
+			require_once ( get_stylesheet_directory()."/plugins/albo-pretorio-on-line/admin/gruppiatti.php");
 		}else{
-			require_once ( dirname (__FILE__) . '/admin/gruppiatti_new.php' );
-		}
+			if($OldInterfaccia=="Si"){
+				require_once ( dirname (__FILE__) . '/admin/gruppiatti.php' );
+			}elseif($BootstrapItalia=="Si"){
+				require_once ( dirname (__FILE__) . '/admin/gruppiatti_new2.php' );
+			}else{
+				require_once ( dirname (__FILE__) . '/admin/gruppiatti_new.php' );
+			}	
+		}			
 		return Lista_AttiGruppo($Parametri);
 	}
 	function VisualizzaAtto($Parametri){
@@ -999,14 +1016,17 @@ static function add_albo_plugin_visatto($plugin_array) {
 			'anno' => '',
 		), $Parametri,"AlboAtto");
 		$OldInterfaccia=get_option('opt_AP_OldInterfaccia');
+		$BootstrapItalia= get_option('opt_AP_BootstrapItalia');
 		if(is_file(get_stylesheet_directory()."/plugins/albo-pretorio-on-line/admin/visatto.php")){
 			require_once ( get_stylesheet_directory()."/plugins/albo-pretorio-on-line/admin/visatto.php");
 		}else{
 			if($OldInterfaccia=="Si"){
 				require_once ( dirname (__FILE__) . '/admin/visatto.php' );
+			}elseif($BootstrapItalia=="Si"){
+				require_once ( dirname (__FILE__) . '/admin/visatto_new2.php' );
 			}else{
 				require_once ( dirname (__FILE__) . '/admin/visatto_new.php' );
-			}
+			}		
 		}
 		return Visualizza_Atto($Parametri);
 	}	
@@ -1244,6 +1264,7 @@ if(get_option('opt_AP_AnnoProgressivo')!=date("Y")){
 	  $RuoliPulsVA			= get_option('opt_AP_RuoliPulsVisualizzaAtto');
 	  $OldInterfaccia		= get_option('opt_AP_OldInterfaccia');
 	  $UploadCSSNI			= get_option('opt_AP_UpCSSNewInterface');
+	  $BootstrapItalia		= get_option('opt_AP_BootstrapItalia');
 	  $AutoShortcode		= get_option('opt_AP_AutoShortcode');
 	  $Testi				= json_decode(get_option('opt_AP_Testi'),TRUE);
 	  $IconaDocumenti		= get_option('opt_AP_IconaDocumenti');
@@ -1319,6 +1340,11 @@ if(get_option('opt_AP_AnnoProgressivo')!=date("Y")){
 	  	$UploadCSSNIS=" checked='checked' ";
 	  }else{
 	  	$UploadCSSNIS="";	
+	  }
+	  if($BootstrapItalia=="Si"){
+	  	$BootstrapItalia=" checked='checked' ";
+	  }else{
+	  	$BootstrapItalia="";	
 	  }
 	  if(get_option( 'permalink_structure' )==""){
 			$BaseUrlRestApi=esc_url( home_url( '/' ) )."?rest_route=/alboonline/v1/";
@@ -1424,6 +1450,12 @@ if(get_option('opt_AP_AnnoProgressivo')!=date("Y")){
 				<th scope="row"><label for="uploadCSSNI">'.__('Tema compatibile con il Design KIT di Designers Italia','albo-online').'</label></th>
 				<td><input type="checkbox" name="uploadCSSNI" value="Si" '.$UploadCSSNIS.' id="uploadCSSNI"/>
 					'.__('Selezionare questa opzione nel caso in cui si utilizza un tema sviluppato partendo dal Design KIT di <a href="https://designers.italia.it/">design.italia.it</a> verranno caricati i CSS ed i JS del Kit','albo-online').'
+				</td>
+			</tr>
+			<tr>
+				<th scope="row"><label for="BootstrapItalia">'.__('Tema compatibile con Bootstrap Italia di Designers Italia','albo-online').'</label></th>
+				<td><input type="checkbox" name="BootstrapItalia" value="Si" '.$BootstrapItalia.' id="BootstrapItalia"/>
+					'.__('Selezionare questa opzione nel caso in cui si utilizza un tema sviluppato partendo da Bootstrap Italia','albo-online').'
 				</td>
 			</tr>
 		</table>
@@ -1960,6 +1992,19 @@ if(get_option('opt_AP_AnnoProgressivo')!=date("Y")){
 * 
 */
 //Impostazione Opzioni Plugin
+	$sprite="";
+	$it = new RecursiveDirectoryIterator(get_template_directory());
+	foreach (new RecursiveIteratorIterator($it) as $file) {
+		if (basename($file)=="sprite.svg")
+			$sprite= $file;
+	}
+	if ($sprite!="") {
+		$pos=strpos($sprite,"wp-content");
+		$tema=substr($sprite,$pos,strlen($sprite)-$pos);
+		update_option('opt_AP_UrlSprite', get_site_url()."/".$tema);
+	} else {
+		update_option('opt_AP_UrlSprite',"");
+	}
 	if(get_option('opt_AP_DefaultSoggetti')  == '' || !get_option('opt_AP_DefaultSoggetti')){
 		$DefaultSoggetti=array("RP"=>0,"RB"=>0,"AM"=>0);
 		add_option('opt_AP_DefaultSoggetti',json_encode($opt_AP_DefaultSoggetti));
@@ -2061,6 +2106,9 @@ if(get_option('opt_AP_AnnoProgressivo')!=date("Y")){
 	if(get_option('opt_AP_UpCSSNewInterface')  == '' || !get_option('opt_AP_UpCSSNewInterface')){
 		add_option('opt_AP_UpCSSNewInterface', 'Si');
 	}
+	if(get_option('opt_AP_BootstrapItalia')  == '' || !get_option('opt_AP_BootstrapItalia')){
+		add_option('opt_AP_BootstrapItalia', 'No');
+	}	
 	if(get_option('opt_AP_TabResp')  == '' || !get_option('opt_AP_TabResp')){
 		$Default='[{"ID":"RP","Funzione":"'.__('Responsabile Procedimento','albo-online').'","Display":"Si"},{"ID":"OP","Funzione":"'.__('Gestore procedura','albo-online').'","Display":"Si"},{"ID":"SC","Funzione":"'.__('Segretario Comunale','albo-online').'","Display":"No"},{"ID":"RB","Funzione":"'.__('Responsabile Pubblicazione','albo-online').'","Display":"No"},{"ID":"DR","Funzione":"'.__('Direttore dei Servizi e Amministrativi','albo-online').'","Display":"No"}]';
 		update_option('opt_AP_TabResp',$Default ); 
@@ -2088,13 +2136,13 @@ if(get_option('opt_AP_AnnoProgressivo')!=date("Y")){
 			ap_create_ente_me();
 		}         
 		if (!ap_existFieldInTable($wpdb->table_name_RespProc, "Funzione")){
-			ap_AggiungiCampoTabella($wpdb->table_name_RespProc, "Funzione", " CHAR(8) DEFAULT 'RP'");				
+			ap_AggiungiCampoTabella($wpdb->table_name_RespProc, "Funzione", " CHAR(8) DEFAULT 'RP'");		
 		}		
 		if (!ap_existFieldInTable($wpdb->table_name_Allegati, "TipoFile")){
-			ap_AggiungiCampoTabella($wpdb->table_name_Allegati, "TipoFile", " VARCHAR(6) DEFAULT ''");				
+			ap_AggiungiCampoTabella($wpdb->table_name_Allegati, "TipoFile", " VARCHAR(6) DEFAULT ''");
 		}	
 		if (!ap_existFieldInTable($wpdb->table_name_Atti, "Soggetti")){
-			ap_AggiungiCampoTabella($wpdb->table_name_Atti, "Soggetti", " VARCHAR(100) NOT NULL");				
+			ap_AggiungiCampoTabella($wpdb->table_name_Atti, "Soggetti", " VARCHAR(100) NOT NULL");			
 		}
 		if (!ap_existFieldInTable($wpdb->table_name_Atti, "RespProc")){
 			ap_AggiungiCampoTabella($wpdb->table_name_Atti, "RespProc", " INT NOT NULL");				
@@ -2125,7 +2173,9 @@ if(get_option('opt_AP_AnnoProgressivo')!=date("Y")){
 		if (!ap_existFieldInTable($wpdb->table_name_Allegati, "Natura")){
 			ap_AggiungiCampoTabella($wpdb->table_name_Allegati, "Natura", " CHAR(1) NOT NULL default 'A'");
 		}
-
+		if (!ap_existFieldInTable($wpdb->table_name_Allegati, "Note")){
+			ap_AggiungiCampoTabella($wpdb->table_name_Allegati, "Note", " varchar(255) default ''");		
+		}		
 		if (strtolower(ap_typeFieldInTable($wpdb->table_name_Atti,"Riferimento"))!="varchar(255)"){
 			ap_ModificaTipoCampo($wpdb->table_name_Atti, "Riferimento", "varchar(255)");
 		}
@@ -2196,6 +2246,19 @@ if(get_option('opt_AP_AnnoProgressivo')!=date("Y")){
 				$StRuoliVA=implode(",",$_POST['RuoliPulsVA']);
 				update_option('opt_AP_RuoliPulsVisualizzaAtto',$StRuoliVA);
 			}
+			$sprite="";
+			$it = new RecursiveDirectoryIterator(get_template_directory());
+			foreach(new RecursiveIteratorIterator($it) as $file) {
+			 	if(basename($file)=="sprite.svg")
+			 		$sprite= $file;
+			}
+			if ($sprite!="") {
+				$pos=strpos($sprite,"wp-content");
+				$tema=substr($sprite,$pos,strlen($sprite)-$pos);
+				update_option('opt_AP_UrlSprite', get_home_url()."/".$tema);
+			} else {
+				update_option('opt_AP_UrlSprite',"");
+			}
 		    update_option('opt_AP_Ente',$_POST['c_Ente'] );
 		    update_option('opt_AP_AnnoProgressivo',$_POST['c_AnnoProgressivo'] );
 		    update_option('opt_AP_LivelloTitoloPagina',$_POST['c_LTP'] );
@@ -2212,6 +2275,7 @@ if(get_option('opt_AP_AnnoProgressivo')!=date("Y")){
 			update_option('opt_AP_AutoShortcode',(isset($_POST['AutoShortCode'])?$_POST['AutoShortCode']:0));
 			update_option('opt_AP_OldInterfaccia',(isset($_POST['visoldstyle'])?$_POST['visoldstyle']:0));
 			update_option('opt_AP_UpCSSNewInterface',(isset($_POST['uploadCSSNI'])?$_POST['uploadCSSNI']:0));
+			update_option('opt_AP_BootstrapItalia',(isset($_POST['BootstrapItalia'])?$_POST['BootstrapItalia']:0));
 		  	$FEColsOption=array("Data"=>(isset($_POST['Data'])?1:0),
 		  					  "Ente"=>(isset($_POST['Ente'])?1:0),
 		  					  "Riferimento"=>(isset($_POST['Riferimento'])?1:0),

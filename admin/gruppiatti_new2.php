@@ -29,12 +29,11 @@ function Lista_AttiGruppo($Parametri){
 	if(!is_array($FEColsOption)){
 		$FEColsOption=json_decode($FEColsOption,TRUE);
 	}	
-	echo '	<div class="TabellaAtti">    
+	echo '	<div class="tabalbo">    
 		<h3>'.$Parametri['titolo'].'</h3>                    
-		<table id="elenco-atti" class="Table Table--withBorder u-text-r-xs js-TableResponsive tablesaw tablesaw-stack" data-tablesaw-mode="stack">
-		    <caption class="u-hiddenVisually">'. __("Atti","albo-online").'</caption>
+		<table class="table table-striped table-hover table-responsive-md">
 		<thead>
-	    	<tr class="u-border-bottom-xs">
+	    	<tr>
 				<th scope="col">'. __("Stato","albo-online").'</th>
 	        	<th scope="col">'. __("Prog.","albo-online").'</th>';
 	foreach($FEColsOption as $Opzione => $Valore){

@@ -242,3 +242,14 @@ div.VisInfo{
 .text-1{
 	font-size: 1em!important;
 }
+.break-word {
+    word-wrap: break-word;
+}
+.mycallout .callout-title {
+    text-transform: none;
+    font-size: 1rem!important;
+    margin-right: initial;
+    margin-left: initial;
+    letter-spacing: initial;
+    padding: 0 0.5rem!important;
+}

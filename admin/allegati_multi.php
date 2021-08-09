@@ -2,7 +2,7 @@
 /**
  * Gestione Allegati.
  * @link       http://www.eduva.org
- * @since      4.4.5
+ * @since      4.5.6
  *
  * @package    Albo On Line
  */
@@ -18,7 +18,7 @@ if(preg_match('#' . basename(__FILE__) . '#', $_SERVER['PHP_SELF'])) { die('You 
 		$TEE.='.'.$Tipo["."].', ';
 		$AI.='"'.$Tipo["."].'":"'.$Tipo["Icon"].'", ';
 	}
-	$TEE=substr($TEE,0,-2);
+	$TA=substr($TA,0,-2);
 	$TE=substr($TE,0,-2);
 	$AI=substr($AI,0,-2);
 ?>

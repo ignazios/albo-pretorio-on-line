@@ -2,7 +2,7 @@
 /**
  * Gestione FrontEnd.
  * @link       http://www.eduva.org
- * @since      4.4.5
+ * @since      4.5.6
  *
  * @package    Albo On Line
  */
@@ -54,7 +54,7 @@ function Visualizza_Atto($Parametri){
 	$NomeResp=ap_get_responsabile($risultato->RespProc);
 	$NomeResp=$NomeResp[0];
 	if($risultato->DataAnnullamento!='0000-00-00')
-		$Annullato=sprint_f(__('%sAtto Annullato dal Responsabile del Procedimento %s Motivo: %s','albo-online'),'<p style="background-color: '.$coloreAnnullati.';text-align:center;font-size:1.5em;">','<br /><br />','<span style="font-size:1;font-style: italic;">'.stripslashes($risultato->MotivoAnnullamento).'</span></p>');
+		$Annullato=sprintf(__('%sAtto Annullato dal Responsabile del Procedimento %s Motivo: %s','albo-online'),'<p style="background-color: '.$coloreAnnullati.';text-align:center;font-size:1.5em;">','<br /><br />','<span style="font-size:1;font-style: italic;">'.stripslashes($risultato->MotivoAnnullamento).'</span></p>');
 	else
 		$Annullato='';
 	$Stato="Scaduto";
@@ -242,6 +242,9 @@ if(count($allegati)>0){
 	echo '</div>';
 }	
 echo '
+	<div class="VisInfo">
+	    <p class="text-1"><strong><span class="dashicons dashicons-info"></span> '.__("Informazioni","albo-online").'</strong>: '.__("L'impronta dei files è calcolata con algoritmo SHA256 al momento dell'upload","albo-online").'</p>
+	</div>
 </div>';	
 return ob_get_clean();
 }

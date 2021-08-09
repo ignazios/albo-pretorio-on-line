@@ -132,7 +132,7 @@ background-color: #f9f9f9;
 	margin:5px;
 	padding:10px;
 }
-.row-actions span.pubblica a{
+.row-actions span.pubblica a,span.oblioatto a{
 	color: #32cd32;
 }
 
@@ -143,7 +143,7 @@ background-color: #f9f9f9;
 .row-actions{
 	position:initial;
 }
-span.cancella a{
+span.cancella a, span.oblioallegati a{
 	color: #a00;
 }
 span.cancella a:hover{

@@ -2,7 +2,7 @@
 /**
  * Gestione Atti.
  * @link       http://www.eduva.org
- * @since      4.4.5
+ * @since      4.5.6
  *
  * @package    Albo On Line
  */
@@ -277,8 +277,14 @@ class AdminTableAtti extends WP_List_Table
 			$actions['meta'] ='<a href="?page=atti&amp;action=metadati-atto&amp;id='.$item->IdAtto.'&amp;metaatto='.wp_create_nonce('operazionemetaatto').'&stato_atti=Scaduti">
 				<span class="dashicons dashicons-screenoptions" title="'.__('Gestisci metadati Atto','albo-online').'"></span>
 			</a>';
-				$actions['certificato'] ='<a href="?page=atti&amp;action=certificato_pubblicazione-atto&amp;id='.$item->IdAtto.'&amp;certificatoatto='.wp_create_nonce('operazionecertificato_pubblicazione').'&stato_atti=Correnti">
+			$actions['certificato'] ='<a href="?page=atti&amp;action=certificato_pubblicazione-atto&amp;id='.$item->IdAtto.'&amp;certificatoatto='.wp_create_nonce('operazionecertificato_pubblicazione').'&stato_atti=Scaduti">
 				<span class="dashicons dashicons-media-spreadsheet" title="'.__('Stampa Certificato Pubblicazione','albo-online').'"></span>
+			</a>';
+			$actions['oblioallegati'] ='<a href="?page=atti&amp;action=oblio-allegati-atto&amp;id='.$item->IdAtto.'&amp;oaatto='.wp_create_nonce('operazioneoblioallegati').'&stato_atti=Scaduti">
+				<span class="dashicons dashicons-editor-unlink" title="'.__('Cancella Allegati Atto','albo-online').'"></span>
+			</a>';
+			$actions['oblioatto'] ='<a href="?page=atti&amp;action=oblia-atto&amp;id='.$item->IdAtto.'&amp;oatto='.wp_create_nonce('operazionebliaatto').'&stato_atti=Scaduti">
+				<span class="dashicons dashicons-hammer" title="'.__('Imposta la data di Oblio dell\'atto ad oggi','albo-online').'"></span>
 			</a>';
 			break;
 		case "Eliminare":
@@ -404,6 +410,22 @@ if(isset($_REQUEST['action'])){
 		case "view-atto" :
 			View_atto((int)$_REQUEST['id']);
 			break;
+			
+			case "oblio-allegati-atto":
+				if ( isset( $_GET['oaatto'] ) && ! empty( $_GET['oaatto'] ) ) {
+		            $nonce  = filter_input( INPUT_GET, 'oaatto', FILTER_SANITIZE_STRING );
+		            $action = 'operazioneoblioallegati';
+		            if ( ! wp_verify_nonce( $nonce, $action ) )
+		                wp_die( __("ATTENZIONE. Rilevato potenziale pericolo di attacco informatico, l'operazione è stata annullata","albo-online") ,__("Problemi di sicurezza","albo-online"),array("back_link" => "?page=atti&stato_atti=Correnti") );
+			 		if (is_numeric($_REQUEST['id'])) {
+ 	                    $MessaggiRitorno=CancellaAllegatiAtto((int)$_REQUEST['id']);
+					}
+				}else
+					wp_die( __("ATTENZIONE. Rilevato potenziale pericolo di attacco informatico, l'operazione è stata annullata","albo-online") ,__("Problemi di sicurezza","albo-online"),array("back_link" => "?page=atti") );					
+			break;				
+			
+			
+			
 		case "annullamento-atto" :
 			Annulla_Atto((int)$_REQUEST['id']);
 			break;
@@ -1044,6 +1066,7 @@ function Nuovo_atto(){
 		$Richiedente=$_REQUEST['Richiedente'];
 	else	
 		$Richiedente="";
+	
 	$DefaultSoggetti=get_option('opt_AP_DefaultSoggetti',
 								array("RP"=>0,
 	  								  "RB"=>0,
@@ -1584,7 +1607,8 @@ else
 	if(isset($NomeResp[0]))
 		$NomeResp=$NomeResp[0];
 	else
-		$NomeResp="";	echo '
+		$NomeResp="";
+	echo '
 <div class="wrap nosubsub">
 	<div class="HeadPage">
 		<h2 class="wp-heading-inline"><span class="dashicons dashicons-portfolio"></span> Atti</h2>
@@ -1740,8 +1764,13 @@ echo'
 							'.strip_tags($allegato->TitoloAllegato).' <br />';
 						if (is_file($allegato->Allegato))
 							echo '        <a href="'.ap_DaPath_a_URL($allegato->Allegato).'" >'. basename( $allegato->Allegato).'</a> ('.ap_Formato_Dimensione_File(filesize($allegato->Allegato)).')<br />'.htmlspecialchars_decode($TipidiFiles[strtolower($Estensione)]['Verifica']);
-						else
-							echo basename( $allegato->Allegato).__("File non trovato, il file è stato cancellato o spostato!","albo-online");
+						else{
+							echo basename( $allegato->Allegato)."<br />";
+							if( $allegato->Note=="")
+								echo __("File non trovato, il file è stato cancellato o spostato!","albo-online");
+							else
+								echo __("Note:","albo-online")." ".$allegato->Note;
+						}
 			echo'				</p>
 						</div>
 					</div>';
@@ -1767,8 +1796,13 @@ echo'
 								'.strip_tags($allegato->TitoloAllegato).' <br />';
 						if (is_file($allegato->Allegato))
 							echo '        <a href="'.ap_DaPath_a_URL($allegato->Allegato).'" >'. basename( $allegato->Allegato).'</a> ('.ap_Formato_Dimensione_File(filesize($allegato->Allegato)).')<br />'.htmlspecialchars_decode($TipidiFiles[strtolower($Estensione)]['Verifica']);
-						else
-							echo basename( $allegato->Allegato).__("File non trovato, il file è stato cancellato o spostato!","albo-online");
+						else{
+							echo basename( $allegato->Allegato)."<br />";
+							if( $allegato->Note=="")
+								echo __("File non trovato, il file è stato cancellato o spostato!","albo-online");
+							else
+								echo __("Note:","albo-online")." ".$allegato->Note;
+						}
 			echo'				</p>
 						</div>
 					</div>';
@@ -1781,6 +1815,212 @@ echo '</div>
 </div>';	
 }
 
+
+function CancellaAllegatiAtto($IdAtto){
+	global $AP_OnLine;
+	$risultato=ap_get_atto($IdAtto);
+	$risultato=$risultato[0];
+	$risultatocategoria=ap_get_categoria($risultato->IdCategoria);
+	$risultatocategoria=$risultatocategoria[0];
+	$NomeEnte=ap_get_ente($risultato->Ente);
+	$NomeEnte=stripslashes($NomeEnte->Nome);
+	$Ente=ap_get_ente($risultato->Ente);
+	$Unitao=ap_get_unitaorganizzativa($risultato->IdUnitaOrganizzativa);
+	$NomeResp=ap_get_responsabile($risultato->RespProc);
+	if(isset($NomeResp[0]))
+		$NomeResp=$NomeResp[0];
+	else
+		$NomeResp="";
+	echo '
+<div class="wrap nosubsub">
+	<input type="hidden" id="IdAtto" value="'.$IdAtto.'" />
+	<div class="HeadPage">
+		<h2 class="wp-heading-inline"><span class="dashicons dashicons-portfolio"></span> Atti</h2>
+		<a href="'.site_url().'/wp-admin/admin.php?page=atti&stato_atti='.filter_input(INPUT_GET,"stato_atti").'" class="add-new-h2 tornaindietro">'. __("Torna indietro","albo-online").'</a>
+		<h3>'. __("Dati Atto","albo-online").'</h3>	
+	</div>
+		<div class="clear"><br /></div>
+		<div id="col-container">
+		<div id="col-right">
+				<div class="col-wrap postbox" style="padding:0 10px 10px 10px;margin-left:10px;">
+				<h3>Documenti</h3>
+				<hr />';
+		$documenti=ap_get_documenti_atto($IdAtto);
+		if(count($documenti)>0){
+			echo '<div class="postbox" style="padding:0 10px 10px 10px;">
+				<h3>'. __("Documenti firmati","albo-online").'</h3>
+				<div class="Visalbo">';
+			$TipidiFiles=ap_get_tipidifiles();
+			foreach ($documenti as $allegato) {
+				$Estensione=ap_ExtensionType($allegato->Allegato);	
+				echo '<div style="border: thin dashed;font-size: 1em;">
+						<div style="float: left;display: inline;width: 40px;height: 40px;padding-top:5px;padding-left:5px;">
+							<img src="'.$TipidiFiles[strtolower($Estensione)]['Icona'].'" alt="'.$TipidiFiles[strtolower($Estensione)]['Descrizione'].'" height="30" width="30" />
+						</div>
+						<div style="margin-top:0;">
+							<p style="margin-top:0;">
+							'.($allegato->DocIntegrale!="1"?'<span class="evidenziato">'.__("Pubblicato per Estratto","albo-online")."</span><br />":"").'
+							'.strip_tags($allegato->TitoloAllegato).' <br />';
+						if (is_file($allegato->Allegato))
+							echo '        <a href="'.ap_DaPath_a_URL($allegato->Allegato).'" >'. basename( $allegato->Allegato).'</a> ('.ap_Formato_Dimensione_File(filesize($allegato->Allegato)).')<br />'.htmlspecialchars_decode($TipidiFiles[strtolower($Estensione)]['Verifica']).'</p>
+						<p>
+							<label for="motivo'.$allegato->IdAllegato.'" style="vertical-align: text-top;" id="LblIDA'.$allegato->IdAllegato.'">Indicare il motivo della rimozione del Documento Firmato</label>
+							<input type="text" id="motivo'.$allegato->IdAllegato.'" name="motivo'.$allegato->IdAllegato.'" size="50" style="border: 1px solid #d63638;"/>
+							<input type="hidden" id="IDA'.$allegato->IdAllegato.'" name="IDA'.$allegato->IdAllegato.'" value="'.$allegato->IdAllegato.'"/>
+							<span class="dashicons dashicons-trash CancellaAllegato" title="Elimina Allegato" style="color:red;cursor: -webkit-grab; cursor: grab;" id="'.$allegato->IdAllegato.'" rel="'.strip_tags($allegato->TitoloAllegato).'"></span><br id="SR'.$allegato->IdAllegato.'" />';
+						else
+							echo __("Documento Cancellato","albo-online")."<br />";
+			echo ' Note: <span id="Note'.$allegato->IdAllegato.'">'.$allegato->Note.'</span>
+						</p>		
+						</div>
+					</div>';
+			}
+			echo '</div>
+	</div>';
+		}
+		$allegati=ap_get_allegati_atto($IdAtto);
+		if(count($allegati)>0){
+			echo '<div class="postbox" style="padding:0 10px 10px 10px;">
+				<h3>'. __("Allegati","albo-online").'</h3>
+				<div class="Visalbo">';
+			$TipidiFiles=ap_get_tipidifiles();
+			foreach ($allegati as $allegato) {
+				$Estensione=ap_ExtensionType($allegato->Allegato);	
+				echo '<div style="border: thin dashed;font-size: 1em;">
+						<div style="float: left;display: inline;width: 40px;height: 40px;padding-top:5px;padding-left:5px;">
+							<img src="'.$TipidiFiles[strtolower($Estensione)]['Icona'].'" alt="'.$TipidiFiles[strtolower($Estensione)]['Descrizione'].'" height="30" width="30" />		
+						</div>
+						<div style="margin-top:0;">
+							<p style="margin-top:0;">
+								'.($allegato->DocIntegrale!="1"?'<span class="evidenziato">'.__("Pubblicato per Estratto","albo-online")."</span><br />":"").'
+								'.strip_tags($allegato->TitoloAllegato).' <br />';
+						if (is_file($allegato->Allegato))
+							echo '        <a id="file'.$allegato->IdAllegato.'" href="'.ap_DaPath_a_URL($allegato->Allegato).'" >'. basename( $allegato->Allegato).'</a> ('.ap_Formato_Dimensione_File(filesize($allegato->Allegato)).')</p>
+						<p>
+							<label for="motivo'.$allegato->IdAllegato.'" style="vertical-align: text-top;" id="LblIDA'.$allegato->IdAllegato.'">Indicare il motivo della rimozione dell\'allegato</label>
+							<input type="text" id="motivo'.$allegato->IdAllegato.'" name="motivo'.$allegato->IdAllegato.'" size="50" style="border: 1px solid #d63638;"/>
+							<input type="hidden" id="IDA'.$allegato->IdAllegato.'" name="IDA'.$allegato->IdAllegato.'" value="'.$allegato->IdAllegato.'"/>
+							<span class="dashicons dashicons-trash CancellaAllegato" title="Elimina Allegato" style="color:red;cursor: -webkit-grab; cursor: grab;" id="'.$allegato->IdAllegato.'" rel="'.strip_tags($allegato->TitoloAllegato).'"></span><br id="SR'.$allegato->IdAllegato.'" />';
+						else
+							echo __("Allegato Cancellato","albo-online")."<br />";
+						echo ' Note: <span id="Note'.$allegato->IdAllegato.'">'.$allegato->Note.'</span>
+						</p>		
+						</div>
+					</div>';
+			}
+			echo '</div>
+	</div>';
+		}
+	echo'			</div>
+	</div>
+<div id="col-left">
+	<div class="col-wrap postbox" style="padding:0 10px 10px 10px;">
+		<h3>'. __("Dati atto","albo-online").'</h3>
+		<hr />
+		<table class="widefat fixed striped" style="border:0;">
+		    <tbody id="dati-atto">
+			<tr>
+				<th style="width:50%;">'. __("Ente emittente","albo-online").'</th>
+				<td style="font-size:12px;font-style: italic;color: Blue;vertical-align:middle;">'.$NomeEnte.'</td>
+			</tr>
+			<tr>
+				<th style="width:20%;">'. __("Numero Albo","albo-online").'</th>
+				<td style="font-size:12px;font-style: italic;color: Blue;vertical-align:middle;">'.$risultato->Numero."/".$risultato->Anno.'</td>
+			</tr>
+			<tr>
+				<th>'. __("Codice di Riferimento","albo-online").'</th>
+				<td style="font-size:12px;font-style: italic;color: Blue;vertical-align:middle;">'.stripslashes($risultato->Riferimento).'</td>
+			</tr>
+			<tr>
+				<th>'. __("Oggetto","albo-online").'</th>
+				<td style="font-size:12px;font-style: italic;color: Blue;vertical-align:middle;">'.stripslashes($risultato->Oggetto).'</td>
+			</tr>';
+		if($risultato->DataAnnullamento!='0000-00-00')		
+			echo '		<tr>
+				<th style="width:20%;">'. __("Data Annullamento","albo-online").'</th>
+				<td style="font-size:14px;font-weight: bold;color: Red;vertical-align:middle;">'.ap_VisualizzaData($risultato->DataAnnullamento).'</td>
+			</tr>
+	    	<tr>
+				<th style="width:20%;">'. __("Motivo Annullamento","albo-online").'</th>
+				<td style="font-size:14px;font-weight: bold;color: Red;vertical-align:top;">'.stripslashes($risultato->MotivoAnnullamento).'</td>
+			</tr>';
+		echo '		
+			<tr>
+				<th>'. __("Data di registrazione","albo-online").'</th>
+				<td style="font-size:12px;font-style: italic;color: Blue;vertical-align:middle;">'.ap_VisualizzaData($risultato->Data).'</td>
+			</tr>
+
+			<tr>
+				<th>'. __("Data inizio Pubblicazione","albo-online").'</th>
+				<td style="font-size:12px;font-style: italic;color: Blue;vertical-align:middle;">'.ap_VisualizzaData($risultato->DataInizio).'</td>
+			</tr>
+			<tr>
+				<th>'. __("Data fine Pubblicazione","albo-online").'</th>
+				<td style="font-size:12px;font-style: italic;color: Blue;vertical-align:middle;">'.ap_VisualizzaData($risultato->DataFine).'</td>
+			</tr>
+			<tr>
+				<th>'. __("Data Oblio","albo-online").'</th>
+				<td style="font-size:12px;font-style: italic;color: Blue;vertical-align:middle;">'.ap_VisualizzaData($risultato->DataOblio).'</td>
+			</tr>
+			<tr>
+				<th>'.__("Richiedente","albo-online").'</th>
+				<td style="font-size:14px;font-style: italic;color: Blue;vertical-align:middle;">'.stripslashes($risultato->Richiedente).'</td>
+			</tr>
+			<tr>
+				<th>'.__("Unità Organizzativa Responsabile","albo-online").'</th>
+				<td style="font-size:14px;font-style: italic;color: Blue;vertical-align:middle;">'.(isset($Unitao->Nome)?stripslashes($Unitao->Nome):"").'</td>
+			</tr>
+			<tr>
+				<th>'.__("Responsabile del procedimento amministrativo","albo-online").'</th>
+				<td style="font-size:14px;font-style: italic;color: Blue;vertical-align:middle;">'.(is_object($NomeResp)?$NomeResp->Nome." ".$NomeResp->Cognome:$NomeResp).'</td>
+			</tr>
+			<tr>
+				<th>'. __("Categoria","albo-online").'</th>
+				<td style="font-size:12px;font-style: italic;color: Blue;vertical-align:middle;">'.stripslashes($risultatocategoria->Nome).'</td>
+			</tr>
+			<tr>
+				<th>'. __("Note","albo-online").'</th>
+				<td style="font-size:12px;font-style: italic;color: Blue;vertical-align:middle;">'.stripslashes($risultato->Informazioni).'</td>
+			</tr>';
+$MetaDati=ap_get_meta_atto($IdAtto);
+if($MetaDati!==FALSE){
+	$Meta="";
+	foreach($MetaDati as $Metadato){
+		$Meta.="{".$Metadato->Meta."=".$Metadato->Value."} - ";
+	}
+	$Meta=substr($Meta,0,-3);
+		echo'
+				<tr>
+					<th>'. __("Meta Dati","albo-online").'</th>
+					<td style="vertical-align: middle;color: Red;">'.$Meta.'</td>
+				</tr>';
+}
+echo'
+			<tr>
+				<th>'. __("Soggetti","albo-online").'</th>
+				<td style="font-size:12px;font-style: italic;color: Blue;vertical-align:middle;">
+				<ul>';
+	$Soggetti=unserialize($risultato->Soggetti);
+	if ($Soggetti){
+		$Soggetti=ap_get_alcuni_soggetti_ruolo(implode(",",$Soggetti));
+		foreach($Soggetti as $Soggetto){
+			echo "
+				<li><strong>".ap_get_Funzione_Responsabile($Soggetto->Funzione,"Descrizione")."</strong><br />".$Soggetto->Nome." ".$Soggetto->Cognome." 
+				</li>";
+		}
+	}
+	echo'				
+					</ul>
+					</td>
+				</tr>	    
+				</tbody>
+			</table>
+		</div>';	
+
+echo '</div>
+	</div>
+</div>';	
+}
 function Annulla_Atto($IdAtto){
 	global $AP_OnLine;
 	$risultato=ap_get_atto($IdAtto);

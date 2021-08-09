@@ -2,7 +2,7 @@
 /**
  * Amministrazione richieste delle singole pagine.
  * @link       http://www.eduva.org
- * @since      4.4.5
+ * @since      4.5.6
  *
  * @package    Albo On Line
  */
@@ -168,6 +168,22 @@ function albo_post() {
 				}else
 					wp_die( __("ATTENZIONE. Rilevato potenziale pericolo di attacco informatico, l'operazione è stata annullata","albo-online") ,__("Problemi di sicurezza","albo-online"),array("back_link" => "?page=atti") );					
 			break;
+ 			case "oblia-atto":
+				if ( isset( $_GET['oatto'] ) && ! empty( $_GET['oatto'] ) ) {
+		            $nonce  = filter_input( INPUT_GET, 'oatto', FILTER_SANITIZE_STRING );
+		            $action = 'operazionebliaatto';
+		            if ( ! wp_verify_nonce( $nonce, $action ) )
+		                wp_die( __("ATTENZIONE. Rilevato potenziale pericolo di attacco informatico, l'operazione è stata annullata","albo-online") ,__("Problemi di sicurezza","albo-online"),array("back_link" => "?page=atti&stato_atti=Correnti") );
+			 		$location = "?page=atti&stato_atti=Scaduti" ;
+			 		if (is_numeric($_REQUEST['id'])) {
+ 	                    $MessaggiRitorno=ap_setOblioOggi((int)$_REQUEST['id']);
+					}
+					$location = add_query_arg( 'message',$MessaggiRitorno, $location );
+					wp_redirect( $location );
+				}else
+					wp_die( __("ATTENZIONE. Rilevato potenziale pericolo di attacco informatico, l'operazione è stata annullata","albo-online") ,__("Problemi di sicurezza","albo-online"),array("back_link" => "?page=atti") );					
+			break;	
+ 
  			case "elimina-atto":
 				if ( isset( $_GET['cancellatto'] ) && ! empty( $_GET['cancellatto'] ) ) {
 		            $nonce  = filter_input( INPUT_GET, 'cancellatto', FILTER_SANITIZE_STRING );

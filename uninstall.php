@@ -2,7 +2,7 @@
 /**
  * Codice che viene eseguito in fase di disinstallazione del plugin Albo Pretorio OnLine
  * @link       http://www.eduva.org
- * @since      4.4.5
+ * @since      4.5.6
  *
  * @package    Albo On Line
  */
@@ -99,6 +99,8 @@ define("AP_BASE_DIR",$uploads['basedir']."/");
 		delete_option( 'opt_AP_TipidiFiles' );
 		delete_option( 'opt_AP_UpCSSNewInterface' );
 		delete_option( 'opt_AP_FolderUploadMeseAnno' );
+		delete_option( 'opt_AP_BootstrapItalia' );
+		delete_option( 'opt_AP_UrlSprite' );
 		ap_Rmdir(AlboBCK);
 		ap_Rmdir(AP_BASE_DIR.'AllegatiAttiAlboPretorio');
 ?>

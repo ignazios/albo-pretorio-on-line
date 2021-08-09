@@ -2,7 +2,7 @@
 /**
  * Libreria di funzioni necessarie al plugin per la gestione dell'albo.
  * @link       http://www.eduva.org
- * @since      4.4.5
+ * @since      4.5.6
  *
  * @package    Albo On Line
  */
@@ -496,7 +496,7 @@ function ap_UniqueFileName($filename,$inc=0){
 	$baseName=$filename;
 	while (file_exists($filename)){
 		$inc++;
-		$filename=substr($baseName,0,strrpos($baseName,".")).$inc.substr($baseName,strrpos($baseName,"."),strlen($baseName)-strrpos($baseName,"."));
+		$filename=substr($baseName,0,strrpos($baseName,"."))."_".$inc.substr($baseName,strrpos($baseName,"."),strlen($baseName)-strrpos($baseName,"."));
 	}
 	return $filename;	
 }
@@ -1105,7 +1105,7 @@ function ap_num_atti_categoria($IdCategoria,$Stato=0){
 			$Sql.=" And Numero >0 AND DataFine >= '".ap_oggi()."' AND DataInizio <= '".ap_oggi()."'";
 			break;
 		case 2:
-			$Sql.=" And Numero >0 AND DataFine <= '".ap_oggi()."'";
+			$Sql.=" And Numero >0 AND DataFine <= '".ap_oggi()."' And DataOblio> '".ap_oggi()."'";
 			break;
 	}
 	$Sql.=";";
@@ -1253,6 +1253,19 @@ function ap_categorie_orfane(){
 // Funzioni Atti
 ################################################################################
 
+function ap_setOblioOggi($IdAtto){
+	global $wpdb;
+	$DataOblio=date('Y-m-d');
+	if ( $wpdb->update($wpdb->table_name_Atti,
+			array('DataOblio' => $DataOblio),
+			array( 'IdAtto' => $IdAtto),
+			array( '%s'),
+			array( '%d'))){						
+	ap_insert_log(1,2,$IdAtto,"{Data Oblio}==> ".$DataOblio);
+	$atto=ap_get_atto($IdAtto);
+	$atto=$atto[0];
+	return "Data Oblio dell'Atto:".$atto->Numero."/".$atto->Anno." Impostata ad oggi:".date('d/m/Y');	}
+}
 function ap_AnniAtti(){
 	global $wpdb;
 	$Sql="SELECT Anno FROM $wpdb->table_name_Atti where Numero<>0 Group by Anno;";
@@ -1619,7 +1632,7 @@ function ap_get_num_anno($IdAtto){
 	return ($wpdb->get_var( $wpdb->prepare( "SELECT LPAD(Numero,7,0) as Numero FROM $wpdb->table_name_Atti WHERE IdAtto=%d",$IdAtto)));
 }
 
-function ap_get_all_atti($Stato=0,$Numero=0,$Anno=0,$Categoria=0,$Oggetto='',$Dadata=0,$Adata=0,$OrderBy="",$DaRiga=0,$ARiga=20,$Conteggio=false,$Annullati=false,$Riferimento='',$Ente=-1){
+function ap_get_all_atti($Stato=0,$Numero=0,$Anno=0,$Categoria=0,$Oggetto='',$Dadata=0,$Adata=0,$OrderBy="",$DaRiga=0,$ARiga=20,$Conteggio=false,$Annullati=false,$Riferimento='',$Ente=-1,$SenzaAnnullati=FALSE){
 /* Stato:
 		 0 - tutti
 		 1 - in corso di validit�
@@ -1684,6 +1697,8 @@ function ap_get_all_atti($Stato=0,$Numero=0,$Anno=0,$Categoria=0,$Oggetto='',$Da
 		}
 	if ($Annullati)
 		$Selezione.=' And DataAnnullamento<>"0000-00-00"';
+	elseif($SenzaAnnullati)
+		$Selezione.=' And DataAnnullamento="0000-00-00"';
 	if ($Anno!=0){
 		if ($Numero!=0){
 			$Selezione.=' And (Anno="'.$Anno.'" And Numero="'.$Numero.'")';
@@ -1719,7 +1734,7 @@ function ap_get_all_atti($Stato=0,$Numero=0,$Anno=0,$Categoria=0,$Oggetto='',$Da
 	if ($Conteggio){
 		return $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->table_name_Atti $Selezione;");	
 	}else{
-		return $wpdb->get_results("SELECT IdAtto,LPAD(Numero,7,0) as Numero,Anno,Data,Riferimento,Oggetto,DataInizio,DataFine,Informazioni,IdCategoria,RespProc,DataAnnullamento,MotivoAnnullamento,Ente,DataOblio,Soggetti FROM $wpdb->table_name_Atti $Selezione $OrderBy $Limite;");	
+		return $wpdb->get_results("SELECT IdAtto,LPAD(Numero,7,0) as Numero,Anno,Data,Riferimento,Oggetto,DataInizio,DataFine,Informazioni,IdCategoria,RespProc,DataAnnullamento,MotivoAnnullamento,Ente,DataOblio,Soggetti,IdUnitaOrganizzativa,Richiedente FROM $wpdb->table_name_Atti $Selezione $OrderBy $Limite;");	
 	}
 	
 }	
@@ -1790,8 +1805,8 @@ function ap_ripubblica_atti_correnti(){
 				 FROM '.$wpdb->table_name_Atti.' 
 				 WHERE DataInizio <= curdate() AND DataFine >= curdate() AND DataAnnullamento="0000-00-00" AND Numero>0 
 				 order by Anno, Numero';
-	$SqlDuplicaAtto='INSERT INTO '.$wpdb->table_name_Atti.' ( Data, Riferimento, Oggetto, DataInizio, DataFine, Informazioni, IdCategoria, RespProc, Ente)
-					 SELECT Data, Riferimento, Oggetto, curdate(), adddate(curdate(),datediff(DataFine,DataInizio)), Informazioni, IdCategoria, RespProc, Ente FROM '.$wpdb->table_name_Atti.' 
+	$SqlDuplicaAtto='INSERT INTO '.$wpdb->table_name_Atti.' ( Data, Riferimento, Oggetto, DataInizio, DataFine, Informazioni, IdCategoria, RespProc, Ente,DataOblio,Soggetti,IdUnitaOrganizzativa,Richiedente)
+					 SELECT Data, Riferimento, Oggetto, curdate(), adddate(curdate(),datediff(DataFine,DataInizio)), Informazioni, IdCategoria, RespProc, Ente, \''.(date("Y")+6)."-01-01".'\', Soggetti, IdUnitaOrganizzativa,Richiedente FROM '.$wpdb->table_name_Atti.' 
 					 WHERE IdAtto='; 
 	$AttiDaR = $wpdb->get_results($SqlAttiDaR);
 	if(get_option('opt_AP_AnnoProgressivo')!=date("Y")){
@@ -1818,8 +1833,8 @@ function ap_ripubblica_atti_correnti(){
 		if ($RisApprovazione!=__("Atto PUBBLICATO","albo-online")){
 			ap_del_atto($IdNewAtto);
 		}else{
-			$SqlDuplicaAllegato='INSERT INTO '.$wpdb->table_name_Allegati.' ( TitoloAllegato,Allegato,IdAtto)
-						 SELECT TitoloAllegato,Allegato,'.$IdNewAtto.' as IdNuovoAtto FROM '.$wpdb->table_name_Allegati.'
+			$SqlDuplicaAllegato='INSERT INTO '.$wpdb->table_name_Allegati.' ( TitoloAllegato,Allegato,IdAtto,TipoFile,DocIntegrale,Impronta,Natura)
+						 SELECT TitoloAllegato,Allegato,'.$IdNewAtto.' as IdNuovoAtto,TipoFile,DocIntegrale,Impronta,Natura FROM '.$wpdb->table_name_Allegati.'
 						 WHERE IdAllegato=';
 			$AllegatiAtto=ap_get_all_allegati_atto($AttoDaR->IdAtto);
 			foreach ($AllegatiAtto as $AllegatoAtto) {
@@ -1827,10 +1842,10 @@ function ap_ripubblica_atti_correnti(){
 				$IdNewAllegato=$wpdb->insert_id;
 				ap_insert_log(3,1,$wpdb->insert_id,"{IdAllegato}==> $IdNewAllegato
 												{".__("Vecchio Atto","albo-online")."}==> $AllegatoAtto->IdAtto 
-												{".__("Allegato","albo-online")."}==> $Allegato 
+												{".__("Allegato","albo-online")."}==> $AllegatoAtto->Allegato 
 												{IdAtto}==> $IdNewAtto
 												{".__("Motivo","albo-online")."}==>Ripubblicazione Atto", $IdNewAtto);
-				$StatoOperazioni.='  '.sprintf(__('Allegato Originale Id %s Duplicato Id %s Allegato %s','albo-online'),$AllegatoAtto->IdAllegato,$IdNewAllegato,$Allegato).' %%br%%';
+				$StatoOperazioni.='  '.sprintf(__('Allegato Originale Id %s Duplicato Id %s Allegato %s','albo-online'),$AllegatoAtto->IdAllegato,$IdNewAllegato,$AllegatoAtto->Allegato).' %%br%%';
 			}
 			$StatoOperazioni.=sprintf(__('Atto Id %s Numero %s/%s del %s %s','albo-online'),$AttoDaR->IdAtto,$AttoDaR->Numero,$AttoDaR->Anno,$AttoDaR->Data,ap_annulla_atto($AttoDaR->IdAtto,__("Annullamento per interruzione del sevizio di pubblicazione","albo-online"))).'%%br%%';		
 		}
@@ -1887,8 +1902,8 @@ function ap_CalcImpronta($IDAllegato=0,$FileName=""){
 		$Allegato=ap_get_allegato_atto($IDAllegato);
 		$FileName=$Allegato[0]->Allegato;
 	}
-	if(is_file($FileName)){
-		return hash('sha256', $FileName);
+	if (is_file($FileName)) {
+		return hash_file("sha256", $FileName);
 	}
 	return FALSE;
 }
@@ -2030,7 +2045,7 @@ global $wpdb;
 				$wpdb->query($wpdb->prepare( "DELETE FROM $wpdb->table_name_Allegati WHERE IdAllegato=%d",$idAllegato));
 				ap_insert_log(3,3,$allegato[0]->IdAllegato,"{".__("Nome Allegato","albo-online")."}==> ".$allegato[0]->TitoloAllegato." ",$idAtto);
 			}else{
-				ap_insert_log(3,3,$allegato[0]->IdAllegato,"{".__("Nome Allegato","albo-online")."}==> ".$allegato[0]->TitoloAllegato." ancellato solo il file per VIOLAZIONE di LEGGE",$idAtto);
+				ap_insert_log(3,3,$allegato[0]->IdAllegato,"{".__("Nome Allegato","albo-online")."}==> ".$allegato[0]->TitoloAllegato." Cancellato solo il file per VIOLAZIONE di LEGGE",$idAtto);
 			}
 			return True;
 		}else{
@@ -2359,14 +2374,22 @@ function ap_del_responsabile($id) {
 	global $wpdb;
 	$id=(int)$id;
 	$resp=ap_get_responsabile($id);
+	if(count($resp)==0){
+		return __("Cancellazione Soggetto Fallita, il soggetto non è presente in archivio ","albo-online");
+	}
 	$responsabile= __("Cancellazione Responsabile","albo-online")." {IdResponsabile}==> $id {".__("Cognome","albo-online")."}==> ".$resp[0]->Cognome." {".__("Nome","albo-online")."}==> ".$resp[0]->Nome; 
-	$N_atti=ap_num_responsabili_atto($id);
+	$respdel=sprintf(__("Cancellazione Responsabile (%d) %s %s Avvenuta con successo","albo-online"),$id, $resp[0]->Cognome,$resp[0]->Nome); 
+	$N_atti=ap_get_NumAttiSoggetto($id);
 	if ($N_atti>0){
 		return array("atti" => $N_atti);
 	}else{
 	 	$result=$wpdb->query($wpdb->prepare( "DELETE FROM $wpdb->table_name_RespProc WHERE IdResponsabile=%d",$id));
 		ap_insert_log(4,3,$id,$responsabile,$id);
-		return $result;
+		if($result==1){
+			return $respdel;
+		}else{
+			return __("Si è verificato un errore nella cancellazione del soggetto","albo-online");
+		}
 	}
 }
 function ap_responsabili_orfani(){
@@ -3346,7 +3369,7 @@ function ap_oblio_atti($Atti){
 function ap_MemoFunzioni(){
 //	print_r($_POST);wp_die();
 	check_ajax_referer('adminsecretAlboOnLine','security');
-	$ValoriPost= explode("&", filter_input(INPUT_POST, 'valori'));
+	$ValoriPost= explode("&", str_replace("%20"," ",filter_input(INPUT_POST, 'valori')));
 	$Valori=array();
 	$NumeroRighe=0;
 	$Indici=array();
@@ -3373,6 +3396,28 @@ function ap_MemoFunzioni(){
 function ap_dismiss_alboonline_notice(){
 	check_ajax_referer('adminsecretAlboOnLine','security');
 	update_option("alboonline-notice-dismissed",TRUE);
+	wp_die();
+}
+function ap_rimuoviallegatoPP(){
+	global $wpdb;
+	check_ajax_referer('adminsecretAlboOnLine','security');
+	$IDAllegato= filter_input(INPUT_POST, 'idAllegato');
+	$IDAtto= filter_input(INPUT_POST, 'idAtto');
+	$Motivo= filter_input(INPUT_POST, 'desmotivo');
+	
+	$allegato=ap_get_allegato_atto($IDAllegato);
+	if (file_exists($allegato[0]->Allegato) && is_file($allegato[0]->Allegato))
+		if (unlink($allegato[0]->Allegato)){
+			$wpdb->update(	$wpdb->table_name_Allegati,
+		 					array('Note' => $Motivo, 'Allegato'=>basename($allegato[0]->Allegato)),
+		 					array('IdAllegato' => $IDAllegato ),
+		 					array('%s','%s'),
+		 					array('%d'));
+			ap_insert_log(3,3,$IDAllegato,"{".__("Nome Allegato","albo-online")."}==> ".$allegato[0]->TitoloAllegato." Cancellato dopo scadenza",$IDAtto);
+			echo "\nCancellato correttamente";
+		}else{
+			echo "\nNon sono riuscito a Cancellarlo";
+		}	
 	wp_die();
 }
 function ap_LoadDefaultFunzioni(){

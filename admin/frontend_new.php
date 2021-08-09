@@ -2,7 +2,7 @@
 /**
  * Gestione FrontEnd.
  * @link       http://www.eduva.org
- * @since      4.4.5
+ * @since      4.5.6
  *
  * @package    Albo On Line
  */
@@ -164,16 +164,24 @@ function VisualizzaAtto($id){
 	$risultato=$risultato[0];
 	$risultatocategoria=ap_get_categoria($risultato->IdCategoria);
 	$risultatocategoria=$risultatocategoria[0];
-	$allegati=ap_get_all_allegati_atto($id);
 	ap_insert_log(5,5,$id,"Visualizzazione");
 	$coloreAnnullati=get_option('opt_AP_ColoreAnnullati');
 	$Unitao=ap_get_unitaorganizzativa($risultato->IdUnitaOrganizzativa);
+	if ($Unitao!==FALSE)
+		$UnitaoNome=$Unitao->Nome;
+	else
+		$UnitaoNome="";
 	$NomeResp=ap_get_responsabile($risultato->RespProc);
-	$NomeResp=$NomeResp[0];
+	if (count($NomeResp)>0) {
+		$NomeResp=$NomeResp[0];
+		$NomeResp=stripslashes($NomeResp->Nome." ".$NomeResp->Cognome);
+	} else{
+		$NomeResp="";
+	}
 echo '
 <div>
 	<button class="h" onclick="window.location.href=\''.$_SERVER['HTTP_REFERER'].'\'"><span class="dashicons dashicons-controls-back"></span>'.__("Torna alla Lista","albo-online").'</button>
-	<h3>'.__("Dati atto","albo-online").'</h3>
+	<h3 class="u-padding-top-s">'.__("Dati atto","albo-online").'</h3>
 	<div class="Grid Grid--withGutter u-padding-all-l">';
 	if($risultato->DataAnnullamento!='0000-00-00'){
 		echo '<div class="Grid-cell u-padding-bottom-m" >
@@ -241,13 +249,13 @@ echo '
 			<div class="u-background-50 u-color-white u-margin-bottom-xs u-borderRadius-m u-padding-all-m">'.__("Unità Organizzativa Responsabile","albo-online").'</div>
 		</div>
 		<div class="Grid-cell u-size1of2 u-lg-size1of2">
-			<div class="u-margin-bottom-xs u-padding-all-m u-border-bottom-xxs">'.stripslashes($Unitao->Nome).'</div>
+		<div class="u-margin-bottom-xs u-padding-all-m u-border-bottom-xxs">'.$UnitaoNome.'</div>
 		</div>		
 		<div class="Grid-cell u-size1of2 u-lg-size1of2 HeadAtto">
 			<div class="u-background-50 u-color-white u-margin-bottom-xs u-borderRadius-m u-padding-all-m">'.__("Responsabile del procedimento amministrativo","albo-online").'</div>
 		</div>
 		<div class="Grid-cell u-size1of2 u-lg-size1of2">
-			<div class="u-margin-bottom-xs u-padding-all-m u-border-bottom-xxs">'.stripslashes($NomeResp->Nome." ".$NomeResp->Cognome).'</div>
+		<div class="u-margin-bottom-xs u-padding-all-m u-border-bottom-xxs">'.$NomeResp.'</div>
 		</div>
 		<div class="Grid-cell u-size1of2 u-lg-size1of2 HeadAtto">
 			<div class="u-background-50 u-color-white u-margin-bottom-xs u-borderRadius-m u-padding-all-m">'.__("Categoria","albo-online").'</div>
@@ -353,18 +361,24 @@ $documenti=ap_get_documenti_atto($id);
 if(count($documenti)>0){
 	echo '
 		<h3>'. __("Documenti firmati","albo-online").'</h3>
-			<div class="Grid Grid--withGutter u-padding-all-l">';
+			<div class="Grid Grid--withGutter u-padding-all-l break-word">';
 	//print_r($_SERVER);
 	foreach ($documenti as $allegato) {
 		$Estensione=ap_ExtensionType($allegato->Allegato);
 		echo'
 			<div class="Grid-cell HeadAllegati">
 				<div class="u-margin-bottom-xs u-borderRadius-m u-padding-all-m u-border-all-xxs">
-					<img src="'.$TipidiFiles[strtolower($Estensione)]['Icona'].'" alt="'.$TipidiFiles[strtolower($Estensione)]['Descrizione'].'" height="30" width="30"allegato/> '.($allegato->DocIntegrale!="1"?'<span class="evidenziato">'.__("Pubblicato per Estratto","albo-online")."</span><br />":"").'<strong>'.__("Descrizione","albo-online").'</strong>: '.strip_tags(($allegato->TitoloAllegato?$allegato->TitoloAllegato:basename( $allegato->Allegato))).'</strong><br /><strong>'.__("Impronta","albo-online").'</strong>: '.$allegato->Impronta.'<br /><strong>'.__("Dimensione file","albo-online").'</strong>: '.ap_Formato_Dimensione_File(is_file($allegato->Allegato)?filesize($allegato->Allegato):0)."<br /><br />";
-				if (is_file($allegato->Allegato))
+					<img src="'.$TipidiFiles[strtolower($Estensione)]['Icona'].'" alt="'.$TipidiFiles[strtolower($Estensione)]['Descrizione'].'" height="30" width="30"allegato/> '.($allegato->DocIntegrale!="1"?'<span class="evidenziato">'.__("Pubblicato per Estratto","albo-online")."</span><br />":"").'<strong>'.__("Descrizione","albo-online").'</strong>: '.strip_tags(($allegato->TitoloAllegato?$allegato->TitoloAllegato:basename( $allegato->Allegato))).'</strong><br />';
+			if(!is_file($allegato->Allegato) And $allegato->Note!=""){
+				echo '<strong>'.__("Documento rimosso","albo-online").'</strong>: '.$allegato->Note.'<strong>';
+			}else{
+				echo '<strong>'.__("Impronta","albo-online").'</strong>: '.$allegato->Impronta.'<br /><strong>'.__("Dimensione file","albo-online").'</strong>: '.ap_Formato_Dimensione_File(is_file($allegato->Allegato)?filesize($allegato->Allegato):0)."<br /><br />";
+				if (is_file($allegato->Allegato)){
 					echo '<a href="'.ap_DaPath_a_URL($allegato->Allegato).'" class="addstatdw noUnderLine" rel="'.get_permalink().$sep.'action=addstatall&amp;id='.$allegato->IdAllegato.'&amp;idAtto='.$id.'" title="'.__("Visualizza Allegato","albo-online").'" target="_blank"><span class="u-text-r-l Icon Icon-zoom-in"></span></a> '.htmlspecialchars_decode($TipidiFiles[strtolower($Estensione)]['Verifica']).' <a href="'.get_permalink().$sep.'action=dwnalle&amp;id='.$allegato->IdAllegato.'&amp;idAtto='.$id.'" class="noUnderLine" title="'.__("Scarica allegato","albo-online").'"><span class="u-text-r-l Icon Icon-download"></span></a>';	
-				else
+				}else{
 					echo basename( $allegato->Allegato).' '.__("File non trovato, il file è stato cancellato o spostato!","albo-online");
+				}
+			}
 		echo '</div>
 			</div>
 		';
@@ -375,18 +389,24 @@ $allegati=ap_get_allegati_atto($id);
 if(count($allegati)>0){
 	echo '
 		<h3>'. __("Allegati","albo-online").'</h3>
-			<div class="Grid Grid--withGutter u-padding-all-l">';
+			<div class="Grid Grid--withGutter u-padding-all-l break-word">';
 	//print_r($_SERVER);
 	foreach ($allegati as $allegato) {
 		$Estensione=ap_ExtensionType($allegato->Allegato);
 		echo'
 			<div class="Grid-cell HeadAllegati">
 				<div class="u-margin-bottom-xs u-borderRadius-m u-padding-all-m u-border-all-xxs">
-					<img src="'.$TipidiFiles[strtolower($Estensione)]['Icona'].'" alt="'.$TipidiFiles[strtolower($Estensione)]['Descrizione'].'" height="30" width="30"allegato/> '.($allegato->DocIntegrale!="1"?'<span class="evidenziato">'.__("Pubblicato per Estratto","albo-online")."</span><br />":"").'<strong>'.__("Descrizione","albo-online").'</strong>: '.strip_tags(($allegato->TitoloAllegato?$allegato->TitoloAllegato:basename( $allegato->Allegato))).'</strong><br /><strong>'.__("Impronta","albo-online").'</strong>: '.$allegato->Impronta.'<br /><strong>'.__("Dimensione file","albo-online").'</strong>: '.ap_Formato_Dimensione_File(is_file($allegato->Allegato)?filesize($allegato->Allegato):0)."<br /><br />";
-				if (is_file($allegato->Allegato))
+					<img src="'.$TipidiFiles[strtolower($Estensione)]['Icona'].'" alt="'.$TipidiFiles[strtolower($Estensione)]['Descrizione'].'" height="30" width="30"allegato/> '.($allegato->DocIntegrale!="1"?'<span class="evidenziato">'.__("Pubblicato per Estratto","albo-online")."</span><br />":"").'<strong>'.__("Descrizione","albo-online").'</strong>: '.strip_tags(($allegato->TitoloAllegato?$allegato->TitoloAllegato:basename( $allegato->Allegato))).'</strong><br />';
+			if(!is_file($allegato->Allegato) And $allegato->Note!=""){
+				echo '<strong>'.__("Allegato rimosso","albo-online").'</strong>: '.$allegato->Note.'<br />';
+			}else{
+				echo '<strong>'.__("Impronta","albo-online").'</strong>: '.$allegato->Impronta.'<br /><strong>'.__("Dimensione file","albo-online").'</strong>: '.ap_Formato_Dimensione_File(is_file($allegato->Allegato)?filesize($allegato->Allegato):0)."<br /><br />";
+				if (is_file($allegato->Allegato)){
 					echo '<a href="'.ap_DaPath_a_URL($allegato->Allegato).'" class="addstatdw noUnderLine" rel="'.get_permalink().$sep.'action=addstatall&amp;id='.$allegato->IdAllegato.'&amp;idAtto='.$id.'" title="'.__("Visualizza Allegato","albo-online").'" target="_blank"><span class="u-text-r-l Icon Icon-zoom-in"></span></a> '.htmlspecialchars_decode($TipidiFiles[strtolower($Estensione)]['Verifica']).' <a href="'.get_permalink().$sep.'action=dwnalle&amp;id='.$allegato->IdAllegato.'&amp;idAtto='.$id.'" class="noUnderLine" title="'.__("Scarica allegato","albo-online").'"><span class="u-text-r-l Icon Icon-download"></span></a>';	
-				else
+				}else{
 					echo basename( $allegato->Allegato).' '.__("File non trovato, il file è stato cancellato o spostato!","albo-online");
+				}
+			}
 		echo '</div>
 			</div>
 		';

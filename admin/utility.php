@@ -2,7 +2,7 @@
 /**
  * Utility dell'albo.
  * @link       http://www.eduva.org
- * @since      4.4.5
+ * @since      4.5.6
  *
  * @package    Albo On Line
  */
@@ -130,6 +130,19 @@ if (isset($_REQUEST['action'])){
 			} 			
 			TestProcedura();
 			break;
+		case "agghash":
+			if (!isset($_REQUEST['verproc'])) {
+				$Stato=__("ATTENZIONE. Rilevato potenziale pericolo di attacco informatico, l'operazione è stata annullata","albo-online");
+				menu($Stato);
+				break;
+			}
+			if (!wp_verify_nonce($_REQUEST['verproc'],'verificaprocedura')) {
+				$Stato=__("ATTENZIONE. Rilevato potenziale pericolo di attacco informatico, l'operazione è stata annullata","albo-online");
+				menu($Stato);
+				break;
+			}
+			AggiornaHashAllegati();
+			break;	
 		case "creaninf":
 			if (!isset($_REQUEST['rigenera'])) {
 				$Stato=__("ATTENZIONE. Rilevato potenziale pericolo di attacco informatico, l'operazione è stata annullata","albo-online");
@@ -299,7 +312,8 @@ echo '<input type="hidden" id="Pagina" value="'.$Pag.'" />
 						<li><a href="#utility-tab-8">'.__("Utility Dati","albo-online").'</a></li>';
 						if ($dirUploadMA)
 							echo '<li><a href="#utility-tab-9">'.__("Archiviazione Allegati","albo-online").'</a></li>';
-echo '					</ul>
+echo '					<li><a href="#utility-tab-10">'.__("Aggiornamento Impronta","albo-online").'</a></li>
+						</ul>
 		<div id="utility-tab-1" style="margin-bottom:20px;">
 				<h3 style="text-align:center;">'.__("Attenzione","albo-online").'!!!!!<br />
 				'.__("Operazione di ripubblicazione degli atti in corso di validità a causa di interruzione del servizio di pubblicazione","albo-online").'</h3>
@@ -316,7 +330,7 @@ switch ($passo){
 				';
 		break;
 	case "1":
-		$TotAtti=ap_get_all_atti(1,0,0,0,'',0,$Data,'',0,0,true,false);
+		$TotAtti=ap_get_all_atti(1,0,0,0,'',0,$Data,'',0,0,true,false,'',-1,true);
 		echo'<p><span style="font-style: italic;color:green;"><strong>'.$TotAtti.'</strong> '.__("Atti in pubblicazione in data","albo-online").' '.$Data.'.</span> <a href="?page=utilityAlboP&action=rip&Data='.$_REQUEST['Data'].'" class="ripubblica" rel="'.$TotAtti.'">'.__("Ripubblica gli atti a causa dell'interruzione del servizio","albo-online").'</a>?
 			</p>';
 }
@@ -492,8 +506,14 @@ echo'
 		</p>
 		</div>';
 	}
-echo '
-	</div>';
+echo '	<div id="utility-tab-10" style="margin-bottom:20px; height: 600px;">
+<h3 style="text-align:center">'.__("Utility che aggiorna l'impronta HASH degli allegati","albo-online").'</h3>
+	<p><span style="color:red;"><strong>'.__("Attenzione","albo-online").'</strong><br />
+	'.__("Questa operazione potrebbe richiede molto tempo, potrebbe essere interrotta prima del termine per Time Out.","albo-online").'
+	</p>
+	<button type="button" onclick="location.href=\'?page=utilityAlboP&action=agghash&amp;verproc='.wp_create_nonce('verificaprocedura').'\'"> '.__("Aggiorna","albo-online").' </button>
+	</div>
+</div>';
 }
 	
 function TestCampiTabella($Tabella,$Ripara=false){
@@ -579,6 +599,16 @@ switch ($Tabella){
 												"Null" =>"NO", 
 												"Key" => "", 
 												"Default" => "", 
+												"Extra" =>""),
+					"IdUnitaOrganizzativa" => array("Tipo" => "int(11)",
+												"Null" =>"NO",
+												"Key" => "",
+												"Default" => "0",
+												"Extra" =>""),					
+					"Richiedente" => array("Tipo" => "varchar(100)",
+												"Null" =>"NO",
+												"Key" => "",
+												"Default" => "",
 												"Extra" =>""));
 		break;
 	case $wpdb->table_name_Allegati:
@@ -606,6 +636,21 @@ switch ($Tabella){
 									  "Null" =>"YES", 
 									  "Key" => "", 
 									  "Default" => "", 
+									  "Extra" =>""),
+					"DocIntegrale" => array("Tipo" => "tinyint(1)",
+									  "Null" =>"NO",
+									  "Key" => "",
+									  "Default" => "1",
+									  "Extra" =>""),									  
+					"Impronta" => array("Tipo" => "char(64)",
+									  "Null" =>"No",
+									  "Key" => "",
+									  "Default" => "",
+									  "Extra" =>""),
+					"Natura" => array("Tipo" => "char(1)",
+									  "Null" =>"No",
+									  "Key" => "",
+									  "Default" => "A",
 									  "Extra" =>""));
 		break;
 	case $wpdb->table_name_Categorie:
@@ -798,7 +843,7 @@ switch ($Tabella){
         $result=$wpdb->get_results("Describe $Tabella");
         $Verificato=true;
         $Msg="";
-		foreach ( $result as $campo ){
+		foreach ( $result as $campo ) {
 			if (strtolower($Par[$campo->Field]["Tipo"])!=strtolower($campo->Type)){
 				$Msg.= "<strong>".$campo->Field."</strong><br />&nbsp;&nbsp;&nbsp;".__("Tipo DB","albo-online")." <strong>". $campo->Type . "</strong><br />&nbsp;&nbsp;&nbsp;".__("Tipo Originale","albo-online")." <strong>".$Par[$campo->Field]["Tipo"]."</strong><br />";
 				$Verificato=false;
@@ -825,7 +870,8 @@ switch ($Tabella){
 		return $Msg;
 }
 function TestCongruitaDati($Tabella){
-global $wpdb;
+	global $wpdb;
+	$Analisi="";	
 	switch ($Tabella){
 		case $wpdb->table_name_Atti:
 		  	$Analisi.='<em>'.__("Atti","albo-online").':</em><strong>'.ap_get_all_atti(0,0,0,0,'', 0,0,"",0,0,true).'</strong><br />';
@@ -850,8 +896,8 @@ global $wpdb;
 			}
 			$ResponsabiliOrfani=ap_responsabili_orfani();
 			if ($ResponsabiliOrfani){
-				foreach ($ResponsabiliOrfani as $ResponsabileOrfano){
-					$Analisi.=sprintf(__("%sAtto N. %s/%sriporta il responsabile con Codice %sNON TROVATA nella tabella Responsabili %s","albo-online"),'<em>','</em><strong>'.$ResponsabileOrfano->Numero,$ResponsabileOrfano->Anno.'</strong> <em>','</em><strong>'.$EnteOrfano->Ente.'</strong> <em>','<br />');
+				foreach ($ResponsabiliOrfani as $ResponsabileOrfano) {
+					$Analisi.=sprintf(__("%sAtto N. %s/%sriporta il responsabile con Codice %sNON TROVATA nella tabella Responsabili %s","albo-online"),'<em>','</em><strong>'.$ResponsabileOrfano->Numero,$ResponsabileOrfano->Anno.'</strong> <em>','</em><strong>'.$ResponsabileOrfano->RespProc.'</strong> <em>','<br />');
 				}
 			}
 			return $Analisi;
@@ -1151,5 +1197,26 @@ echo'
 		</table>
 	</div>
 </div>';
-}			
+}	
+function AggiornaHashAllegati(){
+	global $wpdb;
+	$allegati=$wpdb->get_results("SELECT * FROM $wpdb->table_name_Allegati ;",ARRAY_A );
+	foreach ( $allegati as $allegato) {
+		if (is_file($allegato['Allegato'])){
+			$Impronta=hash_file("sha256", $allegato['Allegato']);
+			if ($wpdb->update($wpdb->table_name_Allegati,
+				array('Impronta' => $Impronta),
+				array('IdAllegato' => $allegato['IdAllegato'] ),
+				array('%s'),
+				array('%d'))) {
+					echo'<spam style="color:green;">'.__('Aggiornamento Hash Allegato','albo-online').'</spam> '.$allegato['Allegato'].' <spam style="color:red;">'.$Impronta.'</spam><br />';
+			}else{
+				echo $allegato['Allegato'].' <spam style="color:red;">'.__('Allegato già aggiornato','albo-online').'</spam><br />';
+			}
+		}else{
+			echo $allegato['Allegato'].' <spam style="color:red;">'.__('File non trovato','albo-online').'</spam><br />';
+		}
+	}
+	echo '<meta http-equiv="refresh" content="4;url=admin.php?page=utilityAlboP"/>';
+}		
 ?>

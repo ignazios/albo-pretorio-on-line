@@ -2,7 +2,7 @@
 /**
  * Gestione Soggetti Procedimento.
  * @link       http://www.eduva.org
- * @since      4.4.5
+ * @since      4.5.6
  *
  * @package    Albo On Line
  */
@@ -38,14 +38,16 @@ if (isset($_REQUEST['action']) And $_REQUEST['action']=="delete-responsabile"){
 		if (!wp_verify_nonce($_REQUEST['cancresp'],'deleteresponsabile')){
 			$NC=$messages[80];
 		}else{
-			if($SoggettiAtti[(int)$_REQUEST['id']]>0){
+			if(isset($SoggettiAtti[(int)$_REQUEST['id']]) And $SoggettiAtti[(int)$_REQUEST['id']]>0){
 				$NC=__('Impossibile cancellare Soggetti che sono collegati ad Atti','albo-online');
+			}else{
+				$NC=ap_del_responsabile((int)$_REQUEST['id']);
 			}
 		}
 	}	
 } 
 if ( (isset($_REQUEST['message']) && ( $msg = (int) $_REQUEST['message'])) or $NC!="") {
-	echo '<div id="message" class="updated"><p>'.$messages[$msg]. $NC;
+	echo '<div id="message" class="updated"><p>'.(isset($msg)?$messages[$msg]:""). $NC;
 	if (isset($_REQUEST['errore'])) 
 		echo '<br />'.htmlentities($_REQUEST['errore']);
 	echo '</p></div>';
@@ -91,7 +93,7 @@ if ($lista){
 			<a href="?page=soggetti&amp;action=edit-responsabile&amp;id='.$riga->IdResponsabile.'&amp;modresp='.wp_create_nonce('editresponsabile').'" rel="'.$riga->Cognome.'">
 			<span class="dashicons dashicons-edit" title="'.__("Modifica soggetto","albo-online").'" style="margin-left:'.$Tab.'px;"></span>
 			</a>
-				('.$riga->IdResponsabile.') '.$riga->Cognome .' (n&ordm; atti '.(isset($SoggettiAtti[$riga->IdResponsabile])?$SoggettiAtti[$riga->IdResponsabile]:0).') <strong>'.$Funzione.'</strong>
+			('.$riga->IdResponsabile.') '.$riga->Cognome .' (n&ordm; atti '.(isset($SoggettiAtti[$riga->IdResponsabile])?$SoggettiAtti[$riga->IdResponsabile]:0).') <strong>'.$Funzione.'</strong>
 			</li>'; 
 	}
 } else {

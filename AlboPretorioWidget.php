@@ -2,7 +2,7 @@
 /**
  * Widget utilizzato per la pubblicazione degli atti da inserire nell'albo pretorio dell'ente.
  * @link       http://www.eduva.org
- * @since      4.4.5
+ * @since      4.5.6
  *
  * @package    Albo On Line
  */
@@ -289,6 +289,7 @@ class AlboPretorioElencoAttiCorrentiWidget extends WP_Widget
         $coloreAnnullati=get_option('opt_AP_ColoreAnnullati');
         $lista=ap_get_all_atti(1,0,0,0,'',0,0,$Ordinamento,0,$instance['numero_atti']);
         $HtmlW='<ul>';
+        $CeAnnullato=false;
         if ($lista){
             foreach($lista as $riga){
                 if($riga->DataAnnullamento!='0000-00-00'){

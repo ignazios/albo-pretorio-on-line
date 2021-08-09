@@ -4,6 +4,45 @@
 	</div>
 	<div class="wp-editor-container" style="margin-top: 2em;">
 	<ul style="padding: 0 1em 0 1em;">
+		<li class="lista">
+			<h3>4.5.6</h3>
+			<ol class="lista">
+				<li><strong>Risolto</strong>  un errore nell'interfaccia per temi basato su Bootstrap Italia di Designers Italia, non venivano visualizzate le icone.</li>
+			</ol>
+		</li>	
+		<li class="lista">
+			<h3>4.5.5</h3>
+			<ol class="lista">
+				<li><strong>Risolti</strong> alcuni errori sulla gestione dei soggetti </li>
+			</ol>
+		</li>	
+		<li class="lista">
+			<h3>4.5.4</h3>
+			<ol class="lista">
+				<li><strong>Risolti</strong> alcuni errori minori </li>
+				<li><strong>Implementata</strong> la possibilità di cancellare cancellare gli allegati degli atti scaduti e di modificare la data dell'oblio per poterli cancellare. Per cancellare gli allegati bisogna inserire la motivazione che verrà riportata nella visualizzazione dell'atto.</li>
+			</ol>
+		</li>	
+		<li class="lista">
+			<h3>4.5.3</h3>
+			<ol class="lista">
+				<li><strong>Risolti</strong> alcuni errori minori della visualizzazione frontend per tema Bootstrap Italia </li>
+				<li><strong>Risolto</strong> problema per calcolo impronta Allegati</li>
+				<li><strong>Implementata</strong> utility per ricalcolo impronta Allegati</li>
+					</ol>
+		</li>
+		 <li class="lista">
+			<h3>4.5.2</h3>
+			<ol class="lista">
+				<li><strong>Implementata</strong> la visualizzazione del frontend per i temi che utilizzano il template Bootstrap Italia di Designers Italia attivabile apposita opzione da Impostazioni </li>
+				<li><strong>Corretti</strong> alcuni bug minori </li>
+			</ol>
+		</li>
+		<li class="lista"><h3>4.5.1</h3>
+			<ol class="lista">
+				<li><strong>Corretti</strong> un bug in visatto.php e visatto_new.php </li>
+			</ol>
+		</li>
 		<li class="lista"><h3>4.5</h3>
 			<ol class="lista">
 				<li><span class="listaTitolo">Atti</span>
