@@ -2,7 +2,7 @@
 /**
  * WGestione Enti.
  * @link       http://www.eduva.org
- * @since      4.5.6
+ * @since      4.5.7
  *
  * @package    Albo On Line
  */
@@ -140,31 +140,31 @@ echo '    </tbody>
 
 		<div class="form-field form-required"  style="margin-bottom:0px;margin-top:0px;">
 			<label for="unitao-nome"><?php _e("Nome Unità Organizzativa","albo-online");?> <span style="color:red;font-weight: bold;">*</span></label>
-			<input name="unitao-nome" id="<?php _e("Nome Unità Organizzativa","albo-online");?>" type="text" value='<?php if($edit) echo stripslashes($risultato->Nome); else echo htmlentities((isset($_REQUEST['unitao-nome'])?$_REQUEST['unitao-nome']:"")); ?>' size="30" class="richiesto"/>
+			<input name="unitao-nome" id="<?php _e("Nome Unità Organizzativa","albo-online");?>" type="text" value="<?php if($edit) echo stripslashes($risultato->Nome); else echo htmlentities((isset($_REQUEST['unitao-nome'])?$_REQUEST['unitao-nome']:"")); ?>" size="30" class="richiesto"/>
 		</div>
 		<div class="form-field"  style="margin-bottom:0px;margin-top:0px;">
 			<label for="unitao-indirizzo"><?php _e("Indirizzo","albo-online");?></label>
-			<input name="unitao-indirizzo" id="unitao-indirizzo" type="text" value='<?php if($edit) echo stripslashes($risultato->Indirizzo); else echo htmlentities((isset($_REQUEST['unitao-indirizzo'])?$_REQUEST['unitao-indirizzo']:"")); ?>' size="150"/>
+			<input name="unitao-indirizzo" id="unitao-indirizzo" type="text" value="<?php if($edit) echo stripslashes($risultato->Indirizzo); else echo htmlentities((isset($_REQUEST['unitao-indirizzo'])?$_REQUEST['unitao-indirizzo']:"")); ?>" size="150"/>
 		</div>
 		<div class="form-field form-required"  style="margin-bottom:0px;margin-top:0px;">
 			<label for="unitao-url"><?php _e("Url","albo-online");?></label>
-			<input name="unitao-url" id="unitao-url" type="text" value='<?php if($edit) echo stripslashes($risultato->Url); else echo htmlentities((isset($_REQUEST['unitao-url'])?$_REQUEST['unitao-url']:""));?>' size="100"/>
+			<input name="unitao-url" id="unitao-url" type="text" value="<?php if($edit) echo stripslashes($risultato->Url); else echo htmlentities((isset($_REQUEST['unitao-url'])?$_REQUEST['unitao-url']:""));?>" size="100"/>
 		</div>
 		<div class="form-field form-required"  style="margin-bottom:0px;margin-top:0px;">
 			<label for="unitao-email"><?php _e("Email","albo-online");?> <span style="color:red;font-weight: bold;">*</span></label>
-			<input name="unitao-email" id="<?php _e("Email","albo-online");?>" type="text" value='<?php if($edit) echo stripslashes($risultato->Email); else echo htmlentities((isset($_REQUEST['unitao-email'])?$_REQUEST['unitao-email']:""));?>' size="100" class="richiesto"/>
+			<input name="unitao-email" id="<?php _e("Email","albo-online");?>" type="text" value="<?php if($edit) echo stripslashes($risultato->Email); else echo htmlentities((isset($_REQUEST['unitao-email'])?$_REQUEST['unitao-email']:""));?>" size="100" class="richiesto"/>
 		</div>
 		<div class="form-field form-required"  style="margin-bottom:0px;margin-top:0px;">
 			<label for="unitao-pec"><?php _e("Pec","albo-online");?></label>
-			<input name="unitao-pec" id="unitao-pec" type="text" value='<?php if($edit) echo stripslashes($risultato->Pec); else echo htmlentities((isset($_REQUEST['unitao-pec'])?$_REQUEST['unitao-pec']:""));?>' size="100"/>
+			<input name="unitao-pec" id="unitao-pec" type="text" value="<?php if($edit) echo stripslashes($risultato->Pec); else echo htmlentities((isset($_REQUEST['unitao-pec'])?$_REQUEST['unitao-pec']:""));?>" size="100"/>
 		</div>
 		<div class="form-field"  style="margin-bottom:0px;margin-top:0px;">
 			<label for="unitao-telefono"><?php _e("Telefono","albo-online");?></label>
-			<input name="unitao-telefono" id="unitao-telefono" type="text" value='<?php if($edit) echo stripslashes($risultato->Telefono); else echo htmlentities((isset($_REQUEST['unitao-telefono'])?$_REQUEST['unitao-telefono']:"")); ?>' size="30"/>
+			<input name="unitao-telefono" id="unitao-telefono" type="text" value="<?php if($edit) echo stripslashes($risultato->Telefono); else echo htmlentities((isset($_REQUEST['unitao-telefono'])?$_REQUEST['unitao-telefono']:"")); ?>"' size="30"/>
 		</div>
 		<div class="form-field"  style="margin-bottom:0px;margin-top:0px;">
 			<label for="unitao-fax"><?php _e("Fax","albo-online");?></label>
-			<input name="unitao-fax" id="unitao-fax" type="text" value='<?php if($edit) echo stripslashes($risultato->Fax); else echo htmlentities((isset($_REQUEST['unitao-fax'])?$_REQUEST['unitao-fax']:"")); ?>' size="30"/>
+			<input name="unitao-fax" id="unitao-fax" type="text" value="<?php if($edit) echo stripslashes($risultato->Fax); else echo htmlentities((isset($_REQUEST['unitao-fax'])?$_REQUEST['unitao-fax']:"")); ?>" size="30"/>
 		</div>
 		<div class="form-field"  style="margin-bottom:0px;margin-top:0px;">
 			<label for="tag-description"><?php _e("Note","albo-online");?></label>

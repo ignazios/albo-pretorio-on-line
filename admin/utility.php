@@ -2,7 +2,7 @@
 /**
  * Utility dell'albo.
  * @link       http://www.eduva.org
- * @since      4.5.6
+ * @since      4.5.7
  *
  * @package    Albo On Line
  */
@@ -53,8 +53,14 @@ if (isset($_REQUEST['action'])){
 			menu();
 			break;
 		case "rip":
-			ap_ripubblica_atti_correnti(htmlentities($_GET['Data']));
-			menu();
+			$AttiDaAggiornare=unserialize($_GET['AttiDaAgg']);
+//			echo "<pre>";var_dump($AttiDaAggiornare);echo "</pre>";
+			$AttiAggiornati=ap_ripubblica_atti_correnti($AttiDaAggiornare);
+			if(count($AttiDaAggiornare)==$AttiAggiornati)
+				$Stato="Tutti gli Atti(".$AttiAggiornati.") sono stati agiornati";
+			else
+				$Stato="Purtroppo si sono verficati degli errori negli aggiornamenti degli Atti. Atti da aggiornare:".count($AttiDaAggiornare)." Aggiornati:".$AttiAggiornati;
+			menu($Stato);
 			break;
 		case "menu":
 			menu(str_replace("%%br%%","<br />",htmlentities($_GET['stato'])));
@@ -111,11 +117,14 @@ if (isset($_REQUEST['action'])){
 				menu($Stato);
 				break;
 			} 	
-			if ($_REQUEST['Data']> date("d/m/Y")){
-				$Stato="La Data dell'interruzione del serzio deve essere nel passato";
+			if (!$_REQUEST['DataInterruzione']){
+				$Stato="Bisogna impostare la Data inizio di interruzione del serzio";
+				menu($Stato);
+			}elseif ($_REQUEST['ggInterruzione']<1){
+				$Stato="Bisogna impostare il numero di giorni di interruzione del serzio";
 				menu($Stato);
 			}else
-				menu("","1",$_REQUEST['Data']);
+				menu("","1",$_REQUEST['DataInterruzione'],$_REQUEST['ggInterruzione']);
 			break;
 		case "verificaproc":
 			if (!isset($_REQUEST['verproc'])) {
@@ -279,7 +288,7 @@ function ImplementaNINF(){
 				</div>';
 }
 
-function menu($Stato="",$passo="",$Data=""){
+function menu($Stato="",$passo="",$Data="",$GG=0){
 global $wpdb;
 if (isset($_REQUEST['p']))
 	$Pag=$_REQUEST['p'];
@@ -302,7 +311,7 @@ if ($Stato!="")
 echo '<input type="hidden" id="Pagina" value="'.$Pag.'" />
 <div id="utility-tabs-container"  style="margin-top:20px;">
 					<ul>
-						<li><a href="#utility-tab-1">'.__("Ripubblicazione Atti","albo-online").'</a></li>
+						<li><a href="#utility-tab-1">'.__("Proroga scadenza Atti","albo-online").'</a></li>
 						<li><a href="#utility-tab-2">'.__("Verifica procedura","albo-online").'</a></li>
 						<li><a href="#utility-tab-3">'.__("Diritto all'Oblio","albo-online").'</a></li>
 						<li><a href="#utility-tab-4">'.__("Pulizia file di Log","albo-online").'</a></li>
@@ -316,23 +325,64 @@ echo '					<li><a href="#utility-tab-10">'.__("Aggiornamento Impronta","albo-onl
 						</ul>
 		<div id="utility-tab-1" style="margin-bottom:20px;">
 				<h3 style="text-align:center;">'.__("Attenzione","albo-online").'!!!!!<br />
-				'.__("Operazione di ripubblicazione degli atti in corso di validità a causa di interruzione del servizio di pubblicazione","albo-online").'</h3>
-				<p>'.sprintf(__("Questa operazione Annulla gli atti già pubblicati ed in corso di validità con motivazione %s Annullamento per interruzione del sevizio di pubblicazione %sRipubblica gli atti in corso di validità annullati per un periodo di tempo (n. giorni) uguale a quello degli atti originali","albo-online"),'<span style="font-weight: bold;font-style: italic;color:red;">','</span><br />').'</p>
-				<p style="font-weight: bold;font-style: italic;color:red;">'.__("Questa è un'operazione che può modificare una grosa quantità di dati, si consiglia di eseguire un backup prima di procedere, per poter recuperare i dati originali in caso di errori.","albo-online").'</p>';
+				'.__("Operazione di proroga della scadenza degli atti in corso di validità a causa di interruzione del servizio di pubblicazione","albo-online").'</h3>
+				<p>'.sprintf(__("Questa operazione PROROGA gli atti in corso di validità con motivazione %s Proroga validità Atti per interruzione del sevizio di pubblicazione %sLa nuova scadenza degli atti viene proroga di un numero di giorni uguale a quello dell'interruzione. %sEstratto dalle Linee Guida di Agid punto 7:%sLa pubblicazione si intende soddisfatta se un documento è rimasto disponibile sul sito complessivamente per almeno dodici ore per ciascun giorno di pubblicazione.%sIl periodo di pubblicazione è prorogato di un giorno per ciascun giorno di pubblicazione inferiore complessivamente a dodici ore, in base a un’attestazione del responsabile della pubblicazione o di un suo delegato.%s","albo-online"),'<span style="font-weight: bold;font-style: italic;color:red;">','</span><br />','<br /><br /><strong><em>','</em><br />','<br />','<strong>').'</p>
+				<p style="font-weight: bold;font-style: italic;color:red;">'.__("Questa è un'operazione irreversibile e modifica dati sostanziali degli Atti, si consiglia di eseguire un backup prima di procedere, per poter recuperare i dati originali in caso di errori.","albo-online").'</p>';
 switch ($passo){
 	case "":
 		echo '<form action="?page=utilityAlboP" id="ripub" method="post"  class="validate">
 				<input type="hidden" name="action" value="setData" />
 				<input type="hidden" name="ripub" value="'.wp_create_nonce('ripubblicaatti').'" />
-				'.__("Data Interruzione","albo-online").': <input name="Data" id="Calendario1" type="text" size="8" />
+				<table class="widefat" style="border: thin solid #f9f9f9;">
+					<tr>
+						<th style="width:10em;">'.__("Giorno di inizio Interruzione","albo-online").'</th>
+						<td><input name="DataInterruzione" id="DataInterruzione" type="date" max="'.date("Y-m-d").'"/></td>
+					</tr>
+					<tr>
+						<th>'.__("Giorni di Interruzione","albo-online").'</th>
+						<td><input name="ggInterruzione" id="ggInterruzione" type="number" min="1" style="width:5em;"/></td>
+					</tr>
+				</table>
 				<input type="submit" name="submit" id="submit" class="button" value="'.__("Avvia Procedura","albo-online").'"  />
 				</form>
 				';
 		break;
 	case "1":
-		$TotAtti=ap_get_all_atti(1,0,0,0,'',0,$Data,'',0,0,true,false,'',-1,true);
-		echo'<p><span style="font-style: italic;color:green;"><strong>'.$TotAtti.'</strong> '.__("Atti in pubblicazione in data","albo-online").' '.$Data.'.</span> <a href="?page=utilityAlboP&action=rip&Data='.$_REQUEST['Data'].'" class="ripubblica" rel="'.$TotAtti.'">'.__("Ripubblica gli atti a causa dell'interruzione del servizio","albo-online").'</a>?
-			</p>';
+		$AData=ap_DateAdd($Data,$GG);
+		$TotAtti=ap_get_all_atti(10,0,0,0,'',$Data,$AData,'',0,0,true,false,'',-1,true);
+		echo'<p><span style="font-style: italic;color:green;"><strong>'.$TotAtti.'</strong> '.__("Atti in pubblicazione da data","albo-online").' '.ap_VisualizzaData($Data).' '.__("a data","albo-online").' '.ap_VisualizzaData($AData).'</span></p>';
+		$atti =ap_get_all_atti(10,0,0,0,'',$Data,$AData,"Numero Desc");
+		$ArrAggSca=array();
+		if ( ! empty( $atti ) ) {	
+			echo "<ul>";
+			foreach ($atti as $a) {
+//				echo "<pre>";var_dump($a);"</pre>";
+				echo "<li>($a->IdAtto) $a->Oggetto del $a->Numero/$a->Anno";
+				if($a->DataInizio>$Data){
+					$AttoDaData=$a->DataInizio;
+				}else{
+					$AttoDaData=$Data;
+				}
+				if($a->DataFine>$AData){
+					$AttoAData=$AData;
+				}else{
+					$AttoAData=$a->DataFine;
+				}
+				$NggInc=ap_datediff("d",$AttoDaData,$AttoAData);
+				if($NggInc==0)
+						$NggInc=1;
+				$NuovaScadenza=ap_DateAdd($a->DataFine,$NggInc);
+				while(ap_IsDataFestiva($NuovaScadenza)){
+					$NuovaScadenza=ap_DateAdd($NuovaScadenza,1);
+					$NggInc++;
+				}				
+				echo " (".$a->DataInizio." - ".$a->DataFine.") gg >> ".$NggInc." Nuova scadenza ".ap_DateAdd($a->DataFine,$NggInc);
+				echo "</li>";
+				$ArrAggSca[$a->IdAtto]=(int)$NggInc;
+			}
+			echo "</ul>";
+			echo '<a href="?page=utilityAlboP&action=rip&AttiDaAgg='.serialize($ArrAggSca).'" class="ripubblica" rel="'.$TotAtti.'">'.__("Ripubblica gli atti a causa dell'interruzione del servizio","albo-online").'</a>?';
+		}
 }
 echo '		</div> 
 		<div id="utility-tab-2" style="margin-bottom:20px;">

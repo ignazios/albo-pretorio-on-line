@@ -2,7 +2,7 @@
 /**
  * Amministrazione richieste delle singole pagine.
  * @link       http://www.eduva.org
- * @since      4.5.6
+ * @since      4.5.7
  *
  * @package    Albo On Line
  */

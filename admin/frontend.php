@@ -2,7 +2,7 @@
 /**
  * Gestione FrontEnd.
  * @link       http://www.eduva.org
- * @since      4.5.6
+ * @since      4.5.7
  *
  * @package    Albo On Line
  */
@@ -102,15 +102,23 @@ if(isset($_REQUEST['action'])){
 						echo sprintf(__("ATTENZIONE:%sE' stato indicato un parametro non valido che può rappresentare un ATTACCO INFORMATICO AL SITO","albo-online"),"<br />");
 						break;
 				}
-			if($_REQUEST['oggetto']!=wp_strip_all_tags($_REQUEST['oggetto'])){
+			if(isset($_REQUEST['oggetto']) And $_REQUEST['oggetto']!=wp_strip_all_tags($_REQUEST['oggetto'])){
 				echo sprintf(__("ATTENZIONE:%sE' stato indicato un parametro non valido che può rappresentare un ATTACCO INFORMATICO AL SITO","albo-online"),"<br />");
 				break;
 			}
-			if($_REQUEST['riferimento']!=wp_strip_all_tags($_REQUEST['riferimento'])){
+			if(isset($_REQUEST['riferimento']) And $_REQUEST['riferimento']!=wp_strip_all_tags($_REQUEST['riferimento'])){
 				echo sprintf(__("ATTENZIONE:%sE' stato indicato un parametro non valido che può rappresentare un ATTACCO INFORMATICO AL SITO","albo-online"),"<br />");
 				break;
 			}
-	 		$ret=Lista_Atti($Parametri,$_REQUEST['categoria'],(int)$_REQUEST['numero'],(int)$_REQUEST['anno'], htmlentities($_REQUEST['oggetto']),htmlentities($_REQUEST['DataInizio']),htmlentities($_REQUEST['DataFine']), htmlentities($_REQUEST['riferimento']),$_REQUEST['ente']);
+	 		$ret=Lista_Atti($Parametri,
+				 			isset($_REQUEST['categoria'])?(int)$_REQUEST['categoria']:0,
+							isset($_REQUEST['numero'])?(int)$_REQUEST['numero']:0,
+							isset($_REQUEST['anno'])?(int)$_REQUEST['anno']:0, 
+							isset($_REQUEST['oggetto'])?htmlentities($_REQUEST['oggetto']):"",
+							isset($_REQUEST['DataInizio'])?htmlentities($_REQUEST['DataInizio']):0,
+							isset($_REQUEST['DataFine'])?htmlentities($_REQUEST['DataFine']):0, 
+							isset($_REQUEST['riferimento'])?htmlentities($_REQUEST['riferimento']):"",
+							isset($_REQUEST['ente'])?(int)$_REQUEST['ente']:-1);			
 			}else if(isset($_REQUEST['annullafiltro'])){
 					 unset($_REQUEST['categoria']);
 					 unset($_REQUEST['numero']);
@@ -134,15 +142,23 @@ if(isset($_REQUEST['action'])){
 					echo sprintf(__("ATTENZIONE:%sE' stato indicato un parametro non valido che può rappresentare un ATTACCO INFORMATICO AL SITO","albo-online"),"<br />");
 					return;
 			}
-			if($_REQUEST['oggetto']!=wp_strip_all_tags($_REQUEST['oggetto'])){
+			if(isset($_REQUEST['oggetto']) And $_REQUEST['oggetto']!=wp_strip_all_tags($_REQUEST['oggetto'])){
 				echo sprintf(__("ATTENZIONE:%sE' stato indicato un parametro non valido che può rappresentare un ATTACCO INFORMATICO AL SITO","albo-online"),"<br />");
 				return;
 			}
-			if($_REQUEST['riferimento']!=wp_strip_all_tags($_REQUEST['riferimento'])){
+			if(isset($_REQUEST['riferimento']) And $_REQUEST['riferimento']!=wp_strip_all_tags($_REQUEST['riferimento'])){
 				echo sprintf(__("ATTENZIONE:%sE' stato indicato un parametro non valido che può rappresentare un ATTACCO INFORMATICO AL SITO","albo-online"),"<br />");
 				return;
 			}
-			$ret=Lista_Atti($Parametri,(int)$_REQUEST['categoria'],(int)$_REQUEST['numero'],(int)$_REQUEST['anno'], htmlentities($_REQUEST['oggetto']),htmlentities($_REQUEST['DataInizio']),htmlentities($_REQUEST['DataFine']), htmlentities($_REQUEST['riferimento']),(int)$_REQUEST['ente']);			
+			$ret=Lista_Atti($Parametri,
+				isset($_REQUEST['categoria'])?(int)$_REQUEST['categoria']:0,
+				isset($_REQUEST['numero'])?(int)$_REQUEST['numero']:0,
+				isset($_REQUEST['anno'])?(int)$_REQUEST['anno']:0, 
+				isset($_REQUEST['oggetto'])?htmlentities($_REQUEST['oggetto']):"",
+				isset($_REQUEST['DataInizio'])?htmlentities($_REQUEST['DataInizio']):0,
+				isset($_REQUEST['DataFine'])?htmlentities($_REQUEST['DataFine']):0, 
+				isset($_REQUEST['riferimento'])?htmlentities($_REQUEST['riferimento']):"",
+				isset($_REQUEST['ente'])?(int)$_REQUEST['ente']:-1);			
 		}else 
 			if(isset($_REQUEST['annullafiltro'])){
 				 unset($_REQUEST['categoria']);

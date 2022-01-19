@@ -4,7 +4,7 @@
  * Plugin Name:       Albo Pretorio On line
  * Plugin URI:        https://it.wordpress.org/plugins/albo-pretorio-on-line/
  * Description:       Plugin utilizzato per la pubblicazione degli atti da inserire nell'albo pretorio dell'ente.
- * Version:           4.5.6
+ * Version:           4.5.7
  * Author:            Ignazio Scimone
  * Author URI:        eduva.org
  * License:           GPL-2.0+
@@ -16,7 +16,6 @@ if(preg_match('#' . basename(__FILE__) . '#', $_SERVER['PHP_SELF'])) { die('You 
 
 include_once(dirname (__FILE__) .'/AlboPretorioFunctions.php');			/* libreria delle funzioni */
 include_once(dirname (__FILE__) .'/AlboPretorioWidget.php');
-
 
 define("Albo_URL",plugin_dir_url(dirname (__FILE__).'/AlboPretorio.php'));
 define("Albo_DIR",dirname (__FILE__));
@@ -101,7 +100,7 @@ if (!class_exists('AlboPretorio')) {
 		}
 	}
 	
-	function admin_notice(){
+function admin_notice(){
 ?>
     <div class="updated notice albo-notice-dismis is-dismissible" >
         <h3>Albo Online</h3>
@@ -314,7 +313,7 @@ if (!class_exists('AlboPretorio')) {
 								  "Rel"			=>$Rel);
 			}
 // Fine Allegati
-			$MetaDati=ap_get_meta_atto($riga->IdAtto);	
+			$MetaDati=ap_get_meta_atto($IdAtto);	
 			if($MetaDati!==FALSE){
 				foreach($MetaDati as $Metadato){
 					$Meta.=$Metadato->Meta."=".$Metadato->Value."<br />";
@@ -1378,7 +1377,7 @@ if(get_option('opt_AP_AnnoProgressivo')!=date("Y")){
 		  <table class="albo_cell">
 			<tr>
 				<th scope="row"><label for="nomeente">'.__('Nome Ente','albo-online').'</label></th>
-				<td><input type="text" name="c_Ente" value=\''.$ente.'\' style="width:80%;" id="nomeente"/></td>
+				<td><input type="text" name="c_Ente" value="'.$ente.'" style="width:80%;" id="nomeente"/></td>
 			</tr>
 			<tr>
 				<th scope="row"><label for="defEnte">'.__('Ente di default','albo-online').'</label></th>
@@ -2259,7 +2258,7 @@ if(get_option('opt_AP_AnnoProgressivo')!=date("Y")){
 			} else {
 				update_option('opt_AP_UrlSprite',"");
 			}
-		    update_option('opt_AP_Ente',$_POST['c_Ente'] );
+			update_option('opt_AP_Ente',stripslashes($_POST['c_Ente']));
 		    update_option('opt_AP_AnnoProgressivo',$_POST['c_AnnoProgressivo'] );
 		    update_option('opt_AP_LivelloTitoloPagina',$_POST['c_LTP'] );
 		    update_option('opt_AP_LivelloTitoloEnte',$_POST['c_LTE'] );

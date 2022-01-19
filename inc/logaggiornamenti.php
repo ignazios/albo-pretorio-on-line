@@ -5,6 +5,14 @@
 	<div class="wp-editor-container" style="margin-top: 2em;">
 	<ul style="padding: 0 1em 0 1em;">
 		<li class="lista">
+			<h3>4.5.7</h3>
+			<ol class="lista">
+				<li><strong>Risolti</strong> alcuni errori minori.</li>
+				<li><strong>Modificato</strong> in meccanismo di gestione dell'interruzione del servizo di pubblicazione. Da questa versione gli atti non vengono più ripubblicati ma viene prorogata la data di scadenza dell'atto in base al numero di giorni di sospensione del servizio di pubblicazione.</li>
+
+			</ol>
+		</li>	
+		<li class="lista">
 			<h3>4.5.6</h3>
 			<ol class="lista">
 				<li><strong>Risolto</strong>  un errore nell'interfaccia per temi basato su Bootstrap Italia di Designers Italia, non venivano visualizzate le icone.</li>

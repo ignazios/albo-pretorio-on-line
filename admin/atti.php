@@ -2,7 +2,7 @@
 /**
  * Gestione Atti.
  * @link       http://www.eduva.org
- * @since      4.5.6
+ * @since      4.5.7
  *
  * @package    Albo On Line
  */
@@ -771,9 +771,17 @@ echo'<br />
  			$newDataFine=ap_DateAdd($atto->DataInizio,$incrementoStandard);
  			$differenza=ap_datediff("d", $atto->DataInizio, $atto->DataFine);
 			$differenza=($differenza==-1) ? 0 : $differenza;
+ 			$NggInc=0;
+ 			while(ap_IsDataFestiva($atto->DataFine)){
+					$NggInc++;					
+					$atto->DataFine=ap_DateAdd($atto->DataFine,1);
+				}
+			if($NggInc>0){
+				ap_update_selettivo_atto($id,array('DataFine' => $atto->DataFine),array('%s'),__('Modifica della data di fine pubblicazione perchè giorno festivo','albo-online')."\n");		
+			}
 			echo '<tr>
 					<td>'.__("Data Fine Pubblicazione","albo-online").'</td>
-					<td>'.sprintf(__("%s Giorni Pubblicazione Atto %s Giorni Pubblicazione standard Categoria %s","albo-online"),$atto->DataFine,$differenza,$categoria[0]->Giorni).'</td>';
+					<td>'.sprintf(__("%s GG Pubblicazione Atto %s GG Pubblicazione standard Categoria %s GG Incremento per scadenza in giorno Festivo %s","albo-online"),$atto->DataFine,$differenza,$categoria[0]->Giorni,$NggInc).'</td>';
 			if(ap_SeDate(">=",$atto->DataFine,$atto->DataInizio)){
 				$Passato=true;
 				if (ap_datediff("d", $atto->DataInizio, $atto->DataFine)== $categoria[0]->Giorni){

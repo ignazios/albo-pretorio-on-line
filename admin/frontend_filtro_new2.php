@@ -2,12 +2,12 @@
 /**
  * Gestione Filtri FrontEnd.
  * @link       http://www.eduva.org
- * @since      4.5.6
+ * @since      4.5.7
  *
  * @package    Albo On Line
  */
 function get_FiltriParametri($Stato=1,$cat=0,$StatoFinestra="si"){
-	$anni=ap_get_dropdown_anni_atti('anno','anno','d-inline','',(isset($_REQUEST['anno'])?$_REQUEST['anno']:date("Y")),$Stato); 
+	$anni=ap_get_dropdown_anni_atti('anno','anno','d-inline','',(isset($_REQUEST['anno'])?$_REQUEST['anno']:0),$Stato); 
 	$categorie=ap_get_dropdown_ricerca_categorie('categoria','categoria','postform','',(isset($_REQUEST['categoria'])?$_REQUEST['categoria']:0),$Stato); 
 	ap_Bonifica_Url();
 	if (strpos($_SERVER['REQUEST_URI'],"?")>0)
